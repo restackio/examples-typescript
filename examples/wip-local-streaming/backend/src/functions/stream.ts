@@ -1,4 +1,4 @@
-import { FunctionFailure } from "restack-sdk-ts-local/function";
+import { FunctionFailure, log } from "restack-sdk-ts-local/function";
 import { openaiClient } from "../tools/openai/client";
 
 export async function stream({
@@ -20,9 +20,13 @@ export async function stream({
       stream: true,
     });
 
+    let message = "";
     for await (const part of stream) {
-      streamUpdate(part.choices[0]?.delta?.content || "");
+      message = message + part.choices[0]?.delta?.content;
+      log.info("stream openai", { content: part.choices[0]?.delta?.content });
     }
+
+    return message;
   } catch (error) {
     throw FunctionFailure.nonRetryable(`Error OpenAI chat: ${error}`);
   }
