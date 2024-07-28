@@ -8,9 +8,9 @@ importers:
 
   .:
     dependencies:
-      restack-sdk-ts:
+      restack-sdk-ts-local:
         specifier: /Users/aboutphilippe/Documents/dev/local-operator/sdk/typescript/dist
-        version: link:../../local-operator/sdk/typescript/dist
+        version: link:../../../../local-operator/sdk/typescript/dist
     devDependencies:
       ts-node:
         specifier: ^10.9.2

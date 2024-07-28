@@ -1,4 +1,4 @@
-import { step } from "restack-sdk-ts/workflow";
+import { step } from "restack-sdk-ts-local/workflow";
 import * as functions from "../functions";
 
 interface Input {
