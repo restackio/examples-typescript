@@ -1,4 +1,4 @@
-import Restack from "restack-sdk-ts";
+import Restack from "@restackio/restack-sdk-ts";
 
 async function triggerExampleWorkflow() {
   try {
