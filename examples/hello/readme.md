@@ -1,15 +1,29 @@
-# /backend
+# Requirements
+
+- Node 20 or higher
+
+brew install nvm
+nvm use 20
+
+- pnpm
+
+brew install pnpm
+
+# Start pods
+
+Where all your code is defined, including workflow steps.
 
 add OPENAI_API_KEY in .env
 
 pnpm i
 pnpm dev
 
-Tools will be running and waiting for workflows
+Your code will be running in pods and syncing with Restack engine to execute workflows or functions.
 
-# /trigger
+# Schedule a workflow
 
-pnpm i
-pnpm trigger
+In another shell:
 
-Will trigger example workflow
+pnpm workflow
+
+Will schedule to start example workflow immediately.
