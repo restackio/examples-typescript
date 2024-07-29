@@ -2,7 +2,7 @@
 
 Open restack-desktop.dmg and launch app
 
-Restack Engine will run locally in the application and will
+Restack Engine will run locally in the application
 
 # Alternative run Restack in Docker
 

@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start.watch": "nodemon src/index.ts",
+    "start.watch": "nodemon ./src/run.ts",
     "dev": "pnpm start.watch",
     "workflow": "ts-node ./scheduleWorkflow.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
