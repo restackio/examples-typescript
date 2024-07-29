@@ -19,6 +19,7 @@ export async function example({ name }: Input): Promise<Output> {
     usage: greetUsage,
   } = await step<typeof functions>({
     podName: `openai`,
+    scheduleToCloseTimeout: "1 minute",
   }).greet({ name });
 
   log.info("greeted", { greetMessage });
@@ -27,6 +28,7 @@ export async function example({ name }: Input): Promise<Output> {
 
   const { message: goodbyeMessage } = await step<typeof functions>({
     podName: `restack`,
+    scheduleToCloseTimeout: "1 minute",
   }).goodbye({ name });
 
   log.info("goodbye", { goodbyeMessage });

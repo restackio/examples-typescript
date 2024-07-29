@@ -9,3 +9,5 @@ Restack Engine will run locally in the application
 docker compose up -d --build --pull always
 
 (will force repulling and rebuilding)
+
+Restack Desktop UI will be available at http://localhost:5233
