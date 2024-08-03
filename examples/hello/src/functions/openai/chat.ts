@@ -1,5 +1,5 @@
 import { ZodObject } from "zod";
-import { FunctionFailure, log } from "@restackio/restack-sdk-ts/dist/function";
+import { FunctionFailure, log } from "@restackio/restack-sdk-ts/function";
 import { zodPrompt } from "./zodPrompt";
 import { openaiClient } from "./client";
 import { openaiCost } from "./cost";
