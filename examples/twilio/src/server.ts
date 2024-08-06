@@ -4,21 +4,49 @@ import { createServer } from "http";
 import WebSocket, { WebSocketServer } from "ws";
 import VoiceResponse from "twilio/lib/twiml/VoiceResponse";
 import Restack from "@restackio/restack-sdk-ts";
-import { twilioAgentWorkflow } from "./workflows";
+import { twilioStreamWorkflow } from "./workflows/twilioStream";
+// import cors from "cors";
 
 const app = express();
 const server = createServer(app);
 const wss = new WebSocketServer({ server });
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 4000;
 export const websocketAddress = `wss://${process.env.SERVER}/connection`;
+
+// app.use(cors());
+app.use(express.json());
+
+app.post("/start", async (req, res) => {
+  const { streamSid } = req.body;
+
+  if (!streamSid) {
+    return res.status(400).send({ error: "streamSid is required" });
+  }
+
+  try {
+    const restack = new Restack();
+
+    const workflowRunId = await restack.schedule({
+      workflowName: "twilioAgentWorkflow",
+      workflowId: `${Date.now()}-twilioAgentWorkflow`,
+      input: { streamSid },
+    });
+
+    res.status(200).send({ workflowRunId, websocketAddress });
+  } catch (error) {
+    console.error("Error scheduling workflow:", error);
+    res.status(500).send({ error: "Failed to schedule workflow" });
+  }
+});
 
 app.post("/incoming", async (req, res) => {
   try {
-    const workflowId = `${Date.now()}-${twilioAgentWorkflow.name}`;
+    const workflowId = `${Date.now()}-${twilioStreamWorkflow.name}`;
     const restack = new Restack();
     const runId = await restack.schedule({
-      workflowName: twilioAgentWorkflow.name,
+      workflowName: twilioStreamWorkflow.name,
       workflowId,
+      input: {},
     });
 
     console.log(`Started workflow with runId: ${runId}`);
@@ -49,7 +77,7 @@ wss.on("connection", (ws) => {
   ws.on("error", console.error);
 
   ws.on("message", async function message(data, isBinary) {
-    // allows broadcast to all clients except this one (otherwwise echo)
+    // allows broadcast to all clients except this one (otherwise echo)
 
     wss.clients.forEach(function each(client) {
       if (client !== ws && client.readyState === WebSocket.OPEN) {
@@ -66,15 +94,15 @@ wss.on("connection", (ws) => {
       workflowId = message.start.customParameters.workflowId;
       if (runId) {
         try {
-          const handle = await restack.getHandle(workflowId, runId);
-          // const handle = client.workflow.getHandle(workflowId, runId);
-
           if (streamSid) {
-            await handle.executeUpdate("streamSid", {
-              args: [streamSid],
+            await restack.update({
+              workflowId,
+              runId,
+              updateName: "streamInfo",
+              input: { streamSid },
             });
             console.log(
-              `Signaled workflow ${workflowId} runId ${runId} with Twilio streamId: ${streamSid}`
+              `Signaled workflow ${workflowId} runId ${runId} with Twilio streamSid: ${streamSid}`
             );
           }
         } catch (error) {
@@ -86,10 +114,7 @@ wss.on("connection", (ws) => {
     if (message.event === "stop") {
       console.log(`Twilio -> Media stream ${streamSid} ended.`);
       if (runId) {
-        const handle = await restack.getHandle(workflowId, runId);
-        handle.executeUpdate("endSignal", {
-          args: [],
-        });
+        restack.update({ workflowId, runId, updateName: "streamEnd" });
       }
     }
   });
@@ -109,4 +134,5 @@ process.on("SIGINT", shutdown);
 
 server.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
+  console.log(`WebSocket address: ${websocketAddress}`);
 });

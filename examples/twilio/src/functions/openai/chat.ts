@@ -2,16 +2,16 @@ import { EventEmitter } from "events";
 import OpenAI from "openai";
 import { tools } from "./tools/function-manifest";
 import { log } from "@restackio/restack-sdk-ts/function";
-import { prompt } from "./prompt";
+import { agentPrompt } from "./prompt";
 
 const availableFunctions: { [key: string]: Function } = {};
 
 tools?.forEach((tool) => {
   const functionName = tool.function.name;
-  availableFunctions[functionName] = require(`../functions/${functionName}`);
+  availableFunctions[functionName] = require(`./tools/${functionName}`);
 });
 
-interface GptReply {
+export interface GptReply {
   partialResponseIndex: number | null;
   partialResponse: string;
 }
@@ -24,14 +24,14 @@ class OpenaiChat extends EventEmitter {
   constructor() {
     super();
     this.openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
-    (this.userContext = prompt), (this.partialResponseIndex = 0);
+    (this.userContext = agentPrompt), (this.partialResponseIndex = 0);
   }
 
-  setCallSid(callSid: string) {
+  setCallSid({ callSid }: { callSid: string }) {
     this.userContext.push({ role: "system", content: `callSid: ${callSid}` });
   }
 
-  validateFunctionArgs(args: string) {
+  validateFunctionArgs({ args }: { args: string }) {
     try {
       return JSON.parse(args);
     } catch (error) {
@@ -46,7 +46,15 @@ class OpenaiChat extends EventEmitter {
     }
   }
 
-  updateUserContext(name: string, role: string, text: string) {
+  updateUserContext({
+    name,
+    role,
+    text,
+  }: {
+    name: string;
+    role: string;
+    text: string;
+  }) {
     if (name !== "user") {
       this.userContext.push({ role: role, name: name, content: text });
     } else {
@@ -54,16 +62,20 @@ class OpenaiChat extends EventEmitter {
     }
   }
 
-  async completion(
-    text: string,
-    interactionCount: number,
+  async completion({
+    text,
+    interactionCount,
     role = "user",
-    name = "user"
-  ) {
-    this.updateUserContext(name, role, text);
-
+    name = "user",
+  }: {
+    text: string;
+    interactionCount: number;
+    role?: string;
+    name?: string;
+  }) {
+    this.updateUserContext({ name, role, text });
     const stream = await this.openai.chat.completions.create({
-      model: "gpt-4o",
+      model: "gpt-4o-mini",
       messages: this.userContext,
       tools: tools,
       stream: true,
@@ -74,11 +86,15 @@ class OpenaiChat extends EventEmitter {
     let functionName = "";
     let functionArgs = "";
     let finishReason = "";
+    const toolsCalled: string[] = [];
 
     const collectToolInformation = (deltas: any) => {
       let name = deltas.tool_calls[0]?.function?.name || "";
       if (name != "") {
         functionName = name;
+        if (!toolsCalled.includes(name)) {
+          toolsCalled.push(name);
+        }
       }
       let args = deltas.tool_calls[0]?.function?.arguments || "";
       if (args != "") {
@@ -97,7 +113,7 @@ class OpenaiChat extends EventEmitter {
 
       if (finishReason === "tool_calls") {
         const functionToCall = availableFunctions[functionName];
-        const validatedArgs = this.validateFunctionArgs(functionArgs);
+        const validatedArgs = this.validateFunctionArgs({ args: functionArgs });
 
         const toolData = tools.find(
           (tool) => tool.function.name === functionName
@@ -115,27 +131,37 @@ class OpenaiChat extends EventEmitter {
 
         let functionResponse = await functionToCall(validatedArgs);
 
-        this.updateUserContext(functionName, "function", functionResponse);
+        this.updateUserContext({
+          name: functionName,
+          role: "function",
+          text: functionResponse,
+        });
 
-        await this.completion(
-          functionResponse,
+        await this.completion({
+          text: functionResponse,
           interactionCount,
-          "function",
-          functionName
-        );
+          role: "function",
+          name: functionName,
+        });
       } else {
         completeResponse += content;
         partialResponse += content;
+
         if (content.trim().slice(-1) === "•" || finishReason === "stop") {
           const gptReply: GptReply = {
             partialResponseIndex: this.partialResponseIndex,
             partialResponse,
           };
-
           this.emit("gptreply", gptReply, interactionCount);
           this.partialResponseIndex++;
           partialResponse = "";
         }
+      }
+
+      // Check if the stream is over
+      if (finishReason === "stop") {
+        this.emit("end", { completeResponse, interactionCount, toolsCalled });
+        break;
       }
     }
     this.userContext.push({ role: "assistant", content: completeResponse });

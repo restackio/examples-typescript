@@ -22,8 +22,8 @@ class DeepgramSpeechToText extends EventEmitter {
       model: "nova-2",
       punctuate: true,
       interim_results: true,
-      endpointing: 50,
-      utterance_end_ms: 1000,
+      endpointing: 500,
+      utterance_end_ms: 2000,
     });
 
     this.finalResult = "";

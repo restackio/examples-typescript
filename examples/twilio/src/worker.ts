@@ -1,11 +1,11 @@
 import Restack from "@restackio/restack-sdk-ts";
+import { twilioCall } from "./functions";
 import {
-  StartVoiceAgent,
-  TwilioCall,
-  OpenaiToWebsocket,
-  DeepgramTextToSpeechToWebsocket,
-  DeepgramSpeechToTextToWebsocket,
-} from "./functions";
+  streamAudioToText,
+  streamTextToAudio,
+  streamQuestion,
+  questionAnswer,
+} from "./streams";
 
 async function main() {
   const workflowsPath = require.resolve("./workflows");
@@ -17,24 +17,23 @@ async function main() {
       restack.pod({
         name: "restack",
         workflowsPath,
-        functions: { StartVoiceAgent },
       }),
       restack.pod({
         name: "twilio",
         workflowsPath,
-        functions: { TwilioCall },
+        functions: { twilioCall },
       }),
       restack.pod({
         name: "openai",
         workflowsPath,
-        functions: { OpenaiToWebsocket },
+        functions: { streamQuestion, questionAnswer },
       }),
       restack.pod({
         name: "deepgram",
         workflowsPath,
         functions: {
-          DeepgramTextToSpeechToWebsocket,
-          DeepgramSpeechToTextToWebsocket,
+          streamAudioToText,
+          streamTextToAudio,
         },
       }),
     ]);

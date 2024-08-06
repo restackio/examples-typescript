@@ -3,6 +3,7 @@ import { EventEmitter } from "events";
 import axios from "axios";
 import "dotenv/config";
 import { log } from "@restackio/restack-sdk-ts/function";
+import { TrackName } from "../../workflows";
 
 class DeepgramTextToSpeech extends EventEmitter {
   private nextExpectedIndex: number;
@@ -17,9 +18,11 @@ class DeepgramTextToSpeech extends EventEmitter {
   async generate({
     gptReply,
     interactionCount,
+    trackName,
   }: {
     gptReply: { partialResponseIndex: number | null; partialResponse: any };
     interactionCount: number;
+    trackName: TrackName;
   }) {
     const { partialResponseIndex, partialResponse } = gptReply;
 
@@ -27,9 +30,14 @@ class DeepgramTextToSpeech extends EventEmitter {
       return;
     }
 
+    // Deepgram voice model, see options here: https://developers.deepgram.com/docs/tts-models
+
+    const deepgramModel =
+      trackName === "agent" ? "aura-asteria-en" : "aura-arcas-en";
+
     try {
       const response = await axios.post(
-        `https://api.deepgram.com/v1/speak?model=${process.env.VOICE_MODEL}&encoding=mulaw&sample_rate=8000&container=none`,
+        `https://api.deepgram.com/v1/speak?model=${deepgramModel}&encoding=mulaw&sample_rate=8000&container=none`,
         {
           text: partialResponse,
         },

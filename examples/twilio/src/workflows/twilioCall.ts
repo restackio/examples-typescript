@@ -9,7 +9,7 @@ export async function twilioCallWorkflow(): Promise<Output> {
   const { sid } = await step<typeof functions>({
     podName: `twilio`,
     scheduleToCloseTimeout: "1 minute",
-  }).TwilioCall();
+  }).twilioCall();
 
   if (!sid) {
     throw new Error("Not able to create Twilio call");
