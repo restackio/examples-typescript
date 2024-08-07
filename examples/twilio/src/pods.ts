@@ -22,11 +22,13 @@ async function main() {
         name: "twilio",
         workflowsPath,
         functions: { twilioCall },
+        rateLimit: 200,
       }),
       restack.pod({
         name: "openai",
         workflowsPath,
         functions: { streamQuestion, questionAnswer },
+        rateLimit: 10000,
       }),
       restack.pod({
         name: "deepgram",
@@ -35,6 +37,7 @@ async function main() {
           streamAudioToText,
           streamTextToAudio,
         },
+        rateLimit: 1000,
       }),
     ]);
 
