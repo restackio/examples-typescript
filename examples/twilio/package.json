@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev-server": "ts-node-dev --respawn --transpile-only src/server.ts",
-    "dev-worker": "ts-node-dev --respawn --transpile-only src/worker.ts",
+    "dev-pods": "ts-node-dev --respawn --transpile-only src/pods.ts",
     "call": "ts-node ./callWorkflow.ts",
     "ngrok": "ngrok http 4000"
   },
