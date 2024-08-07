@@ -5,7 +5,7 @@ import WebSocket, { WebSocketServer } from "ws";
 import VoiceResponse from "twilio/lib/twiml/VoiceResponse";
 import Restack from "@restackio/restack-sdk-ts";
 import { twilioStreamWorkflow } from "./workflows/twilioStream";
-// import cors from "cors";
+import cors from "cors";
 
 const app = express();
 const server = createServer(app);
@@ -13,26 +13,30 @@ const wss = new WebSocketServer({ server });
 const PORT = process.env.PORT || 4000;
 export const websocketAddress = `wss://${process.env.SERVER}/connection`;
 
-// app.use(cors());
+app.use(cors());
 app.use(express.json());
 
 app.post("/start", async (req, res) => {
-  const { streamSid } = req.body;
-
-  if (!streamSid) {
-    return res.status(400).send({ error: "streamSid is required" });
-  }
-
   try {
     const restack = new Restack();
 
+    const workflowId = `${Date.now()}-${twilioStreamWorkflow.name}`;
+
     const workflowRunId = await restack.schedule({
-      workflowName: "twilioAgentWorkflow",
-      workflowId: `${Date.now()}-twilioAgentWorkflow`,
-      input: { streamSid },
+      workflowName: twilioStreamWorkflow.name,
+      workflowId,
     });
 
-    res.status(200).send({ workflowRunId, websocketAddress });
+    if (workflowRunId) {
+      await restack.update({
+        workflowId,
+        runId: workflowRunId,
+        updateName: "streamInfo",
+        input: { streamSid: workflowRunId },
+      });
+
+      res.status(200).send({ streamSid: workflowRunId, websocketAddress });
+    }
   } catch (error) {
     console.error("Error scheduling workflow:", error);
     res.status(500).send({ error: "Failed to schedule workflow" });
