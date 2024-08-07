@@ -35,10 +35,11 @@ export async function streamQuestion({ streamSid }: StreamInput) {
           });
         }
       }
+
+      if (message.streamSid === streamSid) heartbeat(message.streamSid);
       if (message.event === "stop") {
         resolve();
       }
-      if (message.streamSid === streamSid) heartbeat(message.streamSid);
     });
 
     ws.on("close", () => {

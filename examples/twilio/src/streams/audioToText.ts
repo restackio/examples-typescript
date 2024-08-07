@@ -38,10 +38,10 @@ export async function streamAudioToText({ streamSid, trackName }: StreamInput) {
         });
       }
 
+      if (message.streamSid === streamSid) heartbeat(message.streamSid);
       if (message.event === "stop") {
         resolve();
       }
-      if (message.streamSid === streamSid) heartbeat(message.streamSid);
     });
 
     speechToText.on("transcription", async (text) => {

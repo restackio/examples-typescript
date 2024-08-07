@@ -1,10 +1,10 @@
 import {
-  sleep,
   step,
   log,
   workflowInfo,
   defineUpdate,
   onUpdate,
+  condition,
 } from "@restackio/restack-sdk-ts/workflow";
 import * as streams from "../streams";
 
@@ -65,12 +65,7 @@ export async function twilioStreamWorkflow() {
     ended = true;
   });
 
-  // Keep the workflow running until it receives streamEnd
-  while (!ended) {
-    await sleep(600000); // Sleep for 10 minutes
-  }
-
-  console.log(`Workflow ending with runId: ${runId}`);
+  await condition(() => ended);
 
   return;
 }

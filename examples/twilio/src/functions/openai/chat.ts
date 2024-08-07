@@ -1,15 +1,17 @@
 import { EventEmitter } from "events";
 import OpenAI from "openai";
-import { tools } from "./tools/function-manifest";
+import { toolDefinitions } from "./tools/toolDefinitions";
 import { log } from "@restackio/restack-sdk-ts/function";
 import { agentPrompt } from "./prompt";
+import checkInventory from "./tools/checkInventory";
+import checkPrice from "./tools/checkPrice";
+import placeOrder from "./tools/placeOrder";
 
-const availableFunctions: { [key: string]: Function } = {};
-
-tools?.forEach((tool) => {
-  const functionName = tool.function.name;
-  availableFunctions[functionName] = require(`./tools/${functionName}`);
-});
+const availableFunctions: { [key: string]: Function } = {
+  checkInventory,
+  checkPrice,
+  placeOrder,
+};
 
 export interface GptReply {
   partialResponseIndex: number | null;
@@ -18,13 +20,17 @@ export interface GptReply {
 
 class OpenaiChat extends EventEmitter {
   private userContext: any[];
-  private openai: any;
+  private openai: OpenAI;
   private partialResponseIndex: number;
+  private functionName: string;
+  private functionArgs: string;
 
   constructor() {
     super();
     this.openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
     (this.userContext = agentPrompt), (this.partialResponseIndex = 0);
+    this.functionName = "";
+    this.functionArgs = "";
   }
 
   setCallSid({ callSid }: { callSid: string }) {
@@ -74,75 +80,75 @@ class OpenaiChat extends EventEmitter {
     name?: string;
   }) {
     this.updateUserContext({ name, role, text });
+
     const stream = await this.openai.chat.completions.create({
       model: "gpt-4o-mini",
       messages: this.userContext,
-      tools: tools,
+      tools: toolDefinitions,
       stream: true,
     });
 
     let completeResponse = "";
     let partialResponse = "";
-    let functionName = "";
-    let functionArgs = "";
     let finishReason = "";
-    const toolsCalled: string[] = [];
-
-    const collectToolInformation = (deltas: any) => {
-      let name = deltas.tool_calls[0]?.function?.name || "";
-      if (name != "") {
-        functionName = name;
-        if (!toolsCalled.includes(name)) {
-          toolsCalled.push(name);
-        }
-      }
-      let args = deltas.tool_calls[0]?.function?.arguments || "";
-      if (args != "") {
-        functionArgs += args;
-      }
-    };
+    let toolsCalled: string[] = [];
 
     for await (const chunk of stream) {
       let content = chunk.choices[0]?.delta?.content || "";
-      let deltas = chunk.choices[0].delta;
-      finishReason = chunk.choices[0].finish_reason;
+      let deltas = chunk.choices[0]?.delta;
+      finishReason = chunk.choices[0].finish_reason || "";
 
+      // Accumulate function name and arguments if function_call
       if (deltas.tool_calls) {
-        collectToolInformation(deltas);
+        const functionCall = deltas.tool_calls[0];
+        this.functionName += functionCall.function?.name || "";
+        this.functionArgs += functionCall.function?.arguments || "";
       }
 
       if (finishReason === "tool_calls") {
-        const functionToCall = availableFunctions[functionName];
-        const validatedArgs = this.validateFunctionArgs({ args: functionArgs });
+        const functionToCall = availableFunctions[this.functionName];
+        if (typeof functionToCall === "function") {
+          const validatedArgs = this.validateFunctionArgs({
+            args: this.functionArgs,
+          });
 
-        const toolData = tools.find(
-          (tool) => tool.function.name === functionName
-        );
-        const say = toolData?.function.say;
+          const toolData = toolDefinitions.find(
+            (tool) => tool.function.name === this.functionName
+          );
 
-        this.emit(
-          "gptreply",
-          {
-            partialResponseIndex: null,
-            partialResponse: say,
-          },
-          interactionCount
-        );
+          this.emit(
+            "gptreply",
+            {
+              partialResponseIndex: null,
+              partialResponse: `let me ${toolData?.function.name}`,
+            },
+            interactionCount
+          );
 
-        let functionResponse = await functionToCall(validatedArgs);
+          let functionResponse = await functionToCall(validatedArgs);
 
-        this.updateUserContext({
-          name: functionName,
-          role: "function",
-          text: functionResponse,
-        });
+          this.updateUserContext({
+            name: this.functionName,
+            role: "function",
+            text: functionResponse,
+          });
 
-        await this.completion({
-          text: functionResponse,
-          interactionCount,
-          role: "function",
-          name: functionName,
-        });
+          await this.completion({
+            text: functionResponse,
+            interactionCount,
+            role: "function",
+            name: this.functionName,
+          });
+
+          toolsCalled.push(this.functionName);
+
+          this.functionName = "";
+          this.functionArgs = "";
+        } else {
+          log.error(
+            `Function ${this.functionName} not found in availableFunctions.`
+          );
+        }
       } else {
         completeResponse += content;
         partialResponse += content;

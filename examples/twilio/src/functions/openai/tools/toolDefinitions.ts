@@ -1,10 +1,11 @@
+import OpenAI from "openai";
+
 // create metadata for all the available functions to pass to completions API
-export const tools = [
+export const toolDefinitions: OpenAI.Chat.Completions.ChatCompletionTool[] = [
   {
     type: "function",
     function: {
       name: "checkInventory",
-      say: "Let me check our inventory right now.",
       description:
         "Check the inventory of airpods, airpods pro or airpods max.",
       parameters: {
@@ -19,23 +20,12 @@ export const tools = [
         },
         required: ["model"],
       },
-      returns: {
-        type: "object",
-        properties: {
-          stock: {
-            type: "integer",
-            description:
-              "An integer containing how many of the model are in currently in stock.",
-          },
-        },
-      },
     },
   },
   {
     type: "function",
     function: {
       name: "checkPrice",
-      say: "Let me check the price, one moment.",
       description:
         "Check the price of given model of airpods, airpods pro or airpods max.",
       parameters: {
@@ -50,22 +40,12 @@ export const tools = [
         },
         required: ["model"],
       },
-      returns: {
-        type: "object",
-        properties: {
-          price: {
-            type: "integer",
-            description: "the price of the model",
-          },
-        },
-      },
     },
   },
   {
     type: "function",
     function: {
       name: "placeOrder",
-      say: "All right, I'm just going to ring that up in our system.",
       description: "Places an order for a set of airpods.",
       parameters: {
         type: "object",
@@ -82,21 +62,6 @@ export const tools = [
         },
         required: ["type", "quantity"],
       },
-      returns: {
-        type: "object",
-        properties: {
-          price: {
-            type: "integer",
-            description: "The total price of the order including tax",
-          },
-          orderNumber: {
-            type: "integer",
-            description: "The order number associated with the order.",
-          },
-        },
-      },
     },
   },
 ];
-
-module.exports = tools;
