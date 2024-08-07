@@ -43,35 +43,69 @@ export async function streamTextToAudio({ streamSid, trackName }: StreamInput) {
       resolve();
     });
 
-    textToSpeech.on("speech", (partialResponseIndex, base64String) => {
-      log.info("TextToAudio -> speech", {
+    textToSpeech.on(
+      "speech",
+      (
         partialResponseIndex,
-        audioLength: base64String.length,
+        base64String,
+        partialResponse,
+        interactionCount
+      ) => {
+        log.info("TextToAudio -> speech", {
+          partialResponseIndex,
+          audioLength: base64String.length,
+          interactionCount,
+        });
+        bufferAudio(interactionCount, partialResponseIndex, base64String);
+      }
+    );
+
+    const audioBuffers: {
+      [interactionCount: number]: { [index: number]: string };
+    } = {};
+    const expectedAudioIndices: { [interactionCount: number]: number } = {};
+
+    function bufferAudio(
+      interactionCount: number,
+      index: number,
+      audio: string
+    ) {
+      if (!audioBuffers[interactionCount]) {
+        audioBuffers[interactionCount] = {};
+        expectedAudioIndices[interactionCount] = 0;
+      }
+
+      const expectedAudioIndex = expectedAudioIndices[interactionCount];
+      log.info("Buffering audio", {
+        interactionCount,
+        index,
+        expectedAudioIndex,
       });
-      bufferAudio(partialResponseIndex, base64String);
-    });
-
-    function bufferAudio(index: number, audio: string) {
-      let expectedAudioIndex = 0;
-
-      const audioBuffer: { [key: number]: string } = {};
 
       // Escape hatch for intro message, which doesn't have an index
       if (index === null) {
         sendAudio(audio);
       } else if (index === expectedAudioIndex) {
         sendAudio(audio);
-        expectedAudioIndex++;
+        expectedAudioIndices[interactionCount]++;
 
         while (
-          Object.prototype.hasOwnProperty.call(audioBuffer, expectedAudioIndex)
+          audioBuffers[interactionCount].hasOwnProperty(
+            expectedAudioIndices[interactionCount]
+          )
         ) {
-          const bufferedAudio = audioBuffer[expectedAudioIndex];
+          const bufferedAudio =
+            audioBuffers[interactionCount][
+              expectedAudioIndices[interactionCount]
+            ];
           sendAudio(bufferedAudio);
-          expectedAudioIndex++;
+          delete audioBuffers[interactionCount][
+            expectedAudioIndices[interactionCount]
+          ];
+          expectedAudioIndices[interactionCount]++;
         }
       } else {
-        audioBuffer[index] = audio;
+        audioBuffers[interactionCount][index] = audio;
       }
     }
 
