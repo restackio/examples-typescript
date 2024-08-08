@@ -3,6 +3,7 @@ import { webSocketConnect } from "./connect";
 import { DeepgramTextToSpeech } from "../functions/deepgram/textToSpeech";
 import { v4 as uuidv4 } from "uuid";
 import { StreamInput } from "./audioToText";
+import { TrackName } from "../workflows";
 
 export async function streamTextToAudio({ streamSid, trackName }: StreamInput) {
   return new Promise<void>(async (resolve, reject) => {
@@ -10,15 +11,24 @@ export async function streamTextToAudio({ streamSid, trackName }: StreamInput) {
 
     const textToSpeech = new DeepgramTextToSpeech();
 
-    textToSpeech.generate({
+    const welcomeMessage = {
       gptReply: {
         partialResponseIndex: null,
         partialResponse:
           "Hello! My name is Emilia from Apple. You are interested in Airpods, is that correct?",
       },
       interactionCount: 0,
-      trackName: "agent",
-    });
+      trackName: "agent" as TrackName,
+    };
+
+    textToSpeech.generate(welcomeMessage);
+
+    const event = {
+      streamSid,
+      event: "answer",
+      data: welcomeMessage,
+    };
+    ws.send(JSON.stringify(event));
 
     ws.on("message", (data) => {
       const message = JSON.parse(data.toString());
