@@ -1,7 +1,8 @@
-import { log } from "@restackio/restack-sdk-ts/function";
-import { webSocketConnect } from "./connect";
-import { OpenaiChat } from "../functions/openai/chat";
-import { Question } from "../workflows/twilioStream";
+import { currentWorkflow, log } from "@restackio/restack-sdk-ts/function";
+import { webSocketConnect } from "../../streams/connect";
+import { OpenaiChat } from "./chat";
+import { answerEvent, Question } from "../../workflows/twilioStream";
+import Restack from "@restackio/restack-sdk-ts";
 
 type AnswerOutput = {
   streamSid: string;
@@ -15,7 +16,7 @@ export async function questionAnswer({
   text,
   interactionCount,
 }: Question): Promise<AnswerOutput> {
-  const ws = await webSocketConnect();
+  // const ws = await webSocketConnect();
 
   return new Promise((resolve) => {
     const openaiChat = new OpenaiChat();
@@ -28,16 +29,18 @@ export async function questionAnswer({
     });
 
     openaiChat.on("gptreply", async (gptReply, interactionCount) => {
-      const event = {
-        streamSid,
-        event: "answer",
-        data: {
+      const restack = new Restack();
+      const { workflowId, runId } = currentWorkflow().workflowExecution;
+      restack.update({
+        workflowId,
+        runId,
+        updateName: answerEvent.name,
+        input: {
           gptReply,
           interactionCount,
           trackName: "agent",
         },
-      };
-      ws.send(JSON.stringify(event));
+      });
       log.info(`Interaction ${interactionCount}: OpenAI:`, event);
     });
 

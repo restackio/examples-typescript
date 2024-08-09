@@ -1,11 +1,11 @@
 import Restack from "@restackio/restack-sdk-ts";
-import { twilioCall } from "./functions";
 import {
-  streamAudioToText,
-  streamTextToAudio,
-  streamQuestion,
+  twilioCall,
   questionAnswer,
-} from "./streams";
+  transcribe,
+  textToAudio,
+} from "./functions";
+import { websocket, streamQuestion, sendAudio } from "./streams";
 
 async function main() {
   const workflowsPath = require.resolve("./workflows");
@@ -25,6 +25,11 @@ async function main() {
         rateLimit: 200,
       }),
       restack.pod({
+        name: "websocket",
+        workflowsPath,
+        functions: { websocket, sendAudio },
+      }),
+      restack.pod({
         name: "openai",
         workflowsPath,
         functions: { streamQuestion, questionAnswer },
@@ -34,8 +39,8 @@ async function main() {
         name: "deepgram",
         workflowsPath,
         functions: {
-          streamAudioToText,
-          streamTextToAudio,
+          transcribe,
+          textToAudio,
         },
         rateLimit: 1000,
       }),
