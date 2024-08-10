@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@restackio/restack-sdk-ts':
-        specifier: 0.0.23
-        version: 0.0.23
+        specifier: ^0.0.33
+        version: 0.0.33
       '@temporalio/worker':
         specifier: ^1.10.3
         version: 1.10.3
@@ -130,8 +130,8 @@ packages:
   '@protobufjs/utf8@1.1.0':
     resolution: {integrity: sha512-Vvn3zZrhQZkkBE8LSuW3em98c0FwgO4nxzv6OdSxPKJIEKY2bGbHn+mhGIPerzI4twdxaP8/0+06HBpwf345Lw==}
 
-  '@restackio/restack-sdk-ts@0.0.23':
-    resolution: {integrity: sha512-7blKzeavHhaeA+3orG42XfhkwOV72dShqJMqaYsZPz4B51OVcoUParRy+HUceWw9CdHBib3sLSoQtwDKK32OkQ==}
+  '@restackio/restack-sdk-ts@0.0.33':
+    resolution: {integrity: sha512-buqR0wQL10fZcpDaKjgG7b8gGHq6ocImqLhBl5KzOOejsrnTTJv60ZsZbZXJsBus3WUj6y3DJKJqGMjMBiQZ/Q==}
     engines: {node: '>=20'}
 
   '@swc/core-darwin-arm64@1.7.2':
@@ -1007,7 +1007,7 @@ snapshots:
 
   '@protobufjs/utf8@1.1.0': {}
 
-  '@restackio/restack-sdk-ts@0.0.23':
+  '@restackio/restack-sdk-ts@0.0.33':
     dependencies:
       '@temporalio/activity': 1.10.3
       '@temporalio/client': 1.10.3

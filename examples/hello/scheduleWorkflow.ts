@@ -4,7 +4,8 @@ async function scheduleWorkflow() {
   try {
     const restack = new Restack();
 
-    const handle = await restack.schedule({
+    const workflowId = `${Date.now()}-exampleWorkflow`;
+    const runId = await restack.schedule({
       workflowName: "example",
       workflowId: `${Date.now()}-exampleWorkflow`,
       input: [
@@ -14,11 +15,9 @@ async function scheduleWorkflow() {
       ],
     });
 
-    console.log("Workflow scheduled successfully:", handle.firstExecutionRunId);
+    const result = await restack.getResult(workflowId, runId);
 
-    handle.result().then((result) => {
-      console.log("Workflow result:", result);
-    });
+    console.log("Workflow result:", result);
 
     process.exit(0); // Exit the process successfully
   } catch (error) {
