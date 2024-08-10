@@ -1,0 +1,42 @@
+{
+  "name": "restack-twilio",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev-server": "ts-node-dev --respawn --transpile-only src/server.ts",
+    "dev-pods": "ts-node-dev --respawn --transpile-only src/pods.ts",
+    "call": "ts-node ./callWorkflow.ts",
+    "ngrok": "ngrok http 4000"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@deepgram/sdk": "^3.5.0",
+    "@restackio/restack-sdk-ts": "^0.0.33",
+    "@temporalio/workflow": "^1.10.3",
+    "axios": "^1.7.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "openai": "^4.54.0",
+    "twilio": "^5.2.2",
+    "typescript": "^5.5.4",
+    "uuid": "^10.0.0",
+    "ws": "^8.18.0"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/express": "^4.17.21",
+    "@types/node": "^22.1.0",
+    "@types/uuid": "^10.0.0",
+    "@types/ws": "^8.5.12",
+    "nodemon": "^3.1.4",
+    "ts-node": "^10.9.2",
+    "ts-node-dev": "^2.0.0"
+  },
+  "optionalDependencies": {
+    "bufferutil": "^4.0.8"
+  }
+}

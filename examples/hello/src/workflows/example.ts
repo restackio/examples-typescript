@@ -1,4 +1,4 @@
-import { log, step } from "@restackio/restack-sdk-ts/dist/workflow";
+import { log, step } from "@restackio/restack-sdk-ts/workflow";
 import * as functions from "../functions";
 import { UsageOutput } from "../functions/openai/chat";
 

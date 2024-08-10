@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start.watch": "nodemon src/run.ts",
+    "start.watch": "nodemon src/pods.ts",
     "dev": "pnpm start.watch",
     "workflow": "ts-node ./scheduleWorkflow.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -23,7 +23,7 @@
     "@temporalio/workflow": "^1.10.3",
     "dotenv": "^16.4.5",
     "openai": "^4.53.2",
-    "@restackio/restack-sdk-ts": "0.0.7",
+    "@restackio/restack-sdk-ts": "^0.0.33",
     "zod": "^3.23.8",
     "zod-to-json-schema": "^3.23.1"
   },
