@@ -5,7 +5,7 @@ import {
   transcribe,
   textToAudio,
 } from "./functions";
-import { websocket, streamQuestion, sendAudio } from "./streams";
+import { websocket, streamQuestion, sendAudio, sendEvent } from "./streams";
 
 async function main() {
   const workflowsPath = require.resolve("./workflows");
@@ -27,7 +27,7 @@ async function main() {
       restack.pod({
         name: "websocket",
         workflowsPath,
-        functions: { websocket, sendAudio },
+        functions: { websocket, sendAudio, sendEvent },
       }),
       restack.pod({
         name: "openai",

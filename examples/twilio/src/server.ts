@@ -13,7 +13,18 @@ const wss = new WebSocketServer({ server });
 const PORT = process.env.PORT || 4000;
 export const websocketAddress = `wss://${process.env.SERVER}/connection`;
 
-app.use(cors());
+app.use(
+  cors({
+    origin: "*",
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: [
+      "Content-Type",
+      "Authorization",
+      "X-Requested-With",
+      "Accept",
+    ],
+  })
+);
 app.use(express.json());
 
 app.post("/start", async (req, res) => {
@@ -117,9 +128,6 @@ wss.on("connection", (ws) => {
 
     if (message.event === "stop") {
       console.log(`Twilio -> Media stream ${streamSid} ended.`);
-      if (runId) {
-        restack.update({ workflowId, runId, updateName: "streamEnd" });
-      }
     }
   });
 });

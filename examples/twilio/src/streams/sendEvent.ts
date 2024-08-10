@@ -1,25 +1,22 @@
-import { TrackName } from "../workflows/twilioStream";
 import { webSocketConnect } from "./connect";
 
-export async function sendAudio({
+export async function sendEvent({
   streamSid,
-  trackName,
-  audio,
+  eventName,
+  data,
 }: {
   streamSid: string;
-  trackName: TrackName;
-  audio: string;
+  eventName: string;
+  data: { text?: string };
 }) {
   const ws = await webSocketConnect();
 
   const audioEvent = {
     streamSid: streamSid,
-    event: "media",
-    media: {
-      trackName,
-      payload: audio,
-    },
+    event: eventName,
+    data: data,
   };
+
   ws.send(JSON.stringify(audioEvent));
   ws.close();
   return true;

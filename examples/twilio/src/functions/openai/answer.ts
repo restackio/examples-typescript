@@ -36,9 +36,10 @@ export async function questionAnswer({
         runId,
         updateName: answerEvent.name,
         input: {
+          streamSid,
+          trackName: "agent",
           gptReply,
           interactionCount,
-          trackName: "agent",
         },
       });
       log.info(`Interaction ${interactionCount}: OpenAI:`, event);

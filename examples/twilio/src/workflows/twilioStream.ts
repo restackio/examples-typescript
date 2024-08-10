@@ -43,7 +43,7 @@ export const questionEvent = defineUpdate<Question>("question");
 
 export const answerEvent = defineUpdate<Answer>("answer");
 
-const streamEnd = defineUpdate("streamEnd");
+export const streamEnd = defineUpdate("streamEnd");
 
 export async function twilioStreamWorkflow() {
   let currentstreamSid: string;
@@ -76,8 +76,17 @@ export async function twilioStreamWorkflow() {
 
     await step<typeof streams>({
       podName: `websocket`,
-      scheduleToCloseTimeout: "2 minutes",
+      scheduleToCloseTimeout: "1 minute",
     }).sendAudio({ streamSid, trackName: "agent", audio });
+
+    await step<typeof streams>({
+      podName: `websocket`,
+      scheduleToCloseTimeout: "2 minutes",
+    }).sendEvent({
+      streamSid,
+      eventName: answerEvent.name,
+      data: { text: welcomeMessage.partialResponse },
+    });
 
     currentstreamSid = streamSid;
     return { streamSid };
@@ -91,6 +100,15 @@ export async function twilioStreamWorkflow() {
     }).transcribe({ streamSid, trackName, payload });
 
     interactionCount += 1;
+
+    await step<typeof streams>({
+      podName: `websocket`,
+      scheduleToCloseTimeout: "1 minute",
+    }).sendEvent({
+      streamSid,
+      eventName: questionEvent.name,
+      data: { text: finalResult },
+    });
 
     await step<typeof functions>({
       podName: `openai`,
@@ -108,6 +126,15 @@ export async function twilioStreamWorkflow() {
         podName: `deepgram`,
         scheduleToCloseTimeout: "2 minutes",
       }).textToAudio({ streamSid, trackName, gptReply, interactionCount });
+
+      await step<typeof streams>({
+        podName: `websocket`,
+        scheduleToCloseTimeout: "1 minute",
+      }).sendEvent({
+        streamSid,
+        eventName: answerEvent.name,
+        data: { text: gptReply.partialResponse },
+      });
 
       log.info("audio", { audio: audio?.length });
 
