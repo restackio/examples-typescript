@@ -6,14 +6,14 @@ import {
 import { webSocketConnect } from "./connect";
 
 import Restack from "@restackio/restack-sdk-ts";
-import { TrackName } from "../workflows/twilioStream";
+import { TrackName } from "../../threads/stream";
 
 type StreamInput = {
   streamSid: string;
   trackName?: TrackName;
 };
 
-export async function streamQuestion({ streamSid }: StreamInput) {
+export async function listenQuestion({ streamSid }: StreamInput) {
   return new Promise<void>(async (resolve, reject) => {
     const ws = await webSocketConnect();
 

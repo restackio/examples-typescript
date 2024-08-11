@@ -1,2 +1,2 @@
-export * from "./transcribe";
-export * from "./textToAudio";
+export * from "./speak";
+export * from "./listen";

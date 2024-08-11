@@ -4,15 +4,15 @@ import {
   log,
 } from "@restackio/restack-sdk-ts/function";
 import { webSocketConnect } from "./connect";
-import { audioInEvent, streamEnd, TrackName } from "../workflows/twilioStream";
 import Restack from "@restackio/restack-sdk-ts";
+import { audioInEvent, streamEnd, TrackName } from "../../threads/stream";
 
 type StreamInput = {
   streamSid: string;
   trackName?: TrackName;
 };
 
-export async function websocket({ streamSid }: StreamInput) {
+export async function listenMedia({ streamSid }: StreamInput) {
   return new Promise<void>(async (resolve) => {
     const ws = await webSocketConnect();
     const restack = new Restack();

@@ -5,7 +5,7 @@ import { FunctionFailure } from "@restackio/restack-sdk-ts/function";
 export function webSocketConnect(): Promise<WebSocket> {
   return new Promise((resolve, reject) => {
     try {
-      const websocketAddress = `wss://${process.env.SERVER}/connection`;
+      const websocketAddress = `ws://localhost:4000/connection`;
       const ws = new WebSocket(websocketAddress);
 
       ws.on("open", () => {

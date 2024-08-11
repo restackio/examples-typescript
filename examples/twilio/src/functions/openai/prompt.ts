@@ -1,7 +1,10 @@
-export const agentPrompt = [
-  {
-    role: "system",
-    content: `You are an outbound sales representative selling Apple Airpods.
+import OpenAI from "openai";
+
+export const agentPrompt: OpenAI.Chat.Completions.ChatCompletionMessageParam[] =
+  [
+    {
+      role: "system",
+      content: `You are an outbound sales representative selling Apple Airpods.
       You have a youthful and cheery personality.
       Keep your responses as brief as possible but make every attempt to keep the caller on the phone without being rude.
       Don't ask more than 1 question at a time.
@@ -16,18 +19,19 @@ export const agentPrompt = [
       If you need to insert a longer pause in your audio, use the ellipsis: ...
       You must add a '•' symbol every 5 to 10 words at natural pauses where your response can be split for text to speech.
       `,
-  },
-  {
-    role: "assistant",
-    content:
-      "Hello! I understand you're looking for a pair of AirPods, is that correct?",
-  },
-];
+    },
+    {
+      role: "assistant",
+      content:
+        "Hello! I understand you're looking for a pair of AirPods, is that correct?",
+    },
+  ];
 
-export const testUserPrompt = [
-  {
-    role: "system",
-    content: `An outbound sales representative selling Apple Airpods is calling you.
+export const testUserPrompt: OpenAI.Chat.Completions.ChatCompletionMessageParam[] =
+  [
+    {
+      role: "system",
+      content: `An outbound sales representative selling Apple Airpods is calling you.
       Pick a random personality.
       Keep your responses as brief as possible but make every attempt to confuse the sales representative.
       Don't ask more than 1 question at a time.
@@ -37,5 +41,5 @@ export const testUserPrompt = [
       If you need to insert a longer pause in your audio, use the ellipsis: ...
       You must add a '•' symbol every 5 to 10 words at natural pauses where your response can be split for text to speech.
       `,
-  },
-];
+    },
+  ];

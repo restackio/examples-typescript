@@ -1,4 +1,4 @@
-import { TrackName } from "../workflows/twilioStream";
+import { TrackName } from "../../threads/stream";
 import { webSocketConnect } from "./connect";
 
 export async function sendAudio({
