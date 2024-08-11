@@ -4,16 +4,18 @@ import {
   currentWorkflow,
 } from "@restackio/restack-sdk-ts/function";
 import { webSocketConnect } from "./connect";
-import { OpenaiChat } from "../functions/openai/chat";
-import { StreamInput } from "./audioToText";
-import Restack from "@restackio/restack-sdk-ts";
 
-export async function streamQuestion({ streamSid }: StreamInput) {
+import Restack from "@restackio/restack-sdk-ts";
+import { TrackName } from "../../threads/stream";
+
+type StreamInput = {
+  streamSid: string;
+  trackName?: TrackName;
+};
+
+export async function listenQuestion({ streamSid }: StreamInput) {
   return new Promise<void>(async (resolve, reject) => {
     const ws = await webSocketConnect();
-
-    const openaiChat = new OpenaiChat();
-    openaiChat.setCallSid({ callSid: streamSid });
 
     ws.on("message", (data) => {
       const message = JSON.parse(data.toString());

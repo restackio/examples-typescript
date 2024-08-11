@@ -1,8 +1,12 @@
-import { log } from "@restackio/restack-sdk-ts/function";
+import { log, sleep } from "@restackio/restack-sdk-ts/function";
+import { z } from "zod";
+import { toolInput } from "./tools";
 
-async function checkPrice(functionArgs: { model: string }) {
-  const model = functionArgs.model;
+export type PriceInput = z.infer<typeof toolInput>;
+
+export async function checkPrice({ model }: PriceInput) {
   log.info("GPT -> called checkPrice function");
+  sleep(500);
   if (model?.toLowerCase().includes("pro")) {
     return JSON.stringify({ price: 249 });
   } else if (model?.toLowerCase().includes("max")) {
@@ -11,5 +15,3 @@ async function checkPrice(functionArgs: { model: string }) {
     return JSON.stringify({ price: 149 });
   }
 }
-
-export default checkPrice;

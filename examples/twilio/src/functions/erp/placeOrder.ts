@@ -1,9 +1,12 @@
-import { log } from "@restackio/restack-sdk-ts/function";
+import { log, sleep } from "@restackio/restack-sdk-ts/function";
+import { z } from "zod";
+import { toolInputWithQty } from "./tools";
 
-async function placeOrder(functionArgs: { model: string; quantity: number }) {
-  const { model, quantity } = functionArgs;
+export type OrderInput = z.infer<typeof toolInputWithQty>;
+
+export async function placeOrder({ model, quantity = 1 }: OrderInput) {
   log.info("GPT -> called placeOrder function");
-
+  sleep(200);
   const orderNum = Math.floor(
     Math.random() * (9999999 - 1000000 + 1) + 1000000
   );
@@ -24,5 +27,3 @@ async function placeOrder(functionArgs: { model: string; quantity: number }) {
     price: Math.floor(quantity * 179 * 1.079),
   });
 }
-
-export default placeOrder;

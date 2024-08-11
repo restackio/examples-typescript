@@ -1,180 +1,157 @@
-import { EventEmitter } from "events";
 import OpenAI from "openai";
-import { toolDefinitions } from "./tools/toolDefinitions";
-import { log } from "@restackio/restack-sdk-ts/function";
+import "dotenv/config";
 import { agentPrompt } from "./prompt";
-import checkInventory from "./tools/checkInventory";
-import checkPrice from "./tools/checkPrice";
-import placeOrder from "./tools/placeOrder";
+import { currentWorkflow, log } from "@restackio/restack-sdk-ts/function";
+import Restack from "@restackio/restack-sdk-ts";
+import { Answer, answerEvent, TrackName } from "../../threads/stream";
+import { ChatCompletionChunk } from "openai/resources/chat/completions.mjs";
+import { toolCallEvent } from "../../threads/agent";
+import { aggregateStreamChunks } from "./utils/aggregateStream";
+import { mergeToolCalls } from "./utils/mergeToolCalls";
 
-const availableFunctions: { [key: string]: Function } = {
-  checkInventory,
-  checkPrice,
-  placeOrder,
-};
+export async function openaiChat({
+  streamSid,
+  trackName,
+  text,
+  previousMessages,
+  tools,
+  workflowToUpdate,
+}: {
+  streamSid: string;
+  trackName: TrackName;
+  text: string;
+  previousMessages?: OpenAI.Chat.Completions.ChatCompletionMessageParam[];
+  tools?: OpenAI.Chat.Completions.ChatCompletionTool[];
+  workflowToUpdate?: {
+    workflowId: string;
+    runId: string;
+  };
+}) {
+  const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+  const restack = new Restack();
+  const { workflowId, runId } = currentWorkflow().workflowExecution;
 
-export interface GptReply {
-  partialResponseIndex: number | null;
-  partialResponse: string;
-}
-
-class OpenaiChat extends EventEmitter {
-  private userContext: any[];
-  private openai: OpenAI;
-  private partialResponseIndex: number;
-  private functionName: string;
-  private functionArgs: string;
-
-  constructor() {
-    super();
-    this.openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
-    (this.userContext = agentPrompt), (this.partialResponseIndex = 0);
-    this.functionName = "";
-    this.functionArgs = "";
+  let messages = previousMessages ?? [];
+  if (!previousMessages) {
+    messages = [...agentPrompt];
   }
 
-  setCallSid({ callSid }: { callSid: string }) {
-    this.userContext.push({ role: "system", content: `callSid: ${callSid}` });
-  }
+  messages.push({
+    role: "user",
+    content: text,
+  });
 
-  validateFunctionArgs({ args }: { args: string }) {
-    try {
-      return JSON.parse(args);
-    } catch (error) {
-      log.warn("Warning: Double function arguments returned by OpenAI:", {
-        args,
-      });
-      if (args.indexOf("{") != args.lastIndexOf("{")) {
-        return JSON.parse(
-          args.substring(args.indexOf(""), args.indexOf("}") + 1)
-        );
-      }
-    }
-  }
+  const stream = await openai.chat.completions.create({
+    model: "gpt-4o-mini",
+    messages,
+    tools,
+    stream: true,
+    user: streamSid,
+  });
 
-  updateUserContext({
-    name,
-    role,
-    text,
-  }: {
-    name: string;
-    role: string;
-    text: string;
-  }) {
-    if (name !== "user") {
-      this.userContext.push({ role: role, name: name, content: text });
-    } else {
-      this.userContext.push({ role: role, content: text });
-    }
-  }
+  let finishReason: ChatCompletionChunk.Choice["finish_reason"];
+  let response: ChatCompletionChunk.Choice.Delta["content"] = "";
 
-  async completion({
-    text,
-    interactionCount,
-    role = "user",
-    name = "user",
-  }: {
-    text: string;
-    interactionCount: number;
-    role?: string;
-    name?: string;
-  }) {
-    this.updateUserContext({ name, role, text });
+  const [stream1, stream2] = stream.tee();
+  const readableStream = stream1.toReadableStream();
+  const aggregatedStream = await aggregateStreamChunks(readableStream);
 
-    const stream = await this.openai.chat.completions.create({
-      model: "gpt-4o-mini",
-      messages: this.userContext,
-      tools: toolDefinitions,
-      stream: true,
-    });
+  for await (const chunk of stream2) {
+    let content = chunk.choices[0]?.delta?.content || "";
+    finishReason = chunk.choices[0].finish_reason;
 
-    let completeResponse = "";
-    let partialResponse = "";
-    let finishReason = "";
-    let toolsCalled: string[] = [];
+    if (finishReason === "tool_calls") {
+      const { toolCalls } = mergeToolCalls(aggregatedStream);
 
-    for await (const chunk of stream) {
-      let content = chunk.choices[0]?.delta?.content || "";
-      let deltas = chunk.choices[0]?.delta;
-      finishReason = chunk.choices[0].finish_reason || "";
+      await Promise.all(
+        toolCalls.map((toolCall) => {
+          log.info("Tool Call", { toolCall });
 
-      // Accumulate function name and arguments if function_call
-      if (deltas.tool_calls) {
-        const functionCall = deltas.tool_calls[0];
-        this.functionName += functionCall.function?.name || "";
-        this.functionArgs += functionCall.function?.arguments || "";
-      }
-
-      if (finishReason === "tool_calls") {
-        const functionToCall = availableFunctions[this.functionName];
-        if (typeof functionToCall === "function") {
-          const validatedArgs = this.validateFunctionArgs({
-            args: this.functionArgs,
-          });
-
-          const toolData = toolDefinitions.find(
-            (tool) => tool.function.name === this.functionName
-          );
-
-          this.emit(
-            "gptreply",
+          const toolAnswer = `Sure, give me a minute to ${toolCall?.function?.name}...`;
+          const toolMessage: OpenAI.Chat.Completions.ChatCompletionMessageParam =
             {
-              partialResponseIndex: null,
-              partialResponse: `let me ${toolData?.function.name}`,
-            },
-            interactionCount
-          );
-
-          let functionResponse = await functionToCall(validatedArgs);
-
-          this.updateUserContext({
-            name: this.functionName,
-            role: "function",
-            text: functionResponse,
-          });
-
-          await this.completion({
-            text: functionResponse,
-            interactionCount,
-            role: "function",
-            name: this.functionName,
-          });
-
-          toolsCalled.push(this.functionName);
-
-          this.functionName = "";
-          this.functionArgs = "";
-        } else {
-          log.error(
-            `Function ${this.functionName} not found in availableFunctions.`
-          );
-        }
-      } else {
-        completeResponse += content;
-        partialResponse += content;
-
-        if (content.trim().slice(-1) === "•" || finishReason === "stop") {
-          const gptReply: GptReply = {
-            partialResponseIndex: this.partialResponseIndex,
-            partialResponse,
+              content: toolAnswer,
+              role: "assistant",
+            };
+          messages.push(toolMessage);
+          const inputAnswer: Answer = {
+            streamSid,
+            response: toolAnswer,
+            isLast: true,
+            trackName: "agent",
           };
-          this.emit("gptreply", gptReply, interactionCount);
-          this.partialResponseIndex++;
-          partialResponse = "";
+          log.info("inputAnswer", { inputAnswer });
+          if (workflowToUpdate) {
+            restack.update({
+              workflowId: workflowToUpdate.workflowId,
+              runId: workflowToUpdate.runId,
+              updateName: answerEvent.name,
+              input: inputAnswer,
+            });
+          }
+
+          log.info("functionArguments", {
+            functionArguments: toolCall.function?.arguments,
+          });
+          const functionArguments = JSON.parse(
+            toolCall.function?.arguments ?? ""
+          );
+
+          restack.update({
+            workflowId,
+            runId,
+            updateName: toolCallEvent.name,
+            input: {
+              ...toolCall,
+              function: {
+                name: toolCall.function?.name,
+                arguments: functionArguments,
+              },
+            },
+          });
+        })
+      );
+      return {
+        streamSid,
+        trackName,
+        messages,
+      };
+    } else {
+      response += content;
+      if (content.trim().slice(-1) === "•" || finishReason === "stop") {
+        if (response.length) {
+          const input: Answer = {
+            streamSid,
+            response: response,
+            isLast: finishReason === "stop",
+            trackName: "agent",
+          };
+          log.info("input", { input });
+          if (workflowToUpdate) {
+            restack.update({
+              workflowId: workflowToUpdate.workflowId,
+              runId: workflowToUpdate.runId,
+              updateName: answerEvent.name,
+              input,
+            });
+          }
         }
       }
 
-      // Check if the stream is over
       if (finishReason === "stop") {
-        this.emit("end", { completeResponse, interactionCount, toolsCalled });
-        break;
+        const newMessage: OpenAI.Chat.Completions.ChatCompletionMessageParam = {
+          content: response,
+          role: "assistant",
+        };
+
+        messages.push(newMessage);
+
+        return {
+          streamSid,
+          trackName,
+          messages,
+        };
       }
     }
-    this.userContext.push({ role: "assistant", content: completeResponse });
-
-    const contextLength = this.userContext.length;
-    log.info("GPT -> user context length:", { contextLength });
   }
 }
-
-export { OpenaiChat };

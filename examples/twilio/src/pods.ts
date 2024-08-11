@@ -1,14 +1,23 @@
 import Restack from "@restackio/restack-sdk-ts";
-import { twilioCall } from "./functions";
 import {
-  streamAudioToText,
-  streamTextToAudio,
-  streamQuestion,
-  questionAnswer,
-} from "./streams";
+  twilioCall,
+  openaiAnswer,
+  deepgramSpeak,
+  listenMedia,
+  listenQuestion,
+  sendAudio,
+  sendEvent,
+  openaiChat,
+  checkPrice,
+  checkInventory,
+  placeOrder,
+  erpTools,
+  updateAgent,
+  deepgramListen,
+} from "./functions";
 
 async function main() {
-  const workflowsPath = require.resolve("./workflows");
+  const workflowsPath = require.resolve("./threads");
 
   try {
     const restack = new Restack();
@@ -17,6 +26,12 @@ async function main() {
       restack.pod({
         name: "restack",
         workflowsPath,
+        functions: { updateAgent },
+      }),
+      restack.pod({
+        name: "websocket",
+        workflowsPath,
+        functions: { listenMedia, listenQuestion, sendAudio, sendEvent },
       }),
       restack.pod({
         name: "twilio",
@@ -27,17 +42,19 @@ async function main() {
       restack.pod({
         name: "openai",
         workflowsPath,
-        functions: { streamQuestion, questionAnswer },
+        functions: { openaiAnswer, openaiChat },
         rateLimit: 10000,
       }),
       restack.pod({
         name: "deepgram",
         workflowsPath,
-        functions: {
-          streamAudioToText,
-          streamTextToAudio,
-        },
-        rateLimit: 1000,
+        functions: { deepgramSpeak, deepgramListen },
+        rateLimit: 10000,
+      }),
+      restack.pod({
+        name: "erp",
+        workflowsPath,
+        functions: { erpTools, checkPrice, checkInventory, placeOrder },
       }),
     ]);
 
