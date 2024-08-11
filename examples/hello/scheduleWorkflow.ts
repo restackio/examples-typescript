@@ -15,7 +15,7 @@ async function scheduleWorkflow() {
       ],
     });
 
-    const result = await restack.getResult(workflowId, runId);
+    const result = await restack.getResult({ workflowId, runId });
 
     console.log("Workflow result:", result);
 
