@@ -27,16 +27,5 @@ export function mergeToolCalls(aggregatedStream: ChatCompletionChunk[]) {
     });
   });
 
-  // // Parse the arguments to ensure they are valid JSON
-  // toolCalls.forEach((toolCall) => {
-  //   if (toolCall.function && toolCall.function.arguments) {
-  //     try {
-  //       toolCall.function.arguments = JSON.parse(toolCall.function.arguments);
-  //     } catch (e) {
-  //       log.error("Invalid JSON string:", toolCall.function.arguments);
-  //     }
-  //   }
-  // });
-
   return { toolCalls };
 }

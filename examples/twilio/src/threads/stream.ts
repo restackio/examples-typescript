@@ -166,16 +166,17 @@ export async function streamThread() {
               podName: `websocket`,
               scheduleToCloseTimeout: "2 minutes",
             }).sendAudio({ streamSid, trackName, audio });
-
-            await step<typeof functions>({
-              podName: `websocket`,
-              scheduleToCloseTimeout: "1 minute",
-            }).sendEvent({
-              streamSid,
-              eventName: answerEvent.name,
-              data: { text },
-            });
           }
+
+          await step<typeof functions>({
+            podName: `websocket`,
+            scheduleToCloseTimeout: "1 minute",
+          }).sendEvent({
+            streamSid,
+            eventName: answerEvent.name,
+            data: { text: response },
+          });
+
           isSendingAudio = false;
         }
 

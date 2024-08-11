@@ -40,12 +40,43 @@ export async function agentThread({
   trackName: TrackName;
   message: string;
 }) {
+  async function callOpenAIChat(params: {
+    streamSid: string;
+    trackName: TrackName;
+    text: string;
+    tools?: any;
+    previousMessages?: any[];
+    workflowToUpdate: { workflowId: string; runId: string };
+  }) {
+    return step<typeof functions>({
+      podName: `openai`,
+      scheduleToCloseTimeout: "2 minutes",
+    }).openaiChat(params);
+  }
+
+  async function callERPFunction(toolFunction: ToolCall["function"]) {
+    const erpStep = step<typeof functions>({
+      podName: `erp`,
+      scheduleToCloseTimeout: "2 minutes",
+    });
+
+    switch (toolFunction.name) {
+      case "checkPrice":
+        return erpStep.checkPrice({ ...toolFunction.arguments });
+      case "checkInventory":
+        return erpStep.checkInventory({ ...toolFunction.arguments });
+      case "placeOrder":
+        return erpStep.placeOrder({
+          ...(toolFunction.arguments as functions.OrderInput),
+        });
+      default:
+        throw new Error(`Unknown function name: ${toolFunction.name}`);
+    }
+  }
+
   try {
     const parentWorkflow = workflowInfo().parent;
-
-    if (!parentWorkflow) {
-      throw "no parent Workflow";
-    }
+    if (!parentWorkflow) throw "no parent Workflow";
 
     let openaiChatMessages: any[] = [];
 
@@ -54,10 +85,7 @@ export async function agentThread({
       scheduleToCloseTimeout: "2 minutes",
     }).erpTools();
 
-    const initialMessage = await step<typeof functions>({
-      podName: `openai`,
-      scheduleToCloseTimeout: "2 minutes",
-    }).openaiChat({
+    const initialMessage = await callOpenAIChat({
       streamSid,
       trackName,
       text: message,
@@ -69,45 +97,21 @@ export async function agentThread({
     });
 
     if (initialMessage?.messages) {
-      openaiChatMessages = initialMessage?.messages;
+      openaiChatMessages = initialMessage.messages;
     }
 
     onUpdate(toolCallEvent, async ({ function: toolFunction }: ToolCall) => {
       log.info("toolCallEvent", { toolFunction });
-      let toolResult = "";
-      if (toolFunction.name === "checkPrice") {
-        toolResult = await step<typeof functions>({
-          podName: `erp`,
-          scheduleToCloseTimeout: "2 minutes",
-        }).checkPrice({ ...toolFunction.arguments });
-      }
 
-      if (toolFunction.name === "checkInventory") {
-        toolResult = await step<typeof functions>({
-          podName: `erp`,
-          scheduleToCloseTimeout: "2 minutes",
-        }).checkInventory({ ...toolFunction.arguments });
-      }
+      const toolResult = await callERPFunction(toolFunction);
 
-      if (toolFunction.name === "placeOrder") {
-        toolResult = await step<typeof functions>({
-          podName: `erp`,
-          scheduleToCloseTimeout: "2 minutes",
-        }).placeOrder({ ...toolFunction.arguments });
-      }
-
-      const openaiFunctionMessage = {
+      openaiChatMessages.push({
         content: JSON.stringify(toolResult),
         role: "function",
         name: toolFunction.name,
-      };
+      });
 
-      openaiChatMessages.push(openaiFunctionMessage);
-
-      const toolMessage = await step<typeof functions>({
-        podName: `openai`,
-        scheduleToCloseTimeout: "2 minutes",
-      }).openaiChat({
+      const toolMessage = await callOpenAIChat({
         streamSid,
         trackName,
         text: "",
@@ -118,18 +122,15 @@ export async function agentThread({
         },
       });
 
-      if (toolMessage) {
-        openaiChatMessages = toolMessage?.messages;
+      if (toolMessage?.messages) {
+        openaiChatMessages = toolMessage.messages;
       }
 
       return { function: toolFunction };
     });
 
     onUpdate(replyEvent, async ({ streamSid, trackName, text }: Reply) => {
-      const replyMessage = await step<typeof functions>({
-        podName: `openai`,
-        scheduleToCloseTimeout: "2 minutes",
-      }).openaiChat({
+      const replyMessage = await callOpenAIChat({
         streamSid,
         trackName,
         text,
@@ -142,7 +143,7 @@ export async function agentThread({
       });
 
       if (replyMessage?.messages) {
-        openaiChatMessages = replyMessage?.messages;
+        openaiChatMessages = replyMessage.messages;
       }
 
       return { text };

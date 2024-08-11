@@ -1,19 +1,17 @@
 import Restack from "@restackio/restack-sdk-ts";
 import {
+  updateAgent,
   twilioCall,
-  openaiAnswer,
+  deepgramListen,
   deepgramSpeak,
+  openaiChat,
   listenMedia,
-  listenQuestion,
   sendAudio,
   sendEvent,
-  openaiChat,
   checkPrice,
   checkInventory,
   placeOrder,
   erpTools,
-  updateAgent,
-  deepgramListen,
 } from "./functions";
 
 async function main() {
@@ -31,7 +29,7 @@ async function main() {
       restack.pod({
         name: "websocket",
         workflowsPath,
-        functions: { listenMedia, listenQuestion, sendAudio, sendEvent },
+        functions: { listenMedia, sendAudio, sendEvent },
       }),
       restack.pod({
         name: "twilio",
@@ -42,7 +40,7 @@ async function main() {
       restack.pod({
         name: "openai",
         workflowsPath,
-        functions: { openaiAnswer, openaiChat },
+        functions: { openaiChat },
         rateLimit: 10000,
       }),
       restack.pod({

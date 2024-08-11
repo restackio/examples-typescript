@@ -51,14 +51,12 @@ export async function deepgramSpeak({
         container: "none",
       }
     );
-    // STEP 3: Get the audio stream and headers from the response
     const stream = await response.getStream();
 
     if (!stream) {
       throw new Error(`Deepgram speak stream error ${response}`);
     }
 
-    // STEP 4: Convert the stream to an audio buffer
     const buffer = await getAudioBuffer(stream);
     if (!buffer) {
       throw new Error(`Deepgram audio buffer error ${stream}`);
