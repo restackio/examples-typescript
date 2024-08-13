@@ -77,12 +77,12 @@ export async function streamThread() {
         text: welcomeMessage,
       });
 
-      step<typeof functions>({
+      await step<typeof functions>({
         podName: `websocket`,
         scheduleToCloseTimeout: "2 minutes",
-      }).sendAudio({ streamSid, trackName: "agent", audio });
+      }).sendAudio({ streamSid, audio });
 
-      step<typeof functions>({
+      await step<typeof functions>({
         podName: `websocket`,
         scheduleToCloseTimeout: "2 minutes",
       }).sendEvent({
@@ -160,12 +160,12 @@ export async function streamThread() {
           isSendingAudio = true;
 
           while (audioQueue.length > 0) {
-            const { streamSid, trackName, audio, text } = audioQueue.shift()!;
+            const { streamSid, audio } = audioQueue.shift()!;
 
             await step<typeof functions>({
               podName: `websocket`,
               scheduleToCloseTimeout: "2 minutes",
-            }).sendAudio({ streamSid, trackName, audio });
+            }).sendAudio({ streamSid, audio });
           }
 
           await step<typeof functions>({

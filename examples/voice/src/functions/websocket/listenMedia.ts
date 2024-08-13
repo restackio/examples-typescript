@@ -22,6 +22,14 @@ export async function listenMedia({ streamSid }: StreamInput) {
       if (message.streamSid === streamSid) {
         if (message.event === "media") {
           if (message.media.track === "inbound") {
+            // Clean Twilio empty noise
+            const cleanedPayload = message.media.payload?.replace(
+              /(\+\/[a-zA-Z0-9+\/]{2,}==)/g,
+              ""
+            );
+            if (!cleanedPayload) {
+              return;
+            }
             log.info("send payload", {
               streamSid,
               payload: message.media.payload.length,

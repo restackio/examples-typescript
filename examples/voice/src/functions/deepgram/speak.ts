@@ -34,6 +34,7 @@ export async function deepgramSpeak({
   text: string;
 }): Promise<{ streamSid: string; audio: string }> {
   if (!text.length) {
+    log.error("Text is empty");
     throw FunctionFailure.nonRetryable("Text is empty");
   }
   const deepgramModel =
@@ -54,11 +55,13 @@ export async function deepgramSpeak({
     const stream = await response.getStream();
 
     if (!stream) {
+      log.error("Deepgram speak stream error", { response });
       throw new Error(`Deepgram speak stream error ${response}`);
     }
 
     const buffer = await getAudioBuffer(stream);
     if (!buffer) {
+      log.error("Deepgram audio buffer error", { stream });
       throw new Error(`Deepgram audio buffer error ${stream}`);
     }
     const base64String = buffer.toString("base64");
@@ -67,6 +70,7 @@ export async function deepgramSpeak({
     });
     return { streamSid, audio: base64String };
   } catch (error) {
+    log.error("Deepgram TTS error", { error });
     throw new Error(`Deepgram TTS error ${error}`);
   }
 }
