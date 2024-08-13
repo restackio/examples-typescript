@@ -40,11 +40,11 @@ export async function deepgramListen({
 
     const results = response.result?.results;
 
-    log.info("deepgramListen results:  ", {
+    log.debug("deepgramListen results:  ", {
       results: results,
     });
 
-    const transcript = results?.channels?.[0].alternatives?.[0].transcript;
+    const transcript = results?.channels?.[0]?.alternatives?.[0]?.transcript;
 
     log.info("deepgramListen transcript: ", {
       transcript: transcript,
