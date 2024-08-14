@@ -4,7 +4,11 @@ import { createServer } from "http";
 import WebSocket, { WebSocketServer } from "ws";
 import VoiceResponse from "twilio/lib/twiml/VoiceResponse";
 import Restack from "@restackio/restack-sdk-ts";
-import { streamInfo, streamWorkflow } from "./workflows/stream";
+import {
+  StreamInfo,
+  streamInfoEvent,
+  streamWorkflow,
+} from "./workflows/stream";
 import cors from "cors";
 
 const app = express();
@@ -36,7 +40,7 @@ app.post("/start", async (req, res) => {
         restack.sendWorkflowEvent({
           workflowId,
           runId: workflowRunId,
-          eventName: streamInfo.name,
+          eventName: streamInfoEvent.name,
           input: { streamSid: workflowRunId },
         });
       } catch (error) {
@@ -110,11 +114,12 @@ wss.on("connection", (ws) => {
       if (runId) {
         try {
           if (streamSid) {
+            const input: StreamInfo = { streamSid };
             await restack.sendWorkflowEvent({
               workflowId,
               runId,
-              eventName: "streamInfo",
-              input: { streamSid },
+              eventName: streamInfoEvent.name,
+              input,
             });
             console.log(
               `Signaled workflow ${workflowId} runId ${runId} with Twilio streamSid: ${streamSid}`

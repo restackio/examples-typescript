@@ -7,11 +7,11 @@ import {
 } from "@restackio/restack-sdk-ts/workflow";
 import { defineEvent, onEvent } from "@restackio/restack-sdk-ts/event";
 import * as functions from "../functions";
-import { agentWorkflow, replyEvent } from "./agent";
+import { agentWorkflow, Reply, replyEvent } from "./agent";
 
 export type TrackName = "user" | "agent" | "testUser";
 
-type StreamInfo = {
+export type StreamInfo = {
   streamSid: string;
 };
 
@@ -34,7 +34,7 @@ export type Answer = {
   isLast?: boolean;
 };
 
-export const streamInfo = defineEvent<StreamInfo>("streamInfo");
+export const streamInfoEvent = defineEvent<StreamInfo>("streamInfo");
 
 export const audioInEvent = defineEvent<AudioIn>("audioIn");
 
@@ -42,7 +42,7 @@ export const questionEvent = defineEvent<Question>("question");
 
 export const answerEvent = defineEvent<Answer>("answer");
 
-export const streamEnd = defineEvent("streamEnd");
+export const streamEndEvent = defineEvent("streamEnd");
 
 export async function streamWorkflow() {
   try {
@@ -59,7 +59,7 @@ export async function streamWorkflow() {
     let childAgentRunId = "";
     log.info(`Workflow started with runId: ${runId}`);
 
-    onEvent(streamInfo, async ({ streamSid }: StreamInfo) => {
+    onEvent(streamInfoEvent, async ({ streamSid }: StreamInfo) => {
       log.info(`Workflow update with streamSid: ${streamSid}`);
       step<typeof functions>({
         taskQueue: `websocket`,
@@ -127,6 +127,7 @@ export async function streamWorkflow() {
           });
           childAgentRunId = childAgent.firstExecutionRunId;
         } else {
+          const input: Reply = { streamSid, trackName, text: finalResult };
           step<typeof functions>({
             taskQueue: `restack`,
             scheduleToCloseTimeout: "1 minute",
@@ -134,7 +135,7 @@ export async function streamWorkflow() {
             workflowId: `${streamSid}-agentWorkflow`,
             runId: childAgentRunId,
             eventName: replyEvent.name,
-            input: { streamSid, trackName, text: finalResult },
+            input,
           });
         }
         return { streamSid };
@@ -184,7 +185,7 @@ export async function streamWorkflow() {
     );
 
     let ended = false;
-    onEvent(streamEnd, async () => {
+    onEvent(streamEndEvent, async () => {
       log.info(`streamEnd received`);
       ended = true;
     });
