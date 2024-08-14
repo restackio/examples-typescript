@@ -1,16 +1,13 @@
 import { FunctionFailure, log } from "@restackio/restack-sdk-ts/function";
-import { TrackName } from "../../workflows";
 import { Buffer } from "node:buffer";
 import "dotenv/config";
 import { createClient } from "@deepgram/sdk";
 
 export async function deepgramListen({
   streamSid,
-  trackName,
   payload,
 }: {
   streamSid: string;
-  trackName: TrackName;
   payload: string;
 }) {
   if (!payload) {
@@ -52,7 +49,6 @@ export async function deepgramListen({
 
     return {
       streamSid,
-      trackName,
       finalResult: transcript ?? "",
     };
   } catch (error) {

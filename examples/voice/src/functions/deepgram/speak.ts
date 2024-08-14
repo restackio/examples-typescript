@@ -1,5 +1,4 @@
 import { FunctionFailure, log } from "@restackio/restack-sdk-ts/function";
-import { TrackName } from "../../workflows";
 import { Buffer } from "node:buffer";
 import "dotenv/config";
 import { createClient } from "@deepgram/sdk";
@@ -26,19 +25,16 @@ const getAudioBuffer = async (stream: ReadableStream<Uint8Array>) => {
 
 export async function deepgramSpeak({
   streamSid,
-  trackName,
   text,
 }: {
   streamSid: string;
-  trackName: TrackName;
   text: string;
 }): Promise<{ streamSid: string; audio: string }> {
   if (!text.length) {
     log.error("Text is empty");
     throw FunctionFailure.nonRetryable("Text is empty");
   }
-  const deepgramModel =
-    trackName === "agent" ? "aura-arcas-en" : "aura-asteria-en";
+  const deepgramModel = "aura-arcas-en";
 
   try {
     const deepgram = createClient(process.env.DEEPGRAM_API_KEY);

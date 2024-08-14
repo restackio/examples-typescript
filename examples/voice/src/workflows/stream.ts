@@ -9,15 +9,12 @@ import { defineEvent, onEvent } from "@restackio/restack-sdk-ts/event";
 import * as functions from "../functions";
 import { agentWorkflow, Reply, replyEvent } from "./agent";
 
-export type TrackName = "user" | "agent" | "testUser";
-
 export type StreamInfo = {
   streamSid: string;
 };
 
 export type AudioIn = {
   streamSid: string;
-  trackName: TrackName;
   payload: string;
 };
 
@@ -29,7 +26,6 @@ export type Question = {
 
 export type Answer = {
   streamSid: string;
-  trackName: TrackName;
   response: string;
   isLast?: boolean;
 };
@@ -50,7 +46,6 @@ export async function streamWorkflow() {
     let interactionCount = 0;
     let audioQueue: {
       streamSid: string;
-      trackName: TrackName;
       audio: string;
       text: string;
     }[] = [];
@@ -64,7 +59,7 @@ export async function streamWorkflow() {
       step<typeof functions>({
         taskQueue: `websocket`,
         scheduleToCloseTimeout: "30 minutes",
-      }).listenMedia({ streamSid, trackName: "user" });
+      }).listenMedia({ streamSid });
 
       const welcomeMessage = "Hello! My name is Pete from Apple.";
       const { audio } = await step<typeof functions>({
@@ -72,7 +67,6 @@ export async function streamWorkflow() {
         scheduleToCloseTimeout: "2 minutes",
       }).deepgramSpeak({
         streamSid,
-        trackName: "agent",
         text: welcomeMessage,
       });
 
@@ -94,95 +88,87 @@ export async function streamWorkflow() {
       return { streamSid };
     });
 
-    onEvent(
-      audioInEvent,
-      async ({ streamSid, trackName, payload }: AudioIn) => {
-        log.info(`Workflow update with streamSid: ${streamSid}`);
-        const { finalResult } = await step<typeof functions>({
-          taskQueue: `deepgram`,
-          scheduleToCloseTimeout: "2 minutes",
-        }).deepgramListen({ streamSid, trackName, payload });
+    onEvent(audioInEvent, async ({ streamSid, payload }: AudioIn) => {
+      log.info(`Workflow update with streamSid: ${streamSid}`);
+      const { finalResult } = await step<typeof functions>({
+        taskQueue: `deepgram`,
+        scheduleToCloseTimeout: "2 minutes",
+      }).deepgramListen({ streamSid, payload });
 
-        interactionCount += 1;
+      interactionCount += 1;
 
+      step<typeof functions>({
+        taskQueue: `websocket`,
+        scheduleToCloseTimeout: "1 minute",
+      }).sendEvent({
+        streamSid,
+        eventName: questionEvent.name,
+        data: { text: finalResult },
+      });
+
+      if (!childAgentRunId) {
+        const childAgent = await startChild(agentWorkflow, {
+          args: [
+            {
+              streamSid,
+              message: finalResult,
+            },
+          ],
+          workflowId: `${streamSid}-agentWorkflow`,
+        });
+        childAgentRunId = childAgent.firstExecutionRunId;
+      } else {
+        const input: Reply = { streamSid, text: finalResult };
         step<typeof functions>({
+          taskQueue: `restack`,
+          scheduleToCloseTimeout: "1 minute",
+        }).sendEventToWorkflow({
+          workflowId: `${streamSid}-agentWorkflow`,
+          runId: childAgentRunId,
+          eventName: replyEvent.name,
+          input,
+        });
+      }
+      return { streamSid };
+    });
+
+    onEvent(answerEvent, async ({ streamSid, response, isLast }: Answer) => {
+      const { audio } = await step<typeof functions>({
+        taskQueue: `deepgram`,
+        scheduleToCloseTimeout: "2 minutes",
+      }).deepgramSpeak({
+        streamSid,
+        text: response,
+      });
+
+      audioQueue.push({ streamSid, audio, text: response });
+
+      if (!isSendingAudio && isLast) {
+        isSendingAudio = true;
+
+        while (audioQueue.length > 0) {
+          const { streamSid, audio } = audioQueue.shift()!;
+
+          await step<typeof functions>({
+            taskQueue: `websocket`,
+            scheduleToCloseTimeout: "2 minutes",
+          }).sendAudio({ streamSid, audio });
+        }
+
+        await step<typeof functions>({
           taskQueue: `websocket`,
           scheduleToCloseTimeout: "1 minute",
         }).sendEvent({
           streamSid,
-          eventName: questionEvent.name,
-          data: { text: finalResult },
+          eventName: answerEvent.name,
+          data: { text: response },
         });
 
-        if (!childAgentRunId) {
-          const childAgent = await startChild(agentWorkflow, {
-            args: [
-              {
-                streamSid,
-                message: finalResult,
-                trackName: "agent",
-              },
-            ],
-            workflowId: `${streamSid}-agentWorkflow`,
-          });
-          childAgentRunId = childAgent.firstExecutionRunId;
-        } else {
-          const input: Reply = { streamSid, trackName, text: finalResult };
-          step<typeof functions>({
-            taskQueue: `restack`,
-            scheduleToCloseTimeout: "1 minute",
-          }).sendEventToWorkflow({
-            workflowId: `${streamSid}-agentWorkflow`,
-            runId: childAgentRunId,
-            eventName: replyEvent.name,
-            input,
-          });
-        }
-        return { streamSid };
+        isSendingAudio = false;
       }
-    );
 
-    onEvent(
-      answerEvent,
-      async ({ streamSid, trackName, response, isLast }: Answer) => {
-        const { audio } = await step<typeof functions>({
-          taskQueue: `deepgram`,
-          scheduleToCloseTimeout: "2 minutes",
-        }).deepgramSpeak({
-          streamSid,
-          trackName,
-          text: response,
-        });
-
-        audioQueue.push({ streamSid, trackName, audio, text: response });
-
-        if (!isSendingAudio && isLast) {
-          isSendingAudio = true;
-
-          while (audioQueue.length > 0) {
-            const { streamSid, audio } = audioQueue.shift()!;
-
-            await step<typeof functions>({
-              taskQueue: `websocket`,
-              scheduleToCloseTimeout: "2 minutes",
-            }).sendAudio({ streamSid, audio });
-          }
-
-          await step<typeof functions>({
-            taskQueue: `websocket`,
-            scheduleToCloseTimeout: "1 minute",
-          }).sendEvent({
-            streamSid,
-            eventName: answerEvent.name,
-            data: { text: response },
-          });
-
-          isSendingAudio = false;
-        }
-
-        return { streamSid };
-      }
-    );
+      return { streamSid };
+    });
 
     let ended = false;
     onEvent(streamEndEvent, async () => {

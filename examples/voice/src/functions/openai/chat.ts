@@ -3,29 +3,25 @@ import "dotenv/config";
 import { agentPrompt } from "./prompt";
 import { currentWorkflow, log } from "@restackio/restack-sdk-ts/function";
 import Restack from "@restackio/restack-sdk-ts";
-import { Answer, answerEvent, TrackName } from "../../workflows/stream";
+import { Answer, answerEvent } from "../../workflows/stream";
 import { ChatCompletionChunk } from "openai/resources/chat/completions.mjs";
 import { toolCallEvent } from "../../workflows/agent";
 import { aggregateStreamChunks } from "./utils/aggregateStream";
 import { mergeToolCalls } from "./utils/mergeToolCalls";
+import { ParentWorkflowInfo } from "@temporalio/workflow";
 
 export async function openaiChat({
   streamSid,
-  trackName,
   text,
   previousMessages,
   tools,
   workflowToUpdate,
 }: {
   streamSid: string;
-  trackName: TrackName;
-  text: string;
+  text?: string;
   previousMessages?: OpenAI.Chat.Completions.ChatCompletionMessageParam[];
   tools?: OpenAI.Chat.Completions.ChatCompletionTool[];
-  workflowToUpdate?: {
-    workflowId: string;
-    runId: string;
-  };
+  workflowToUpdate?: ParentWorkflowInfo;
 }) {
   const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
   const restack = new Restack();
@@ -36,10 +32,12 @@ export async function openaiChat({
     messages = [...agentPrompt];
   }
 
-  messages.push({
-    role: "user",
-    content: text,
-  });
+  if (text) {
+    messages.push({
+      role: "user",
+      content: text,
+    });
+  }
 
   const stream = await openai.chat.completions.create({
     model: "gpt-4o-mini",
@@ -113,7 +111,6 @@ export async function openaiChat({
       );
       return {
         streamSid,
-        trackName,
         messages,
       };
     } else {
@@ -124,7 +121,6 @@ export async function openaiChat({
             streamSid,
             response: response,
             isLast: finishReason === "stop",
-            trackName: "agent",
           };
           log.info("input", { input });
           if (workflowToUpdate) {
@@ -148,7 +144,6 @@ export async function openaiChat({
 
         return {
           streamSid,
-          trackName,
           messages,
         };
       }

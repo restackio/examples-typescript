@@ -5,7 +5,6 @@ import {
   condition,
 } from "@restackio/restack-sdk-ts/workflow";
 import * as functions from "../functions";
-import { TrackName } from "./stream";
 import { defineEvent, onEvent } from "@restackio/restack-sdk-ts/event";
 
 export type ToolCall = {
@@ -22,7 +21,6 @@ export type ToolCall = {
 
 export type Reply = {
   streamSid: string;
-  trackName: TrackName;
   text: string;
 };
 
@@ -32,47 +30,11 @@ export const agentEnd = defineEvent("agentEnd");
 
 export async function agentWorkflow({
   streamSid,
-  trackName,
   message,
 }: {
   streamSid: string;
-  trackName: TrackName;
   message: string;
 }) {
-  async function callOpenAIChat(params: {
-    streamSid: string;
-    trackName: TrackName;
-    text: string;
-    tools?: any;
-    previousMessages?: any[];
-    workflowToUpdate: { workflowId: string; runId: string };
-  }) {
-    return step<typeof functions>({
-      taskQueue: `openai`,
-      scheduleToCloseTimeout: "2 minutes",
-    }).openaiChat(params);
-  }
-
-  async function callERPFunction(toolFunction: ToolCall["function"]) {
-    const erpStep = step<typeof functions>({
-      taskQueue: `erp`,
-      scheduleToCloseTimeout: "2 minutes",
-    });
-
-    switch (toolFunction.name) {
-      case "checkPrice":
-        return erpStep.checkPrice({ ...toolFunction.arguments });
-      case "checkInventory":
-        return erpStep.checkInventory({ ...toolFunction.arguments });
-      case "placeOrder":
-        return erpStep.placeOrder({
-          ...(toolFunction.arguments as functions.OrderInput),
-        });
-      default:
-        throw new Error(`Unknown function name: ${toolFunction.name}`);
-    }
-  }
-
   try {
     const parentWorkflow = workflowInfo().parent;
     if (!parentWorkflow) throw "no parent Workflow";
@@ -80,27 +42,61 @@ export async function agentWorkflow({
     let openaiChatMessages: any[] = [];
 
     const tools = await step<typeof functions>({
-      taskQueue: `erp`,
-      scheduleToCloseTimeout: "2 minutes",
+      taskQueue: "erp",
     }).erpTools();
 
-    const initialMessage = await callOpenAIChat({
+    const initialMessages = await step<typeof functions>({
+      taskQueue: "openai",
+    }).openaiChat({
       streamSid,
-      trackName,
       text: message,
       tools,
-      workflowToUpdate: {
-        workflowId: parentWorkflow.workflowId,
-        runId: parentWorkflow.runId,
-      },
+      workflowToUpdate: parentWorkflow,
     });
 
-    if (initialMessage?.messages) {
-      openaiChatMessages = initialMessage.messages;
+    if (initialMessages?.messages) {
+      openaiChatMessages = initialMessages.messages;
     }
+
+    onEvent(replyEvent, async ({ streamSid, text }: Reply) => {
+      const replyMessage = await step<typeof functions>({
+        taskQueue: "openai",
+      }).openaiChat({
+        streamSid,
+        text,
+        tools,
+        previousMessages: openaiChatMessages,
+        workflowToUpdate: parentWorkflow,
+      });
+
+      if (replyMessage?.messages) {
+        openaiChatMessages = replyMessage.messages;
+      }
+
+      return { text };
+    });
 
     onEvent(toolCallEvent, async ({ function: toolFunction }: ToolCall) => {
       log.info("toolCallEvent", { toolFunction });
+
+      async function callERPFunction(toolFunction: ToolCall["function"]) {
+        const erpStep = step<typeof functions>({
+          taskQueue: "erp",
+        });
+
+        switch (toolFunction.name) {
+          case "checkPrice":
+            return erpStep.checkPrice({ ...toolFunction.arguments });
+          case "checkInventory":
+            return erpStep.checkInventory({ ...toolFunction.arguments });
+          case "placeOrder":
+            return erpStep.placeOrder({
+              ...(toolFunction.arguments as functions.OrderInput),
+            });
+          default:
+            throw new Error(`Unknown function name: ${toolFunction.name}`);
+        }
+      }
 
       const toolResult = await callERPFunction(toolFunction);
 
@@ -110,15 +106,12 @@ export async function agentWorkflow({
         name: toolFunction.name,
       });
 
-      const toolMessage = await callOpenAIChat({
+      const toolMessage = await step<typeof functions>({
+        taskQueue: "openai",
+      }).openaiChat({
         streamSid,
-        trackName,
-        text: "",
         previousMessages: openaiChatMessages,
-        workflowToUpdate: {
-          workflowId: parentWorkflow.workflowId,
-          runId: parentWorkflow.runId,
-        },
+        workflowToUpdate: parentWorkflow,
       });
 
       if (toolMessage?.messages) {
@@ -126,26 +119,6 @@ export async function agentWorkflow({
       }
 
       return { function: toolFunction };
-    });
-
-    onEvent(replyEvent, async ({ streamSid, trackName, text }: Reply) => {
-      const replyMessage = await callOpenAIChat({
-        streamSid,
-        trackName,
-        text,
-        tools,
-        previousMessages: openaiChatMessages,
-        workflowToUpdate: {
-          workflowId: parentWorkflow.workflowId,
-          runId: parentWorkflow.runId,
-        },
-      });
-
-      if (replyMessage?.messages) {
-        openaiChatMessages = replyMessage.messages;
-      }
-
-      return { text };
     });
 
     let ended = false;

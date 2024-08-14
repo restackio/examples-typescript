@@ -5,16 +5,10 @@ import {
 } from "@restackio/restack-sdk-ts/function";
 import { webSocketConnect } from "./connect";
 import Restack from "@restackio/restack-sdk-ts";
-import {
-  AudioIn,
-  audioInEvent,
-  streamEndEvent,
-  TrackName,
-} from "../../workflows/stream";
+import { AudioIn, audioInEvent, streamEndEvent } from "../../workflows/stream";
 
 type StreamInput = {
   streamSid: string;
-  trackName?: TrackName;
 };
 
 export async function listenMedia({ streamSid }: StreamInput) {
@@ -42,7 +36,6 @@ export async function listenMedia({ streamSid }: StreamInput) {
             const input: AudioIn = {
               streamSid,
               payload: message.media.payload,
-              trackName: "user",
             };
             restack.sendWorkflowEvent({
               workflowId,
