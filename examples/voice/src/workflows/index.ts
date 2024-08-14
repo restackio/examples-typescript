@@ -1,3 +1,3 @@
 export * from "./twilioCall";
-export * from "./stream";
-export * from "./agent";
+export * from "./stream/stream";
+export * from "./agent/agent";

@@ -4,11 +4,8 @@ import { createServer } from "http";
 import WebSocket, { WebSocketServer } from "ws";
 import VoiceResponse from "twilio/lib/twiml/VoiceResponse";
 import Restack from "@restackio/restack-sdk-ts";
-import {
-  StreamInfo,
-  streamInfoEvent,
-  streamWorkflow,
-} from "./workflows/stream";
+import { streamWorkflow } from "./workflows/stream/stream";
+import { StreamInfo, streamInfoEvent } from "./workflows/stream/events";
 import cors from "cors";
 
 const app = express();

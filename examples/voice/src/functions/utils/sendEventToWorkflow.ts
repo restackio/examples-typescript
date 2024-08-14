@@ -10,7 +10,7 @@ interface SendEventToWorkflowInput {
   };
 }
 
-export async function sendEventToWorkflow({
+export async function workflowSendEvent({
   workflowId,
   runId,
   eventName,

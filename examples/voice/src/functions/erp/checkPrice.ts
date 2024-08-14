@@ -4,7 +4,7 @@ import { toolInput } from "./tools";
 
 export type PriceInput = z.infer<typeof toolInput>;
 
-export async function checkPrice({ model }: PriceInput) {
+export async function erpCheckPrice({ model }: PriceInput) {
   log.info("GPT -> called checkPrice function");
   sleep(500);
   if (model?.toLowerCase().includes("pro")) {

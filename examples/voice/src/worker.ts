@@ -1,17 +1,17 @@
 import Restack from "@restackio/restack-sdk-ts";
 import {
-  sendEventToWorkflow,
+  workflowSendEvent,
   twilioCall,
   deepgramListen,
   deepgramSpeak,
   openaiChat,
-  listenMedia,
-  sendAudio,
-  sendEvent,
-  checkPrice,
-  checkInventory,
-  placeOrder,
-  erpTools,
+  websocketListenMedia,
+  websocketSendAudio,
+  websocketSendEvent,
+  erpGetTools,
+  erpPlaceOrder,
+  erpCheckInventory,
+  erpCheckPrice,
 } from "./functions";
 
 async function main() {
@@ -24,12 +24,16 @@ async function main() {
       restack.startWorker({
         taskQueue: "restack",
         workflowsPath,
-        functions: { sendEventToWorkflow },
+        functions: { workflowSendEvent },
       }),
       restack.startWorker({
         taskQueue: "websocket",
         workflowsPath,
-        functions: { listenMedia, sendAudio, sendEvent },
+        functions: {
+          websocketListenMedia,
+          websocketSendAudio,
+          websocketSendEvent,
+        },
       }),
       restack.startWorker({
         taskQueue: "twilio",
@@ -52,7 +56,12 @@ async function main() {
       restack.startWorker({
         taskQueue: "erp",
         workflowsPath,
-        functions: { erpTools, checkPrice, checkInventory, placeOrder },
+        functions: {
+          erpGetTools,
+          erpCheckPrice,
+          erpCheckInventory,
+          erpPlaceOrder,
+        },
       }),
     ]);
 

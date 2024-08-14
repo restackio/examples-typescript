@@ -2,7 +2,7 @@ import WebSocket from "ws";
 import "dotenv/config";
 import { FunctionFailure } from "@restackio/restack-sdk-ts/function";
 
-export function webSocketConnect(): Promise<WebSocket> {
+export function websocketConnect(): Promise<WebSocket> {
   return new Promise((resolve, reject) => {
     try {
       const websocketAddress = `ws://localhost:4000/connection`;

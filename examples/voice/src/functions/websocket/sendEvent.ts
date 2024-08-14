@@ -1,6 +1,6 @@
-import { webSocketConnect } from "./connect";
+import { websocketConnect } from "./connect";
 
-export async function sendEvent({
+export async function websocketSendEvent({
   streamSid,
   eventName,
   data,
@@ -9,7 +9,7 @@ export async function sendEvent({
   eventName: string;
   data: { text?: string };
 }) {
-  const ws = await webSocketConnect();
+  const ws = await websocketConnect();
 
   const audioEvent = {
     streamSid: streamSid,

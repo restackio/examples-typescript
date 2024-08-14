@@ -18,7 +18,7 @@ export const toolInputWithQty = z.object({
   quantity: z.number().describe("The number of airpods they want to order"),
 });
 
-export async function erpTools() {
+export async function erpGetTools() {
   return [
     zodFunction({
       name: "checkInventory",

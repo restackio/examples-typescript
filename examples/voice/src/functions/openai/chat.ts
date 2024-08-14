@@ -3,9 +3,9 @@ import "dotenv/config";
 import { agentPrompt } from "./prompt";
 import { currentWorkflow, log } from "@restackio/restack-sdk-ts/function";
 import Restack from "@restackio/restack-sdk-ts";
-import { Answer, answerEvent } from "../../workflows/stream";
+import { Answer, answerEvent } from "../../workflows/stream/events";
 import { ChatCompletionChunk } from "openai/resources/chat/completions.mjs";
-import { toolCallEvent } from "../../workflows/agent";
+import { toolCallEvent } from "../../workflows/agent/events";
 import { aggregateStreamChunks } from "./utils/aggregateStream";
 import { mergeToolCalls } from "./utils/mergeToolCalls";
 import { ParentWorkflowInfo } from "@temporalio/workflow";
@@ -76,7 +76,6 @@ export async function openaiChat({
             streamSid,
             response: toolAnswer,
             isLast: true,
-            trackName: "agent",
           };
           log.info("inputAnswer", { inputAnswer });
           if (workflowToUpdate) {

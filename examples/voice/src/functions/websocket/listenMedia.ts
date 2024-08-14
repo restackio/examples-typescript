@@ -3,17 +3,21 @@ import {
   currentWorkflow,
   log,
 } from "@restackio/restack-sdk-ts/function";
-import { webSocketConnect } from "./connect";
+import { websocketConnect } from "./connect";
 import Restack from "@restackio/restack-sdk-ts";
-import { AudioIn, audioInEvent, streamEndEvent } from "../../workflows/stream";
+import {
+  AudioIn,
+  audioInEvent,
+  streamEndEvent,
+} from "../../workflows/stream/events";
 
 type StreamInput = {
   streamSid: string;
 };
 
-export async function listenMedia({ streamSid }: StreamInput) {
+export async function websocketListenMedia({ streamSid }: StreamInput) {
   return new Promise<void>(async (resolve) => {
-    const ws = await webSocketConnect();
+    const ws = await websocketConnect();
     const restack = new Restack();
     const { workflowId, runId } = currentWorkflow().workflowExecution;
     ws.on("message", (data) => {

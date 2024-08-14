@@ -4,29 +4,9 @@ import {
   workflowInfo,
   condition,
 } from "@restackio/restack-sdk-ts/workflow";
-import * as functions from "../functions";
-import { defineEvent, onEvent } from "@restackio/restack-sdk-ts/event";
-
-export type ToolCall = {
-  index: number;
-  function: {
-    name: string;
-    arguments:
-      | functions.OrderInput
-      | functions.InventoryInput
-      | functions.PriceInput;
-  };
-  id?: string;
-};
-
-export type Reply = {
-  streamSid: string;
-  text: string;
-};
-
-export const toolCallEvent = defineEvent<ToolCall>("toolCall");
-export const replyEvent = defineEvent<Reply>("reply");
-export const agentEnd = defineEvent("agentEnd");
+import * as functions from "../../functions";
+import { onEvent } from "@restackio/restack-sdk-ts/event";
+import { agentEnd, Reply, replyEvent, ToolCall, toolCallEvent } from "./events";
 
 export async function agentWorkflow({
   streamSid,
@@ -41,9 +21,11 @@ export async function agentWorkflow({
 
     let openaiChatMessages: any[] = [];
 
+    // Get tools definition and start conversation
+
     const tools = await step<typeof functions>({
       taskQueue: "erp",
-    }).erpTools();
+    }).erpGetTools();
 
     const initialMessages = await step<typeof functions>({
       taskQueue: "openai",
@@ -57,6 +39,8 @@ export async function agentWorkflow({
     if (initialMessages?.messages) {
       openaiChatMessages = initialMessages.messages;
     }
+
+    // Send reply to AI chat with previous messages to continue conversation
 
     onEvent(replyEvent, async ({ streamSid, text }: Reply) => {
       const replyMessage = await step<typeof functions>({
@@ -76,6 +60,8 @@ export async function agentWorkflow({
       return { text };
     });
 
+    // When AI answer is a tool call, execute function and push results to conversation
+
     onEvent(toolCallEvent, async ({ function: toolFunction }: ToolCall) => {
       log.info("toolCallEvent", { toolFunction });
 
@@ -86,11 +72,11 @@ export async function agentWorkflow({
 
         switch (toolFunction.name) {
           case "checkPrice":
-            return erpStep.checkPrice({ ...toolFunction.arguments });
+            return erpStep.erpCheckPrice({ ...toolFunction.arguments });
           case "checkInventory":
-            return erpStep.checkInventory({ ...toolFunction.arguments });
+            return erpStep.erpCheckInventory({ ...toolFunction.arguments });
           case "placeOrder":
-            return erpStep.placeOrder({
+            return erpStep.erpPlaceOrder({
               ...(toolFunction.arguments as functions.OrderInput),
             });
           default:
@@ -123,6 +109,7 @@ export async function agentWorkflow({
 
     let ended = false;
     onEvent(agentEnd, async () => {
+      // Terminate AI agent workflow
       log.info(`agentEnd received`);
       ended = true;
     });

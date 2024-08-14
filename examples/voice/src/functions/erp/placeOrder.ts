@@ -4,7 +4,7 @@ import { toolInputWithQty } from "./tools";
 
 export type OrderInput = z.infer<typeof toolInputWithQty>;
 
-export async function placeOrder({ model, quantity = 1 }: OrderInput) {
+export async function erpPlaceOrder({ model, quantity = 1 }: OrderInput) {
   log.info("GPT -> called placeOrder function");
   sleep(200);
   const orderNum = Math.floor(

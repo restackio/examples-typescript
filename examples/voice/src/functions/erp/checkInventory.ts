@@ -4,7 +4,7 @@ import { toolInput } from "./tools";
 
 export type InventoryInput = z.infer<typeof toolInput>;
 
-export async function checkInventory({ model }: InventoryInput) {
+export async function erpCheckInventory({ model }: InventoryInput) {
   log.info("GPT -> called checkInventory function");
   sleep(200);
   if (model?.toLowerCase().includes("pro")) {
