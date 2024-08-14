@@ -21,7 +21,7 @@ export async function agentWorkflow({
 
     let openaiChatMessages: any[] = [];
 
-    // Get tools definition and start conversation
+    // Get tools definition and start conversation.
 
     const tools = await step<typeof functions>({
       taskQueue: "erp",
@@ -40,7 +40,7 @@ export async function agentWorkflow({
       openaiChatMessages = initialMessages.messages;
     }
 
-    // Send reply to AI chat with previous messages to continue conversation
+    // On user reply, send it to AI chat with previous messages to continue conversation.
 
     onEvent(replyEvent, async ({ streamSid, text }: Reply) => {
       const replyMessage = await step<typeof functions>({
@@ -60,7 +60,7 @@ export async function agentWorkflow({
       return { text };
     });
 
-    // When AI answer is a tool call, execute function and push results to conversation
+    // When AI answer is a tool call, execute function and push results to conversation.
 
     onEvent(toolCallEvent, async ({ function: toolFunction }: ToolCall) => {
       log.info("toolCallEvent", { toolFunction });
@@ -107,9 +107,10 @@ export async function agentWorkflow({
       return { function: toolFunction };
     });
 
+    // Terminate AI agent workflow.
+
     let ended = false;
     onEvent(agentEnd, async () => {
-      // Terminate AI agent workflow
       log.info(`agentEnd received`);
       ended = true;
     });

@@ -31,7 +31,7 @@ export async function streamWorkflow() {
     let isSendingAudio = false;
     let childAgentRunId = "";
 
-    // Start long running websocket and send welcome message.
+    // Start long running websocket and stream welcome message to websocket.
     onEvent(streamInfoEvent, async ({ streamSid }: StreamInfo) => {
       log.info(`Workflow update with streamSid: ${streamSid}`);
       step<typeof functions>({
@@ -64,7 +64,7 @@ export async function streamWorkflow() {
       return { streamSid };
     });
 
-    // Transcribe audio and send it to AI agent
+    // Receives audio, transcribe it and send transcription to AI agent.
 
     onEvent(audioInEvent, async ({ streamSid, payload }: AudioIn) => {
       log.info(`Workflow update with streamSid: ${streamSid}`);
@@ -107,7 +107,7 @@ export async function streamWorkflow() {
       return { streamSid };
     });
 
-    // Generate audio from AI answer and send it to websocket
+    // Receives AI answer, generates audio and stream it to websocket.
 
     onEvent(answerEvent, async ({ streamSid, response, isLast }: Answer) => {
       const { audio } = await step<typeof functions>({
@@ -144,7 +144,7 @@ export async function streamWorkflow() {
       return { streamSid };
     });
 
-    // Terminates stream workflow
+    // Terminates stream workflow.
 
     let ended = false;
 
