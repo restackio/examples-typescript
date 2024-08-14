@@ -14,16 +14,16 @@ async function main() {
     const restack = new Restack();
 
     await Promise.all([
-      restack.pod({
-        name: "restack",
+      restack.startWorker({
+        taskQueue: "restack",
         workflowsPath,
         functions: { goodbye },
       }),
 
       // Create a separate pod for all openAI functions and rate limit them
 
-      restack.pod({
-        name: "openai",
+      restack.startWorker({
+        taskQueue: "openai",
         functions: { greet },
         // rate limit allows you to control the number of requests per second for all your function associated to this tool
 

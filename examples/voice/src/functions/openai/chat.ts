@@ -3,9 +3,9 @@ import "dotenv/config";
 import { agentPrompt } from "./prompt";
 import { currentWorkflow, log } from "@restackio/restack-sdk-ts/function";
 import Restack from "@restackio/restack-sdk-ts";
-import { Answer, answerEvent, TrackName } from "../../threads/stream";
+import { Answer, answerEvent, TrackName } from "../../workflows/stream";
 import { ChatCompletionChunk } from "openai/resources/chat/completions.mjs";
-import { toolCallEvent } from "../../threads/agent";
+import { toolCallEvent } from "../../workflows/agent";
 import { aggregateStreamChunks } from "./utils/aggregateStream";
 import { mergeToolCalls } from "./utils/mergeToolCalls";
 
@@ -82,10 +82,10 @@ export async function openaiChat({
           };
           log.info("inputAnswer", { inputAnswer });
           if (workflowToUpdate) {
-            restack.update({
+            restack.sendWorkflowEvent({
               workflowId: workflowToUpdate.workflowId,
               runId: workflowToUpdate.runId,
-              updateName: answerEvent.name,
+              eventName: answerEvent.name,
               input: inputAnswer,
             });
           }
@@ -97,10 +97,10 @@ export async function openaiChat({
             toolCall.function?.arguments ?? ""
           );
 
-          restack.update({
+          restack.sendWorkflowEvent({
             workflowId,
             runId,
-            updateName: toolCallEvent.name,
+            eventName: toolCallEvent.name,
             input: {
               ...toolCall,
               function: {
@@ -128,10 +128,10 @@ export async function openaiChat({
           };
           log.info("input", { input });
           if (workflowToUpdate) {
-            restack.update({
+            restack.sendWorkflowEvent({
               workflowId: workflowToUpdate.workflowId,
               runId: workflowToUpdate.runId,
-              updateName: answerEvent.name,
+              eventName: answerEvent.name,
               input,
             });
           }

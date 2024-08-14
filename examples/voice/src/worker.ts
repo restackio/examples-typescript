@@ -15,50 +15,50 @@ import {
 } from "./functions";
 
 async function main() {
-  const workflowsPath = require.resolve("./threads");
+  const workflowsPath = require.resolve("./Workflows");
 
   try {
     const restack = new Restack();
 
     await Promise.all([
-      restack.pod({
-        name: "restack",
+      restack.startWorker({
+        taskQueue: "restack",
         workflowsPath,
         functions: { updateAgent },
       }),
-      restack.pod({
-        name: "websocket",
+      restack.startWorker({
+        taskQueue: "websocket",
         workflowsPath,
         functions: { listenMedia, sendAudio, sendEvent },
       }),
-      restack.pod({
-        name: "twilio",
+      restack.startWorker({
+        taskQueue: "twilio",
         workflowsPath,
         functions: { twilioCall },
         rateLimit: 200,
       }),
-      restack.pod({
-        name: "openai",
+      restack.startWorker({
+        taskQueue: "openai",
         workflowsPath,
         functions: { openaiChat },
         rateLimit: 10000,
       }),
-      restack.pod({
-        name: "deepgram",
+      restack.startWorker({
+        taskQueue: "deepgram",
         workflowsPath,
         functions: { deepgramSpeak, deepgramListen },
         rateLimit: 10000,
       }),
-      restack.pod({
-        name: "erp",
+      restack.startWorker({
+        taskQueue: "erp",
         workflowsPath,
         functions: { erpTools, checkPrice, checkInventory, placeOrder },
       }),
     ]);
 
-    console.log("Pods running successfully.");
+    console.log("Workers running successfully.");
   } catch (e) {
-    console.error("Failed to run pod", e);
+    console.error("Failed to run worker", e);
   }
 }
 

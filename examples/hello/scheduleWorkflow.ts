@@ -5,7 +5,7 @@ async function scheduleWorkflow() {
     const restack = new Restack();
 
     const workflowId = `${Date.now()}-exampleWorkflow`;
-    const runId = await restack.schedule({
+    const runId = await restack.scheduleWorkflow({
       workflowName: "example",
       workflowId: `${Date.now()}-exampleWorkflow`,
       input: {
@@ -13,7 +13,7 @@ async function scheduleWorkflow() {
       },
     });
 
-    const result = await restack.getResult({ workflowId, runId });
+    const result = await restack.getWorkflowResult({ workflowId, runId });
 
     console.log("Workflow result:", result);
 

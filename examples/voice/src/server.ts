@@ -4,7 +4,7 @@ import { createServer } from "http";
 import WebSocket, { WebSocketServer } from "ws";
 import VoiceResponse from "twilio/lib/twiml/VoiceResponse";
 import Restack from "@restackio/restack-sdk-ts";
-import { streamInfo, streamThread } from "./threads/stream";
+import { streamInfo, streamWorkflow } from "./workflows/stream";
 import cors from "cors";
 
 const app = express();
@@ -20,10 +20,10 @@ app.post("/start", async (req, res) => {
   try {
     const restack = new Restack();
 
-    const workflowId = `${Date.now()}-${streamThread.name}`;
+    const workflowId = `${Date.now()}-${streamWorkflow.name}`;
 
-    const workflowRunId = await restack.schedule({
-      workflowName: streamThread.name,
+    const workflowRunId = await restack.scheduleWorkflow({
+      workflowName: streamWorkflow.name,
       workflowId,
     });
 
@@ -33,10 +33,10 @@ app.post("/start", async (req, res) => {
       console.log("update");
       try {
         console.log("update");
-        restack.update({
+        restack.sendWorkflowEvent({
           workflowId,
           runId: workflowRunId,
-          updateName: streamInfo.name,
+          eventName: streamInfo.name,
           input: { streamSid: workflowRunId },
         });
       } catch (error) {
@@ -56,10 +56,10 @@ app.post("/start", async (req, res) => {
 
 app.post("/incoming", async (req, res) => {
   try {
-    const workflowId = `${Date.now()}-${streamThread.name}`;
+    const workflowId = `${Date.now()}-${streamWorkflow.name}`;
     const restack = new Restack();
-    const runId = await restack.schedule({
-      workflowName: streamThread.name,
+    const runId = await restack.scheduleWorkflow({
+      workflowName: streamWorkflow.name,
       workflowId,
       input: {},
     });
@@ -110,10 +110,10 @@ wss.on("connection", (ws) => {
       if (runId) {
         try {
           if (streamSid) {
-            await restack.update({
+            await restack.sendWorkflowEvent({
               workflowId,
               runId,
-              updateName: "streamInfo",
+              eventName: "streamInfo",
               input: { streamSid },
             });
             console.log(

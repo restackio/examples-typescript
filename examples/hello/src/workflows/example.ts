@@ -18,7 +18,7 @@ export async function example({ name }: Input): Promise<Output> {
     output: { message: greetMessage },
     usage: greetUsage,
   } = await step<typeof functions>({
-    podName: `openai`,
+    taskQueue: `openai`,
     scheduleToCloseTimeout: "1 minute",
   }).greet({ name });
 
@@ -27,7 +27,7 @@ export async function example({ name }: Input): Promise<Output> {
   // Step 2 create goodbye message with simple function
 
   const { message: goodbyeMessage } = await step<typeof functions>({
-    podName: `restack`,
+    taskQueue: `restack`,
     scheduleToCloseTimeout: "1 minute",
   }).goodbye({ name });
 

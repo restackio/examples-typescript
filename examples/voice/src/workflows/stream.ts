@@ -2,13 +2,12 @@ import {
   step,
   log,
   workflowInfo,
-  defineUpdate,
-  onUpdate,
   condition,
   startChild,
 } from "@restackio/restack-sdk-ts/workflow";
+import { defineEvent, onEvent } from "@restackio/restack-sdk-ts/event";
 import * as functions from "../functions";
-import { agentThread, replyEvent } from "./agent";
+import { agentWorkflow, replyEvent } from "./agent";
 
 export type TrackName = "user" | "agent" | "testUser";
 
@@ -35,17 +34,17 @@ export type Answer = {
   isLast?: boolean;
 };
 
-export const streamInfo = defineUpdate<StreamInfo>("streamInfo");
+export const streamInfo = defineEvent<StreamInfo>("streamInfo");
 
-export const audioInEvent = defineUpdate<AudioIn>("audioIn");
+export const audioInEvent = defineEvent<AudioIn>("audioIn");
 
-export const questionEvent = defineUpdate<Question>("question");
+export const questionEvent = defineEvent<Question>("question");
 
-export const answerEvent = defineUpdate<Answer>("answer");
+export const answerEvent = defineEvent<Answer>("answer");
 
-export const streamEnd = defineUpdate("streamEnd");
+export const streamEnd = defineEvent("streamEnd");
 
-export async function streamThread() {
+export async function streamWorkflow() {
   try {
     let currentstreamSid: string;
     let interactionCount = 0;
@@ -60,16 +59,16 @@ export async function streamThread() {
     let childAgentRunId = "";
     log.info(`Workflow started with runId: ${runId}`);
 
-    onUpdate(streamInfo, async ({ streamSid }: StreamInfo) => {
+    onEvent(streamInfo, async ({ streamSid }: StreamInfo) => {
       log.info(`Workflow update with streamSid: ${streamSid}`);
       step<typeof functions>({
-        podName: `websocket`,
+        taskQueue: `websocket`,
         scheduleToCloseTimeout: "30 minutes",
       }).listenMedia({ streamSid, trackName: "user" });
 
       const welcomeMessage = "Hello! My name is Pete from Apple.";
       const { audio } = await step<typeof functions>({
-        podName: `deepgram`,
+        taskQueue: `deepgram`,
         scheduleToCloseTimeout: "2 minutes",
       }).deepgramSpeak({
         streamSid,
@@ -78,12 +77,12 @@ export async function streamThread() {
       });
 
       await step<typeof functions>({
-        podName: `websocket`,
+        taskQueue: `websocket`,
         scheduleToCloseTimeout: "2 minutes",
       }).sendAudio({ streamSid, audio });
 
       await step<typeof functions>({
-        podName: `websocket`,
+        taskQueue: `websocket`,
         scheduleToCloseTimeout: "2 minutes",
       }).sendEvent({
         streamSid,
@@ -95,19 +94,19 @@ export async function streamThread() {
       return { streamSid };
     });
 
-    onUpdate(
+    onEvent(
       audioInEvent,
       async ({ streamSid, trackName, payload }: AudioIn) => {
         log.info(`Workflow update with streamSid: ${streamSid}`);
         const { finalResult } = await step<typeof functions>({
-          podName: `deepgram`,
+          taskQueue: `deepgram`,
           scheduleToCloseTimeout: "2 minutes",
         }).deepgramListen({ streamSid, trackName, payload });
 
         interactionCount += 1;
 
         step<typeof functions>({
-          podName: `websocket`,
+          taskQueue: `websocket`,
           scheduleToCloseTimeout: "1 minute",
         }).sendEvent({
           streamSid,
@@ -116,7 +115,7 @@ export async function streamThread() {
         });
 
         if (!childAgentRunId) {
-          const childAgent = await startChild(agentThread, {
+          const childAgent = await startChild(agentWorkflow, {
             args: [
               {
                 streamSid,
@@ -124,17 +123,17 @@ export async function streamThread() {
                 trackName: "agent",
               },
             ],
-            workflowId: `${streamSid}-agentThread`,
+            workflowId: `${streamSid}-agentWorkflow`,
           });
           childAgentRunId = childAgent.firstExecutionRunId;
         } else {
           step<typeof functions>({
-            podName: `restack`,
+            taskQueue: `restack`,
             scheduleToCloseTimeout: "1 minute",
           }).updateAgent({
-            workflowId: `${streamSid}-agentThread`,
+            workflowId: `${streamSid}-agentWorkflow`,
             runId: childAgentRunId,
-            updateName: replyEvent.name,
+            eventName: replyEvent.name,
             input: { streamSid, trackName, text: finalResult },
           });
         }
@@ -142,11 +141,11 @@ export async function streamThread() {
       }
     );
 
-    onUpdate(
+    onEvent(
       answerEvent,
       async ({ streamSid, trackName, response, isLast }: Answer) => {
         const { audio } = await step<typeof functions>({
-          podName: `deepgram`,
+          taskQueue: `deepgram`,
           scheduleToCloseTimeout: "2 minutes",
         }).deepgramSpeak({
           streamSid,
@@ -163,13 +162,13 @@ export async function streamThread() {
             const { streamSid, audio } = audioQueue.shift()!;
 
             await step<typeof functions>({
-              podName: `websocket`,
+              taskQueue: `websocket`,
               scheduleToCloseTimeout: "2 minutes",
             }).sendAudio({ streamSid, audio });
           }
 
           await step<typeof functions>({
-            podName: `websocket`,
+            taskQueue: `websocket`,
             scheduleToCloseTimeout: "1 minute",
           }).sendEvent({
             streamSid,
@@ -185,7 +184,7 @@ export async function streamThread() {
     );
 
     let ended = false;
-    onUpdate(streamEnd, async () => {
+    onEvent(streamEnd, async () => {
       log.info(`streamEnd received`);
       ended = true;
     });

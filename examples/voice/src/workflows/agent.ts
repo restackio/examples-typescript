@@ -1,13 +1,12 @@
 import {
   step,
-  defineUpdate,
   log,
   workflowInfo,
   condition,
-  onUpdate,
 } from "@restackio/restack-sdk-ts/workflow";
 import * as functions from "../functions";
 import { TrackName } from "./stream";
+import { defineEvent, onEvent } from "@restackio/restack-sdk-ts/event";
 
 export type ToolCall = {
   index: number;
@@ -27,11 +26,11 @@ export type Reply = {
   text: string;
 };
 
-export const toolCallEvent = defineUpdate<ToolCall>("toolCall");
-export const replyEvent = defineUpdate<Reply>("reply");
-export const agentEnd = defineUpdate("agentEnd");
+export const toolCallEvent = defineEvent<ToolCall>("toolCall");
+export const replyEvent = defineEvent<Reply>("reply");
+export const agentEnd = defineEvent("agentEnd");
 
-export async function agentThread({
+export async function agentWorkflow({
   streamSid,
   trackName,
   message,
@@ -49,14 +48,14 @@ export async function agentThread({
     workflowToUpdate: { workflowId: string; runId: string };
   }) {
     return step<typeof functions>({
-      podName: `openai`,
+      taskQueue: `openai`,
       scheduleToCloseTimeout: "2 minutes",
     }).openaiChat(params);
   }
 
   async function callERPFunction(toolFunction: ToolCall["function"]) {
     const erpStep = step<typeof functions>({
-      podName: `erp`,
+      taskQueue: `erp`,
       scheduleToCloseTimeout: "2 minutes",
     });
 
@@ -81,7 +80,7 @@ export async function agentThread({
     let openaiChatMessages: any[] = [];
 
     const tools = await step<typeof functions>({
-      podName: `erp`,
+      taskQueue: `erp`,
       scheduleToCloseTimeout: "2 minutes",
     }).erpTools();
 
@@ -100,7 +99,7 @@ export async function agentThread({
       openaiChatMessages = initialMessage.messages;
     }
 
-    onUpdate(toolCallEvent, async ({ function: toolFunction }: ToolCall) => {
+    onEvent(toolCallEvent, async ({ function: toolFunction }: ToolCall) => {
       log.info("toolCallEvent", { toolFunction });
 
       const toolResult = await callERPFunction(toolFunction);
@@ -129,7 +128,7 @@ export async function agentThread({
       return { function: toolFunction };
     });
 
-    onUpdate(replyEvent, async ({ streamSid, trackName, text }: Reply) => {
+    onEvent(replyEvent, async ({ streamSid, trackName, text }: Reply) => {
       const replyMessage = await callOpenAIChat({
         streamSid,
         trackName,
@@ -150,7 +149,7 @@ export async function agentThread({
     });
 
     let ended = false;
-    onUpdate(agentEnd, async () => {
+    onEvent(agentEnd, async () => {
       log.info(`agentEnd received`);
       ended = true;
     });
@@ -159,7 +158,7 @@ export async function agentThread({
 
     return;
   } catch (error) {
-    log.error("Error in agentThread", { error });
+    log.error("Error in agentWorkflow", { error });
     throw error;
   }
 }

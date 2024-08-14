@@ -4,7 +4,7 @@ import Restack from "@restackio/restack-sdk-ts";
 interface UpdateAgentInput {
   workflowId: string;
   runId: string;
-  updateName: string;
+  eventName: string;
   input: {
     [key: string]: any;
   };
@@ -13,15 +13,15 @@ interface UpdateAgentInput {
 export async function updateAgent({
   workflowId,
   runId,
-  updateName,
+  eventName,
   input,
 }: UpdateAgentInput) {
   const restack = new Restack();
 
-  return restack.update({
+  return restack.sendWorkflowEvent({
     workflowId,
     runId,
-    updateName,
+    eventName,
     input,
   });
 }

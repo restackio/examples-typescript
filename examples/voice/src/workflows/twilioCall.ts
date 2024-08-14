@@ -7,7 +7,7 @@ interface Output {
 
 export async function twilioCallWorkflow(): Promise<Output> {
   const { sid } = await step<typeof functions>({
-    podName: `twilio`,
+    taskQueue: `twilio`,
     scheduleToCloseTimeout: "1 minute",
   }).twilioCall();
 

@@ -1,5 +1,5 @@
 import { FunctionFailure, log } from "@restackio/restack-sdk-ts/function";
-import { TrackName } from "../../threads";
+import { TrackName } from "../../workflows";
 import { Buffer } from "node:buffer";
 import "dotenv/config";
 import { createClient } from "@deepgram/sdk";

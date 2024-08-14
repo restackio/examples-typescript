@@ -4,7 +4,7 @@ async function scheduleWorkflow() {
   try {
     const restack = new Restack();
 
-    const workflowRunId = await restack.schedule({
+    const workflowRunId = await restack.scheduleWorkflow({
       workflowName: "twilioCallWorkflow",
       workflowId: `${Date.now()}-twilioCallWorkflow`,
     });

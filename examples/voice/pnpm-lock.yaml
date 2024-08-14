@@ -12,8 +12,8 @@ importers:
         specifier: ^3.5.1
         version: 3.5.1(bufferutil@4.0.8)(encoding@0.1.12)
       '@restackio/restack-sdk-ts':
-        specifier: ^0.0.34
-        version: 0.0.34
+        specifier: ^0.0.39
+        version: 0.0.39
       '@temporalio/workflow':
         specifier: 1.10.3
         version: 1.10.3
@@ -175,8 +175,8 @@ packages:
   '@protobufjs/utf8@1.1.0':
     resolution: {integrity: sha512-Vvn3zZrhQZkkBE8LSuW3em98c0FwgO4nxzv6OdSxPKJIEKY2bGbHn+mhGIPerzI4twdxaP8/0+06HBpwf345Lw==}
 
-  '@restackio/restack-sdk-ts@0.0.34':
-    resolution: {integrity: sha512-c0XdF3KsGrtTMg/+E0FMbhKON9bMY5CgbzkuY5SHxQVsjXK+pSEEeORsyMK3AkQYQLvz6c7M8a6ucyD7H0997g==}
+  '@restackio/restack-sdk-ts@0.0.39':
+    resolution: {integrity: sha512-VBoMP/kYJT61Lp44grnQujALxKn0YKhoqMFHFt9WHgBI0yKf98yabuQdRt8zNWFs9aZGX/cERakMtSt1P3ByTQ==}
     engines: {node: '>=20'}
 
   '@swc/core-darwin-arm64@1.7.10':
@@ -1548,7 +1548,7 @@ snapshots:
 
   '@protobufjs/utf8@1.1.0': {}
 
-  '@restackio/restack-sdk-ts@0.0.34':
+  '@restackio/restack-sdk-ts@0.0.39':
     dependencies:
       '@temporalio/activity': 1.10.3
       '@temporalio/client': 1.10.3
