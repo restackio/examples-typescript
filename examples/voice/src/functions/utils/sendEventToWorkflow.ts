@@ -1,7 +1,7 @@
 import "dotenv/config";
 import Restack from "@restackio/restack-sdk-ts";
 
-interface UpdateAgentInput {
+interface SendEventToWorkflowInput {
   workflowId: string;
   runId: string;
   eventName: string;
@@ -10,12 +10,12 @@ interface UpdateAgentInput {
   };
 }
 
-export async function updateAgent({
+export async function sendEventToWorkflow({
   workflowId,
   runId,
   eventName,
   input,
-}: UpdateAgentInput) {
+}: SendEventToWorkflowInput) {
   const restack = new Restack();
 
   return restack.sendWorkflowEvent({

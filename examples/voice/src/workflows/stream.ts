@@ -130,7 +130,7 @@ export async function streamWorkflow() {
           step<typeof functions>({
             taskQueue: `restack`,
             scheduleToCloseTimeout: "1 minute",
-          }).updateAgent({
+          }).sendEventToWorkflow({
             workflowId: `${streamSid}-agentWorkflow`,
             runId: childAgentRunId,
             eventName: replyEvent.name,

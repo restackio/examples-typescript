@@ -1,6 +1,6 @@
 import Restack from "@restackio/restack-sdk-ts";
 import {
-  updateAgent,
+  sendEventToWorkflow,
   twilioCall,
   deepgramListen,
   deepgramSpeak,
@@ -24,7 +24,7 @@ async function main() {
       restack.startWorker({
         taskQueue: "restack",
         workflowsPath,
-        functions: { updateAgent },
+        functions: { sendEventToWorkflow },
       }),
       restack.startWorker({
         taskQueue: "websocket",
