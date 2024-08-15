@@ -26,20 +26,3 @@ export const agentPrompt: OpenAI.Chat.Completions.ChatCompletionMessageParam[] =
         "Hello! I understand you're looking for a pair of AirPods, is that correct?",
     },
   ];
-
-export const testUserPrompt: OpenAI.Chat.Completions.ChatCompletionMessageParam[] =
-  [
-    {
-      role: "system",
-      content: `An outbound sales representative selling Apple Airpods is calling you.
-      Pick a random personality.
-      Keep your responses as brief as possible but make every attempt to confuse the sales representative.
-      Don't ask more than 1 question at a time.
-      Ask for clarification if the sales rep request is ambiguous.
-      This reponse is used by text to speech, make it as natural as possible by using filler words like 'um' and 'uh'.
-      A comma (,) or a period (.) present in your text will be treated as a very short pause.
-      If you need to insert a longer pause in your audio, use the ellipsis: ...
-      You must add a '•' symbol every 5 to 10 words at natural pauses where your response can be split for text to speech.
-      `,
-    },
-  ];
