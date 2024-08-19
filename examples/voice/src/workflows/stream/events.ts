@@ -1,28 +1,19 @@
 import { defineEvent } from "@restackio/restack-sdk-ts/event";
+import { WebsocketEvent } from "@restackio/integrations-websocket/types";
 
 export type StreamInfo = {
   streamSid: string;
 };
 
-export type AudioIn = {
-  streamSid: string;
-  payload: string;
-};
-
-export type Answer = {
-  streamSid: string;
-  response: string;
-  isLast?: boolean;
+export type UserEvent = {
+  message: string;
+  userName?: string;
 };
 
 export const streamInfoEvent = defineEvent<StreamInfo>("streamInfo");
 
-export const audioInEvent = defineEvent<AudioIn>("audioIn");
+export const audioInEvent = defineEvent<WebsocketEvent>("audioIn");
 
-export const answerEvent = defineEvent<Answer>("answer");
+export const userEvent = defineEvent<UserEvent>("user");
 
 export const streamEndEvent = defineEvent("streamEnd");
-
-// use for websocket event shown to show transcript in frontend for ex.
-
-export const questionEvent = defineEvent("question");

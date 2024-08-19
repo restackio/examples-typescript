@@ -6,8 +6,8 @@
   "scripts": {
     "start.watch": "nodemon src/operator.ts",
     "dev": "pnpm start.watch",
+    "clean": "rm -rf node_modules",
     "workflow": "ts-node ./scheduleWorkflow.ts",
-    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "nodemonConfig": {
     "execMap": {
@@ -20,7 +20,7 @@
   },
   "dependencies": {
     "@restackio/integrations-openai": "^0.0.2",
-    "@restackio/restack-sdk-ts": "^0.0.48",
+    "@restackio/restack-sdk-ts": "^0.0.53",
     "@temporalio/workflow": "^1.11.1",
     "dotenv": "^16.4.5",
     "zod": "^3.23.8",

@@ -12,7 +12,7 @@ const app = express();
 const server = createServer(app);
 const wss = new WebSocketServer({ server });
 const PORT = process.env.PORT || 4000;
-export const websocketAddress = `wss://${process.env.SERVER}/connection`;
+export const websocketAddress = `ws://localhost:${PORT}/connection`;
 
 app.use(cors());
 app.use(express.json());
@@ -26,19 +26,19 @@ app.post("/start", async (req, res) => {
     const workflowRunId = await restack.scheduleWorkflow({
       workflowName: streamWorkflow.name,
       workflowId,
+      input: { address: websocketAddress },
     });
-
-    console.log("workflowRunId", workflowRunId);
-
     if (workflowRunId) {
-      console.log("update");
       try {
-        console.log("update");
         restack.sendWorkflowEvent({
-          workflowId,
-          runId: workflowRunId,
-          eventName: streamInfoEvent.name,
-          input: { streamSid: workflowRunId },
+          event: {
+            name: streamInfoEvent.name,
+            input: { streamSid: workflowRunId },
+          },
+          workflow: {
+            workflowId,
+            runId: workflowRunId,
+          },
         });
       } catch (error) {
         console.log("update error", error);
@@ -62,7 +62,7 @@ app.post("/incoming", async (req, res) => {
     const runId = await restack.scheduleWorkflow({
       workflowName: streamWorkflow.name,
       workflowId,
-      input: {},
+      input: { address: websocketAddress },
     });
 
     console.log(`Started workflow with runId: ${runId}`);
@@ -105,7 +105,7 @@ wss.on("connection", (ws) => {
     const streamSid = message.streamSid;
 
     if (message.event === "start") {
-      console.log(`Twilio -> Starting Media Stream for ${streamSid}`);
+      console.log(`Starting stream ${streamSid}`);
       runId = message.start.customParameters.runId;
       workflowId = message.start.customParameters.workflowId;
       if (runId) {
@@ -113,13 +113,17 @@ wss.on("connection", (ws) => {
           if (streamSid) {
             const input: StreamInfo = { streamSid };
             await restack.sendWorkflowEvent({
-              workflowId,
-              runId,
-              eventName: streamInfoEvent.name,
-              input,
+              event: {
+                name: streamInfoEvent.name,
+                input,
+              },
+              workflow: {
+                workflowId,
+                runId,
+              },
             });
             console.log(
-              `Signaled workflow ${workflowId} runId ${runId} with Twilio streamSid: ${streamSid}`
+              `Sent workflow ${workflowId} runId ${runId} streamSid: ${streamSid}`
             );
           }
         } catch (error) {
@@ -129,7 +133,7 @@ wss.on("connection", (ws) => {
     }
 
     if (message.event === "stop") {
-      console.log(`Twilio -> Media stream ${streamSid} ended.`);
+      console.log(`Websocket stream ${streamSid} ended.`);
     }
   });
 });
