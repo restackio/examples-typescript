@@ -27,14 +27,14 @@ export async function example({ name }: Input) {
 
   const openaiOutput = await step<typeof openaiFunctions>({
     taskQueue: openaiTaskQueue,
-  }).openaiChatCompletion({
+  }).openaiChatCompletionsBase({
     apiKey: openaiKey,
     content,
     jsonSchema,
   });
 
-  const greetMessage = openaiOutput.response.choices[0].message.content ?? "";
-  const greetUsage = openaiOutput.usage;
+  const greetMessage = openaiOutput.result.choices[0].message.content ?? "";
+  const greetCost = openaiOutput.cost;
 
   log.info("greeted", { greetMessage });
 
@@ -48,8 +48,6 @@ export async function example({ name }: Input) {
 
   return {
     messages: [greetMessage, goodbyeMessage],
-    usage: {
-      ...greetUsage,
-    },
+    cost: greetCost,
   };
 }

@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@restackio/integrations-openai':
-        specifier: ^0.0.1
-        version: 0.0.1(zod@3.23.8)
+        specifier: ^0.0.2
+        version: 0.0.2(zod@3.23.8)
       '@restackio/restack-sdk-ts':
         specifier: ^0.0.48
         version: 0.0.48
@@ -155,8 +155,8 @@ packages:
   '@protobufjs/utf8@1.1.0':
     resolution: {integrity: sha512-Vvn3zZrhQZkkBE8LSuW3em98c0FwgO4nxzv6OdSxPKJIEKY2bGbHn+mhGIPerzI4twdxaP8/0+06HBpwf345Lw==}
 
-  '@restackio/integrations-openai@0.0.1':
-    resolution: {integrity: sha512-JH5Tye4If39AsAlRhDDtxbuJIbaNR7anDqRDPTAFMOv7ry42iOiApwJ2TNwgGRJo+4cSOv9uCwG8/wwdi/WQHg==}
+  '@restackio/integrations-openai@0.0.2':
+    resolution: {integrity: sha512-gTckODl8fGTOxiaVuLtqk4cCm+c49Eymnp58uxtWgea/yV8WlOrLygE3i9/FS9RMvWyXjcJB2rnN7M/c43j+yA==}
 
   '@restackio/restack-sdk-ts@0.0.40':
     resolution: {integrity: sha512-IlfnMo8c6qHBRag2K6OnUwP6OflQYuzDk1XlocpvnbwPwDnni8Zgzz1f4xRJvcfxpJETKIHCscWXSGMjVLNfvg==}
@@ -1121,7 +1121,7 @@ snapshots:
 
   '@protobufjs/utf8@1.1.0': {}
 
-  '@restackio/integrations-openai@0.0.1(zod@3.23.8)':
+  '@restackio/integrations-openai@0.0.2(zod@3.23.8)':
     dependencies:
       openai: 4.56.0(zod@3.23.8)
     transitivePeerDependencies:
