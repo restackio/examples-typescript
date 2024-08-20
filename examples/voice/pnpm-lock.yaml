@@ -15,8 +15,8 @@ importers:
         specifier: ^0.0.5
         version: 0.0.5(bufferutil@4.0.8)(encoding@0.1.12)
       '@restackio/integrations-openai':
-        specifier: ^0.0.11
-        version: 0.0.11(encoding@0.1.12)(zod@3.23.8)
+        specifier: ^0.0.12
+        version: 0.0.12(encoding@0.1.12)(zod@3.23.8)
       '@restackio/integrations-twilio':
         specifier: ^0.0.2
         version: 0.0.2
@@ -190,8 +190,8 @@ packages:
   '@restackio/integrations-deepgram@0.0.5':
     resolution: {integrity: sha512-2PQMOcvKYqj7pqEFQsgT3fNhkfgvs1j1Wmv+g9fTUlyfKIbQpLRY56rQRGXs/Nt895rTiaCdM81Y8zR4FhzjPw==}
 
-  '@restackio/integrations-openai@0.0.11':
-    resolution: {integrity: sha512-vq30Wx3amf6vAhdSUYfpQPMQxex95LBJGbYS9CQCj23R8PitL06jckuR5QF/fGd4C2IOt8rrI8gBNUpM6QIO6A==}
+  '@restackio/integrations-openai@0.0.12':
+    resolution: {integrity: sha512-FqGxPPercgsxE6c2G1Gi2H2FoIWqOEJu8FJUZxgS1zZhvPqutePMk2xIn5TG31mpSsOAfrRLb4qAOanH71PHNA==}
 
   '@restackio/integrations-twilio@0.0.2':
     resolution: {integrity: sha512-aEFCM9IQ8ZofAV7qAQGFPSsV9qTSWCHjkMmU/vKGbt0mxwnwkhWXKE5wHRSmyklpwNo8WI6M99FHG8guVdlb1w==}
@@ -1580,7 +1580,7 @@ snapshots:
       - encoding
       - utf-8-validate
 
-  '@restackio/integrations-openai@0.0.11(encoding@0.1.12)(zod@3.23.8)':
+  '@restackio/integrations-openai@0.0.12(encoding@0.1.12)(zod@3.23.8)':
     dependencies:
       openai: 4.56.0(encoding@0.1.12)(zod@3.23.8)
     transitivePeerDependencies:
