@@ -6,10 +6,10 @@ import {
 } from "@restackio/restack-sdk-ts/workflow";
 import * as functions from "../../functions";
 import { onEvent } from "@restackio/restack-sdk-ts/event";
-import { agentEnd, assistantEvent, toolCallEvent } from "./events";
+import { streamEvent, toolCallEvent, conversationEndEvent } from "./events";
 import { openaiTaskQueue } from "@restackio/integrations-openai/taskQueue";
 import * as openaiFunctions from "@restackio/integrations-openai/functions";
-import { UserEvent, userEvent } from "../stream/events";
+import { UserEvent, userEvent } from "../room/events";
 
 import {
   StreamEvent,
@@ -18,7 +18,7 @@ import {
 import { agentPrompt } from "../../functions/openai/prompt";
 import { ChatCompletionAssistantMessageParam } from "openai/resources/index";
 
-export async function agentWorkflow({
+export async function conversationWorkflow({
   assistantName,
   userName,
   message,
@@ -44,7 +44,7 @@ export async function agentWorkflow({
       tools,
       streamAtCharacter: "•",
       streamEvent: {
-        workflowEventName: assistantEvent.name,
+        workflowEventName: streamEvent.name,
         workflow: parentWorkflow,
       },
       toolEvent: {
@@ -100,7 +100,7 @@ export async function agentWorkflow({
 
           await step<typeof functions>({}).workflowSendEvent({
             event: {
-              name: assistantEvent.name,
+              name: streamEvent.name,
               input,
             },
             workflow: parentWorkflow,
@@ -166,11 +166,11 @@ export async function agentWorkflow({
       }
     );
 
-    // Terminate AI agent workflow.
+    // Terminate conversation workflow.
 
     let ended = false;
-    onEvent(agentEnd, async () => {
-      log.info(`agentEnd received`);
+    onEvent(conversationEndEvent, async () => {
+      log.info(`conversationEndEvent received`);
       ended = true;
     });
 
@@ -178,7 +178,7 @@ export async function agentWorkflow({
 
     return;
   } catch (error) {
-    log.error("Error in agentWorkflow", { error });
+    log.error("Error in conversationWorkflow", { error });
     throw error;
   }
 }

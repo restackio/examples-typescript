@@ -4,8 +4,8 @@ import { createServer } from "http";
 import WebSocket, { WebSocketServer } from "ws";
 import VoiceResponse from "twilio/lib/twiml/VoiceResponse";
 import Restack from "@restackio/restack-sdk-ts";
-import { streamWorkflow } from "./workflows/stream/stream";
-import { StreamInfo, streamInfoEvent } from "./workflows/stream/events";
+import { roomWorkflow } from "./workflows/room/room";
+import { RoomInfo, streamInfoEvent } from "./workflows/room/events";
 import cors from "cors";
 
 const app = express();
@@ -21,10 +21,10 @@ app.post("/start", async (req, res) => {
   try {
     const restack = new Restack();
 
-    const workflowId = `${Date.now()}-${streamWorkflow.name}`;
+    const workflowId = `${Date.now()}-${roomWorkflow.name}`;
 
     const workflowRunId = await restack.scheduleWorkflow({
-      workflowName: streamWorkflow.name,
+      workflowName: roomWorkflow.name,
       workflowId,
       input: { address: websocketAddress },
     });
@@ -57,10 +57,10 @@ app.post("/start", async (req, res) => {
 
 app.post("/incoming", async (req, res) => {
   try {
-    const workflowId = `${Date.now()}-${streamWorkflow.name}`;
+    const workflowId = `${Date.now()}-${roomWorkflow.name}`;
     const restack = new Restack();
     const runId = await restack.scheduleWorkflow({
-      workflowName: streamWorkflow.name,
+      workflowName: roomWorkflow.name,
       workflowId,
       input: { address: websocketAddress },
     });
@@ -111,7 +111,7 @@ wss.on("connection", (ws) => {
       if (runId) {
         try {
           if (streamSid) {
-            const input: StreamInfo = { streamSid };
+            const input: RoomInfo = { streamSid };
             await restack.sendWorkflowEvent({
               event: {
                 name: streamInfoEvent.name,

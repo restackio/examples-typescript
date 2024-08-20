@@ -17,7 +17,7 @@
     "@deepgram/sdk": "^3.5.1",
     "@restackio/integrations-deepgram": "^0.0.5",
     "@restackio/integrations-openai": "^0.0.11",
-    "@restackio/integrations-twilio": "^0.0.1",
+    "@restackio/integrations-twilio": "^0.0.2",
     "@restackio/integrations-websocket": "^0.0.6",
     "@restackio/restack-sdk-ts": "^0.0.53",
     "@temporalio/workflow": "1.11.1",

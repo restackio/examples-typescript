@@ -1,7 +1,7 @@
 import { defineEvent } from "@restackio/restack-sdk-ts/event";
 import { WebsocketEvent } from "@restackio/integrations-websocket/types";
 
-export type StreamInfo = {
+export type RoomInfo = {
   streamSid: string;
 };
 
@@ -10,10 +10,17 @@ export type UserEvent = {
   userName?: string;
 };
 
-export const streamInfoEvent = defineEvent<StreamInfo>("streamInfo");
+export type RoomMessageEvent = {
+  trackId: string;
+  text: string;
+};
+
+export const streamInfoEvent = defineEvent<RoomInfo>("streamInfo");
 
 export const audioInEvent = defineEvent<WebsocketEvent>("audioIn");
 
-export const userEvent = defineEvent<UserEvent>("user");
+export const userEvent = defineEvent<UserEvent>("userMessage");
+
+export const roomMessageEvent = defineEvent<RoomMessageEvent>("roomMessage");
 
 export const streamEndEvent = defineEvent("streamEnd");

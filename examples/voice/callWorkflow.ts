@@ -7,6 +7,11 @@ async function scheduleWorkflow() {
     const workflowRunId = await restack.scheduleWorkflow({
       workflowName: "twilioCallWorkflow",
       workflowId: `${Date.now()}-twilioCallWorkflow`,
+      input: {
+        to: process.env.FROM_NUMBER,
+        from: process.env.YOUR_NUMBER,
+        url: `https://${process.env.SERVER}/incoming`,
+      },
     });
 
     console.log("Workflow scheduled successfully:", workflowRunId);

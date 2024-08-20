@@ -7,16 +7,17 @@ import {
 } from "@restackio/restack-sdk-ts/workflow";
 import { onEvent } from "@restackio/restack-sdk-ts/event";
 import * as functions from "../../functions";
-import { agentWorkflow } from "../agent/agent";
+import { conversationWorkflow } from "../conversation/conversation";
 import {
   audioInEvent,
   userEvent,
   streamEndEvent,
-  StreamInfo,
+  RoomInfo,
   streamInfoEvent,
   UserEvent,
+  roomMessageEvent,
 } from "./events";
-import { assistantEvent } from "../agent/events";
+import { streamEvent } from "../conversation/events";
 import { websocketTaskQueue } from "@restackio/integrations-websocket/taskQueue";
 import * as websocketFunctions from "@restackio/integrations-websocket/functions";
 import { deepgramTaskQueue } from "@restackio/integrations-deepgram/taskQueue";
@@ -24,7 +25,7 @@ import * as deepgramFunctions from "@restackio/integrations-deepgram/functions";
 import { StreamEvent } from "@restackio/integrations-openai/types";
 import { WebsocketEvent } from "@restackio/integrations-websocket/types";
 
-export async function streamWorkflow({ address }: { address?: string }) {
+export async function roomWorkflow({ address }: { address?: string }) {
   try {
     let currentstreamSid: string;
     let interactionCount = 0;
@@ -33,12 +34,12 @@ export async function streamWorkflow({ address }: { address?: string }) {
       text: string;
     }[] = [];
     let isSendingAudio = false;
-    let childAgentRunId = "";
+    let childConversationWorkflowRunId = "";
 
     const assistantName = "agent";
 
     // Start long running websocket and stream welcome message to websocket.
-    onEvent(streamInfoEvent, async ({ streamSid }: StreamInfo) => {
+    onEvent(streamInfoEvent, async ({ streamSid }: RoomInfo) => {
       log.info(`Workflow update with streamSid: ${streamSid}`);
       step<typeof websocketFunctions>({
         taskQueue: websocketTaskQueue,
@@ -85,7 +86,7 @@ export async function streamWorkflow({ address }: { address?: string }) {
       await step<typeof websocketFunctions>({
         taskQueue: websocketTaskQueue,
       }).websocketSend({
-        name: assistantEvent.name,
+        name: roomMessageEvent.name,
         input: {
           streamSid,
           data: { trackId: assistantName, text: welcomeMessage },
@@ -97,7 +98,7 @@ export async function streamWorkflow({ address }: { address?: string }) {
       return { streamSid };
     });
 
-    // Receives audio, transcribe it and send transcription to AI agent.
+    // Receives audio, transcribe it and send transcription to conversation with AI .
 
     onEvent(audioInEvent, async ({ streamSid, media }: WebsocketEvent) => {
       log.info(`Workflow update with streamSid: ${streamSid}`);
@@ -124,7 +125,7 @@ export async function streamWorkflow({ address }: { address?: string }) {
 
         await step<typeof functions>({}).workflowSendEvent({
           event: {
-            name: assistantEvent.name,
+            name: roomMessageEvent.name,
             input,
           },
           workflow: {
@@ -150,8 +151,8 @@ export async function streamWorkflow({ address }: { address?: string }) {
         address,
       });
 
-      if (!childAgentRunId) {
-        const childAgent = await startChild(agentWorkflow, {
+      if (!childConversationWorkflowRunId) {
+        const childWorkflow = await startChild(conversationWorkflow, {
           args: [
             {
               assistantName,
@@ -159,9 +160,9 @@ export async function streamWorkflow({ address }: { address?: string }) {
               message: transcript,
             },
           ],
-          workflowId: `${streamSid}-agentWorkflow`,
+          workflowId: `${streamSid}-conversationWorkflow`,
         });
-        childAgentRunId = childAgent.firstExecutionRunId;
+        childConversationWorkflowRunId = childWorkflow.firstExecutionRunId;
       } else {
         const input: UserEvent = {
           userName: media.trackId,
@@ -175,8 +176,8 @@ export async function streamWorkflow({ address }: { address?: string }) {
             input,
           },
           workflow: {
-            workflowId: `${streamSid}-agentWorkflow`,
-            runId: childAgentRunId,
+            workflowId: `${streamSid}-conversationWorkflow`,
+            runId: childConversationWorkflowRunId,
           },
         });
       }
@@ -186,7 +187,7 @@ export async function streamWorkflow({ address }: { address?: string }) {
     // Receives AI answer, generates audio and stream it to websocket.
 
     onEvent(
-      assistantEvent,
+      streamEvent,
       async ({ response, isLast, assistantName }: StreamEvent) => {
         const { media } = await step<typeof deepgramFunctions>({
           taskQueue: deepgramTaskQueue,
@@ -221,7 +222,7 @@ export async function streamWorkflow({ address }: { address?: string }) {
           await step<typeof websocketFunctions>({
             taskQueue: websocketTaskQueue,
           }).websocketSend({
-            name: assistantEvent.name,
+            name: roomMessageEvent.name,
             input: {
               streamSid: currentstreamSid,
               data: { trackId: assistantName, text: response },
@@ -249,7 +250,7 @@ export async function streamWorkflow({ address }: { address?: string }) {
 
     return;
   } catch (error) {
-    log.error("Error in streamWorkflow", { error });
+    log.error("Error in streamRoom", { error });
     throw error;
   }
 }

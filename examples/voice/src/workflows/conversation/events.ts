@@ -4,6 +4,6 @@ import {
   ToolCallEvent,
 } from "@restackio/integrations-openai/types";
 
-export const assistantEvent = defineEvent<StreamEvent>("assistant");
+export const streamEvent = defineEvent<StreamEvent>("stream");
 export const toolCallEvent = defineEvent<ToolCallEvent>("toolCall");
-export const agentEnd = defineEvent("agentEnd");
+export const conversationEndEvent = defineEvent("conversationEndEvent");
