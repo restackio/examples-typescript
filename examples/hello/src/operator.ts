@@ -1,5 +1,5 @@
 import Restack from "@restackio/restack-sdk-ts";
-import { goodbye, getOpenaiKey } from "./functions";
+import { goodbye } from "./functions";
 import { openaiService } from "@restackio/integrations-openai";
 export const restack = new Restack();
 
@@ -10,7 +10,7 @@ async function main() {
       // Start service with current workflows and functions
       restack.startService({
         workflowsPath,
-        functions: { goodbye, getOpenaiKey },
+        functions: { goodbye },
       }),
       // Start the openai service
       openaiService(),
