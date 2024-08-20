@@ -1,27 +1,14 @@
-import "dotenv/config";
 import Restack from "@restackio/restack-sdk-ts";
-
-interface SendEventToWorkflowInput {
-  workflowId: string;
-  runId: string;
-  eventName: string;
-  input: {
-    [key: string]: any;
-  };
-}
+import { SendWorkflowEvent } from "@restackio/restack-sdk-ts/event";
 
 export async function workflowSendEvent({
-  workflowId,
-  runId,
-  eventName,
-  input,
-}: SendEventToWorkflowInput) {
+  event,
+  workflow,
+}: SendWorkflowEvent) {
   const restack = new Restack();
 
   return restack.sendWorkflowEvent({
-    workflowId,
-    runId,
-    eventName,
-    input,
+    event,
+    workflow,
   });
 }

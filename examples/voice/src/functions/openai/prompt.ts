@@ -20,9 +20,4 @@ export const agentPrompt: OpenAI.Chat.Completions.ChatCompletionMessageParam[] =
       You must add a '•' symbol every 5 to 10 words at natural pauses where your response can be split for text to speech.
       `,
     },
-    {
-      role: "assistant",
-      content:
-        "Hello! I understand you're looking for a pair of AirPods, is that correct?",
-    },
   ];

@@ -1,2 +1,2 @@
 export * from "./goodbye";
-export * from "./greet";
+export * from "./getOpenaiKey";

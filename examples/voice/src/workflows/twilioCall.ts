@@ -1,15 +1,29 @@
 import { log, step } from "@restackio/restack-sdk-ts/workflow";
-import * as functions from "../functions";
-
+import * as twilioFunctions from "@restackio/integrations-twilio/functions";
+import { twilioTaskQueue } from "@restackio/integrations-twilio/taskQueue";
 interface Output {
   sid: string;
 }
 
-export async function twilioCallWorkflow(): Promise<Output> {
-  const { sid } = await step<typeof functions>({
-    taskQueue: `twilio`,
+export async function twilioCallWorkflow({
+  to,
+  from,
+  url,
+}: {
+  to: string;
+  from: string;
+  url: string;
+}): Promise<Output> {
+  const { sid } = await step<typeof twilioFunctions>({
+    taskQueue: twilioTaskQueue,
     scheduleToCloseTimeout: "1 minute",
-  }).twilioCall();
+  }).twilioCall({
+    options: {
+      to,
+      from,
+      url,
+    },
+  });
 
   if (!sid) {
     throw new Error("Not able to create Twilio call");
