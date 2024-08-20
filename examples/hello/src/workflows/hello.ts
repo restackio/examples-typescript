@@ -9,11 +9,7 @@ interface Input {
   name: string;
 }
 
-export async function example({ name }: Input) {
-  // Need to get the openai key from the utils function otherwise breaks determinism
-
-  const openaiKey = await step<typeof functions>({}).getOpenaiKey();
-
+export async function helloWorkflow({ name }: Input) {
   const content = `Greet this person: ${name}. In 4 words or less.`;
 
   const MessageSchema = z.object({
@@ -25,10 +21,11 @@ export async function example({ name }: Input) {
     schema: zodToJsonSchema(MessageSchema),
   };
 
+  // Step 1 create greeting message with openai
+
   const openaiOutput = await step<typeof openaiFunctions>({
     taskQueue: openaiTaskQueue,
   }).openaiChatCompletionsBase({
-    apiKey: openaiKey,
     content,
     jsonSchema,
   });
