@@ -1,0 +1,31 @@
+{
+  "name": "restack-posthog",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "ts-node-dev --respawn --transpile-only src/operator.ts",
+    "clean": "rm -rf node_modules",
+    "workflow": "ts-node ./scheduleWorkflow.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@restackio/integrations-openai": "^0.0.15",
+    "@restackio/restack-sdk-ts": "^0.0.53",
+    "@temporalio/workflow": "1.11.1",
+    "dotenv": "^16.4.5",
+    "typescript": "^5.5.4",
+    "uuid": "^10.0.0",
+    "zod": "^3.23.8",
+    "zod-to-json-schema": "^3.23.2"
+  },
+  "devDependencies": {
+    "@types/node": "^22.4.1",
+    "@types/uuid": "^10.0.0",
+    "nodemon": "^3.1.4",
+    "ts-node": "^10.9.2",
+    "ts-node-dev": "^2.0.0"
+  }
+}
