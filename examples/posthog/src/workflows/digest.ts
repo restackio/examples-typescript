@@ -1,7 +1,8 @@
 import { executeChild, step } from "@restackio/restack-sdk-ts/workflow";
 import { recordingWorkflow } from "./recording";
 import * as functions from "../functions";
-import z from "zod";
+import * as openaiFunctions from "@restackio/integrations-openai/functions";
+import { openaiTaskQueue } from "@restackio/integrations-openai/taskQueue";
 
 export async function digestWorkflow({
   projectId,
@@ -55,8 +56,8 @@ export async function digestWorkflow({
 
   // Create a digest from all the chunks summaries
 
-  const { cost, result } = await step({
-    taskQueue: "openai",
+  const { cost, result } = await step<typeof openaiFunctions>({
+    taskQueue: openaiTaskQueue,
   }).openaiChatCompletionsBase({
     systemPrompt:
       "You are a helpful assistant that summarizes posthog recordings.",

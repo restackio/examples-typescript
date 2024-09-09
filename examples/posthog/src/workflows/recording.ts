@@ -4,6 +4,8 @@ import { condition, log, step } from "@restackio/restack-sdk-ts/workflow";
 import z from "zod";
 import { ChunkSummary } from "./chunk";
 import zodToJsonSchema from "zod-to-json-schema";
+import * as openaiFunctions from "@restackio/integrations-openai/functions";
+import { openaiTaskQueue } from "@restackio/integrations-openai/taskQueue";
 
 export type ChunkSummaryEvent = {
   recordingId: string;
@@ -105,8 +107,8 @@ export async function recordingWorkflow({
     schema: zodToJsonSchema(recordingSummarySchema),
   };
 
-  const { cost, result } = await step({
-    taskQueue: "openai",
+  const { cost, result } = await step<typeof openaiFunctions>({
+    taskQueue: openaiTaskQueue,
   }).openaiChatCompletionsBase({
     systemPrompt:
       "You are a helpful assistant that summarizes posthog recordings.",
