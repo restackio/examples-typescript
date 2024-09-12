@@ -1,19 +1,18 @@
-import Restack from "@restackio/restack-sdk-ts";
 import { goodbye } from "./functions";
 import { openaiService } from "@restackio/integrations-openai";
-export const restack = new Restack();
+import { client } from "./client";
 
 async function main() {
   const workflowsPath = require.resolve("./workflows");
   try {
     await Promise.all([
       // Start service with current workflows and functions
-      restack.startService({
+      client.startService({
         workflowsPath,
         functions: { goodbye },
       }),
       // Start the openai service
-      openaiService(),
+      openaiService({ client }),
     ]);
 
     console.log("Services running successfully.");

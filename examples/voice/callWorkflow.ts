@@ -1,10 +1,8 @@
-import Restack from "@restackio/restack-sdk-ts";
+import { client } from "../hello/src/client";
 
 async function scheduleWorkflow() {
   try {
-    const restack = new Restack();
-
-    const workflowRunId = await restack.scheduleWorkflow({
+    const workflowRunId = await client.scheduleWorkflow({
       workflowName: "twilioCallWorkflow",
       workflowId: `${Date.now()}-twilioCallWorkflow`,
       input: {

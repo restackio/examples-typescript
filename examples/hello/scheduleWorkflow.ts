@@ -1,11 +1,9 @@
-import Restack from "@restackio/restack-sdk-ts";
+import { client } from "./src/client";
 
 async function scheduleWorkflow() {
   try {
-    const restack = new Restack();
-
     const workflowId = `${Date.now()}-helloWorkflow`;
-    const runId = await restack.scheduleWorkflow({
+    const runId = await client.scheduleWorkflow({
       workflowName: "helloWorkflow",
       workflowId,
       input: {
@@ -13,7 +11,7 @@ async function scheduleWorkflow() {
       },
     });
 
-    const result = await restack.getWorkflowResult({ workflowId, runId });
+    const result = await client.getWorkflowResult({ workflowId, runId });
 
     console.log("Workflow result:", result);
 

@@ -1,11 +1,9 @@
-import Restack from "@restackio/restack-sdk-ts";
 import "dotenv/config";
+import { client } from "../hello/src/client";
 
 async function scheduleWorkflow() {
   try {
-    const restack = new Restack();
-
-    const workflowRunId = await restack.scheduleWorkflow({
+    const workflowRunId = await client.scheduleWorkflow({
       workflowName: "digestWorkflow",
       workflowId: `${Date.now()}-digestWorkflow`,
       input: {
