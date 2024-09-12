@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start.watch": "nodemon src/operator.ts",
+    "start.watch": "nodemon src/services.ts",
     "dev": "pnpm start.watch",
     "clean": "rm -rf node_modules",
     "workflow": "ts-node ./scheduleWorkflow.ts"
@@ -19,16 +19,16 @@
     ]
   },
   "dependencies": {
-    "@restackio/integrations-openai": "^0.0.12",
-    "@restackio/restack-sdk-ts": "^0.0.53",
+    "@restackio/integrations-openai": "^0.0.18",
+    "@restackio/restack-sdk-ts": "^0.0.58",
     "@temporalio/workflow": "^1.11.1",
     "dotenv": "^16.4.5",
     "zod": "^3.23.8",
-    "zod-to-json-schema": "^3.23.2"
+    "zod-to-json-schema": "^3.23.3"
   },
   "devDependencies": {
-    "@types/node": "^20.11.1",
-    "nodemon": "^2.0.12",
+    "@types/node": "^20.16.5",
+    "nodemon": "^2.0.22",
     "ts-node": "^10.9.2"
   }
 }

@@ -1,4 +1,3 @@
-import Restack from "@restackio/restack-sdk-ts";
 import {
   workflowSendEvent,
   erpGetTools,
@@ -10,19 +9,18 @@ import { websocketService } from "@restackio/integrations-websocket";
 import { twilioService } from "@restackio/integrations-twilio";
 import { openaiService } from "@restackio/integrations-openai";
 import { deepgramService } from "@restackio/integrations-deepgram";
+import { client } from "./client";
 
 async function main() {
   const workflowsPath = require.resolve("./Workflows");
 
   try {
-    const restack = new Restack();
-
     await Promise.all([
-      restack.startService({
+      client.startService({
         workflowsPath,
         functions: { workflowSendEvent },
       }),
-      restack.startService({
+      client.startService({
         taskQueue: "erp",
         functions: {
           erpGetTools,
@@ -31,10 +29,10 @@ async function main() {
           erpPlaceOrder,
         },
       }),
-      websocketService(),
-      twilioService(),
-      openaiService(),
-      deepgramService(),
+      websocketService({ client }),
+      twilioService({ client }),
+      openaiService({ client }),
+      deepgramService({ client }),
     ]);
 
     console.log("Services running successfully.");
