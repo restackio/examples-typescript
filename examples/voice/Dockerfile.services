@@ -31,4 +31,4 @@ COPY --from=builder /app .
 
 WORKDIR /app
 
-CMD ["npm", "run start-services"]
+CMD ["npm", "run", "start-services"]

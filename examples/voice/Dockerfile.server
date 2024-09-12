@@ -33,4 +33,4 @@ WORKDIR /app
 
 EXPOSE 80
 
-CMD ["npm", "run start-server"]
+CMD ["npm", "run", "start-server"]
