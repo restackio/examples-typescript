@@ -1,4 +1,5 @@
 import { RestackCloud } from "@restackio/restack-sdk-cloud-ts";
+import "dotenv/config";
 
 const main = async () => {
   const restackCloudClient = new RestackCloud(process.env.RESTACK_SDK_TOKEN);
@@ -25,6 +26,10 @@ const main = async () => {
     dockerFilePath: "examples/voice/Dockerfile.server",
     dockerBuildContext: "examples/voice",
     environmentVariables: [
+      {
+        name: "PORT",
+        value: "80",
+      },
       {
         name: "SERVER_HOST",
         linkTo:serverName,

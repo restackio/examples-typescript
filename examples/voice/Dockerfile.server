@@ -31,6 +31,6 @@ COPY --from=builder /app .
 
 WORKDIR /app
 
-EXPOSE 4000
+EXPOSE 80
 
 CMD ["npm", "start-server"]
