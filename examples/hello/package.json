@@ -4,8 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "ts-node src/services.ts",
     "start.watch": "nodemon src/services.ts",
     "dev": "pnpm start.watch",
+    "build": "tsc --build",
     "clean": "rm -rf node_modules",
     "workflow": "ts-node ./scheduleWorkflow.ts"
   },

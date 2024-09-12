@@ -4,8 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "ts-node src/server.ts",
+    "start-services": "ts-node src/services.ts",
     "dev-server": "ts-node-dev --respawn --transpile-only src/server.ts",
     "dev-services": "ts-node-dev --respawn --transpile-only src/services.ts",
+    "build": "tsc --build",
     "clean": "rm -rf node_modules",
     "call": "ts-node ./callWorkflow.ts",
     "ngrok": "ngrok http 4000"

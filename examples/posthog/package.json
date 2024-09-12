@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "ts-node src/services.ts",
     "dev": "ts-node-dev --respawn --transpile-only src/services.ts",
+    "build": "tsc --build",
     "clean": "rm -rf node_modules",
     "workflow": "ts-node ./scheduleWorkflow.ts"
   },

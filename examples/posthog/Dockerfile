@@ -1,0 +1,34 @@
+# ------- Image ----------
+
+FROM node:20-bullseye-slim AS installer
+
+RUN apt-get update \
+  && apt-get install -y ca-certificates \
+  && rm -rf /var/lib/apt/lists/*
+
+COPY ./package.json ./app/package.json
+COPY ./tsconfig.json ./app/tsconfig.json
+
+
+WORKDIR /app
+
+RUN npm install
+
+# ------- Builder ----------
+
+FROM node:20-bullseye-slim AS builder
+WORKDIR /app
+COPY --from=installer /app .
+COPY ./src ./src
+
+RUN npm run build
+
+# ------- Builder ----------
+
+FROM node:20-bullseye-slim AS runner
+
+COPY --from=builder /app .
+
+WORKDIR /app
+
+CMD ["npm", "start"]

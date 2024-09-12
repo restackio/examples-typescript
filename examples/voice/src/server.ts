@@ -12,7 +12,9 @@ const app = express();
 const server = createServer(app);
 const wss = new WebSocketServer({ server });
 const PORT = process.env.PORT || 4000;
-export const websocketAddress = `ws://localhost:${PORT}/connection`;
+export const websocketAddress = `ws://${
+  process.env.SERVER_HOST ? process.env.SERVER_HOST : `localhost:${PORT}`
+}/connection`;
 
 app.use(cors());
 app.use(express.json());

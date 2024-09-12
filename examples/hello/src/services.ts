@@ -2,7 +2,7 @@ import { goodbye } from "./functions";
 import { openaiService } from "@restackio/integrations-openai";
 import { client } from "./client";
 
-async function main() {
+async function services() {
   const workflowsPath = require.resolve("./workflows");
   try {
     await Promise.all([
@@ -21,6 +21,6 @@ async function main() {
   }
 }
 
-main().catch((err) => {
-  console.error("Error in main:", err);
+services().catch((err) => {
+  console.error("Error running services:", err);
 });
