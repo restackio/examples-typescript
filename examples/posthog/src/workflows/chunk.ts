@@ -2,12 +2,27 @@ import { log, step } from "@restackio/restack-sdk-ts/workflow";
 import * as functions from "../functions";
 import * as openaiFunctions from "@restackio/integrations-openai/functions";
 import { openaiTaskQueue } from "@restackio/integrations-openai/taskQueue";
+import z from "zod";
+import zodToJsonSchema from "zod-to-json-schema";
 
 import {
   chunkSummaryEvent,
   ChunkSummaryEvent,
   summaryEndEvent,
 } from "./recording";
+
+const chunkSummarySchema = z.object({
+  recordingId: z.string().describe("The id of the recording."),
+  fromTimestamp: z
+    .string()
+    .describe("The start timestamp of this recording chunk."),
+  toTimestamp: z
+    .string()
+    .describe("The end timestamp of this recording chunk."),
+  summary: z.string().describe("The summary of this recording chunk."),
+});
+
+export type ChunkSummary = z.infer<typeof chunkSummarySchema>;
 
 export async function chunkWorkflow({
   recordingId,
