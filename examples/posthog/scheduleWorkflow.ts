@@ -17,7 +17,7 @@ async function scheduleWorkflow() {
         calendars: [
           {
             dayOfWeek: "*",
-            hour: 17, // Everyday at 5pm UTC = 10am
+            hour: 17, // Everyday at 5pm UTC = 10am PST
           },
         ],
       },
