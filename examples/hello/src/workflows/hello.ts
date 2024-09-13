@@ -10,7 +10,7 @@ interface Input {
 }
 
 export async function helloWorkflow({ name }: Input) {
-  const content = `Greet this person: ${name}. In 4 words or less.`;
+  const userContent = `Greet this person: ${name}. In 4 words or less.`;
 
   const MessageSchema = z.object({
     message: z.string().describe("The greeting message."),
@@ -26,7 +26,7 @@ export async function helloWorkflow({ name }: Input) {
   const openaiOutput = await step<typeof openaiFunctions>({
     taskQueue: openaiTaskQueue,
   }).openaiChatCompletionsBase({
-    content,
+    userContent,
     jsonSchema,
   });
 

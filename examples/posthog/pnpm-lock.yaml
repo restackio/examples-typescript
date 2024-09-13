@@ -8,9 +8,12 @@ importers:
 
   .:
     dependencies:
+      '@restackio/integrations-linear':
+        specifier: ^0.0.2
+        version: 0.0.2
       '@restackio/integrations-openai':
-        specifier: ^0.0.18
-        version: 0.0.18(zod@3.23.8)
+        specifier: ^0.0.22
+        version: 0.0.22(zod@3.23.8)
       '@restackio/restack-sdk-ts':
         specifier: ^0.0.57
         version: 0.0.57
@@ -54,6 +57,11 @@ packages:
   '@cspotcode/source-map-support@0.8.1':
     resolution: {integrity: sha512-IchNf6dN4tHoMFIn/7OE8LWZ19Y6q/67Bmf6vnGREv8RSbBVb9LPJxEcnwrcwX6ixSvaiGoomAUvu4YSxXrVgw==}
     engines: {node: '>=12'}
+
+  '@graphql-typed-document-node/core@3.2.0':
+    resolution: {integrity: sha512-mB9oAsNCm9aM3/SOv4YtBMqZbYj10R7dkq8byBqxGY/ncFwhf2oQzMV+LCRlWoDSEBJ3COiR1yeDvMtsoOsuFQ==}
+    peerDependencies:
+      graphql: ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0
 
   '@grpc/grpc-js@1.11.2':
     resolution: {integrity: sha512-DWp92gDD7/Qkj7r8kus6/HCINeo3yPZWZ3paKgDgsbKbSpoxKg1yvN8xe2Q8uE3zOsPe3bX8FQX2+XValq2yTw==}
@@ -109,6 +117,10 @@ packages:
     peerDependencies:
       tslib: '2'
 
+  '@linear/sdk@29.0.0':
+    resolution: {integrity: sha512-c3hmWW4L0sIL2Aaf0wt7LhfIc58AHdsHcQOCxWZC3nXb0dDvrG6/g9WFXM5k2dYSgPJHcZ21O/+KlI/KTOkK1A==}
+    engines: {node: '>=12.x', yarn: 1.x}
+
   '@protobufjs/aspromise@1.1.2':
     resolution: {integrity: sha512-j+gKExEuLmKwvz3OgROXtrJ2UG2x8Ch2YZUxahh+s1F2HZ+wAceUNLkvy6zKCPVRkU++ZWQrdxsUeQXmcg4uoQ==}
 
@@ -139,8 +151,11 @@ packages:
   '@protobufjs/utf8@1.1.0':
     resolution: {integrity: sha512-Vvn3zZrhQZkkBE8LSuW3em98c0FwgO4nxzv6OdSxPKJIEKY2bGbHn+mhGIPerzI4twdxaP8/0+06HBpwf345Lw==}
 
-  '@restackio/integrations-openai@0.0.18':
-    resolution: {integrity: sha512-UyLl1kKV1xR9VJfH11sR+LFiXf5XGdwEkfCi+Ba5ORx6qo8UG1g9wEYYUua99hH3l/j5ReEK/fI6GvxFGW8lcg==}
+  '@restackio/integrations-linear@0.0.2':
+    resolution: {integrity: sha512-nb+T8CGOBlrJZYUfHaMNlsXYx6/59n7HJOzd/e3Gd1aIaDX1KkgyCv85mkPJkNQT3U2wvGuNeD747xZTmwXIdA==}
+
+  '@restackio/integrations-openai@0.0.22':
+    resolution: {integrity: sha512-NzUhLdI1y+DLmYElsxfUMhsVQ0vBdjYayMUY8vgBdNpJGVoFWC7ATml4vJPAC1VuZ6jOpQ5e3mcnM+pcARgssQ==}
 
   '@restackio/restack-sdk-ts@0.0.57':
     resolution: {integrity: sha512-68p5ua5BgX6eJk2CrCMc0nKeSonCfvQM7F4EAEfc9OfC/vHg5S+IDOzxRxsa+y2/TSzKXwyRNmuDRIv4umjt7Q==}
@@ -586,6 +601,10 @@ packages:
   graceful-fs@4.2.11:
     resolution: {integrity: sha512-RbJ5/jmFcNNCcDV5o9eTnBLJ/HszWV0P73bc+Ff4nS/rJj+YaS6IGyiOL0VoBYX+l1Wrl3k63h/KrH+nhJ0XvQ==}
 
+  graphql@15.9.0:
+    resolution: {integrity: sha512-GCOQdvm7XxV1S4U4CGrsdlEN37245eC8P9zaYCMr6K1BG0IPGy5lUwmJsEOGyl1GD6HXjOtl2keCP9asRBwNvA==}
+    engines: {node: '>= 10.x'}
+
   has-flag@3.0.0:
     resolution: {integrity: sha512-sKJf1+ceQBr4SMkvQnBDNDtf4TXpVhVGateu0t918bl30FnbE2m4vNLX+VWe/dpjlb+HugGYzW7uQXH98HPEYw==}
     engines: {node: '>=4'}
@@ -661,6 +680,9 @@ packages:
   isexe@3.1.1:
     resolution: {integrity: sha512-LpB/54B+/2J5hqQ7imZHfdU31OlgQqx7ZicVlkm9kzg9/w8GKLEcFfJl/t7DCEDueOyBAD6zCCwTO6Fzs0NoEQ==}
     engines: {node: '>=16'}
+
+  isomorphic-unfetch@3.1.0:
+    resolution: {integrity: sha512-geDJjpoZ8N0kWexiwkX8F9NkTsXhetLPVbZFQ+JTW239QNOwvB0gniuR1Wc6f0AMTn7/mFGyXvHTifrCp/GH8Q==}
 
   jest-worker@27.5.1:
     resolution: {integrity: sha512-7vuh85V5cdDofPyxn58nrPjBktZo0u9x1g8WtjQol+jZDaE+fhN+cIvTj11GndBnMnyfrUOG1sZQxCdjKh+DKg==}
@@ -753,8 +775,8 @@ packages:
   once@1.4.0:
     resolution: {integrity: sha512-lNaJgI+2Q5URQBkccEKHTQOPaXdUxnZZElQTZY0MFUAuaEqe1E+Nyvgdz/aIyNi6Z9MzO5dv1H8n58/GELp3+w==}
 
-  openai@4.59.0:
-    resolution: {integrity: sha512-3bn7FypMt2R1ZDuO0+GcXgBEnVFhIzrpUkb47pQRoYvyfdZ2fQXcuP14aOc4C8F9FvCtZ/ElzJmVzVqnP4nHNg==}
+  openai@4.60.1:
+    resolution: {integrity: sha512-j7aZOpgN0MtflPgNaBlSnOyok4jwto0GVOxVC5g0jCfa0lvywYx+LhlFim/dXzPtyi8MjKozyLshSj93617vNQ==}
     hasBin: true
     peerDependencies:
       zod: ^3.23.8
@@ -1000,6 +1022,9 @@ packages:
   undici-types@6.19.8:
     resolution: {integrity: sha512-ve2KP6f/JnbPBFyobGHuerC9g1FYGn/F8n1LWTwNxCEzd6IfqTwUQcNXgEtmmQ6DlRrC1hrSrBnCZPokRrDHjw==}
 
+  unfetch@4.2.0:
+    resolution: {integrity: sha512-F9p7yYCn6cIW9El1zi0HI6vqpeIvBsr3dSuRO6Xuppb1u5rXpCPmMvLSyECLhybr9isec8Ohl0hPekMVrEinDA==}
+
   unionfs@4.5.4:
     resolution: {integrity: sha512-qI3RvJwwdFcWUdZz1dWgAyLSfGlY2fS2pstvwkZBUTnkxjcnIvzriBLtqJTKz9FtArAvJeiVCqHlxhOw8Syfyw==}
 
@@ -1097,6 +1122,10 @@ snapshots:
     dependencies:
       '@jridgewell/trace-mapping': 0.3.9
 
+  '@graphql-typed-document-node/core@3.2.0(graphql@15.9.0)':
+    dependencies:
+      graphql: 15.9.0
+
   '@grpc/grpc-js@1.11.2':
     dependencies:
       '@grpc/proto-loader': 0.7.13
@@ -1154,6 +1183,14 @@ snapshots:
     dependencies:
       tslib: 2.7.0
 
+  '@linear/sdk@29.0.0':
+    dependencies:
+      '@graphql-typed-document-node/core': 3.2.0(graphql@15.9.0)
+      graphql: 15.9.0
+      isomorphic-unfetch: 3.1.0
+    transitivePeerDependencies:
+      - encoding
+
   '@protobufjs/aspromise@1.1.2': {}
 
   '@protobufjs/base64@1.1.2': {}
@@ -1177,9 +1214,15 @@ snapshots:
 
   '@protobufjs/utf8@1.1.0': {}
 
-  '@restackio/integrations-openai@0.0.18(zod@3.23.8)':
+  '@restackio/integrations-linear@0.0.2':
     dependencies:
-      openai: 4.59.0(zod@3.23.8)
+      '@linear/sdk': 29.0.0
+    transitivePeerDependencies:
+      - encoding
+
+  '@restackio/integrations-openai@0.0.22(zod@3.23.8)':
+    dependencies:
+      openai: 4.60.1(zod@3.23.8)
     transitivePeerDependencies:
       - encoding
       - zod
@@ -1659,6 +1702,8 @@ snapshots:
 
   graceful-fs@4.2.11: {}
 
+  graphql@15.9.0: {}
+
   has-flag@3.0.0: {}
 
   has-flag@4.0.0: {}
@@ -1715,6 +1760,13 @@ snapshots:
   is-number@7.0.0: {}
 
   isexe@3.1.1: {}
+
+  isomorphic-unfetch@3.1.0:
+    dependencies:
+      node-fetch: 2.7.0
+      unfetch: 4.2.0
+    transitivePeerDependencies:
+      - encoding
 
   jest-worker@27.5.1:
     dependencies:
@@ -1792,7 +1844,7 @@ snapshots:
     dependencies:
       wrappy: 1.0.2
 
-  openai@4.59.0(zod@3.23.8):
+  openai@4.60.1(zod@3.23.8):
     dependencies:
       '@types/node': 18.19.50
       '@types/node-fetch': 2.6.11
@@ -2042,6 +2094,8 @@ snapshots:
   undici-types@5.26.5: {}
 
   undici-types@6.19.8: {}
+
+  unfetch@4.2.0: {}
 
   unionfs@4.5.4:
     dependencies:

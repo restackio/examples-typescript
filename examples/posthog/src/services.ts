@@ -8,6 +8,7 @@ import {
 } from "./functions";
 import { openaiService } from "@restackio/integrations-openai";
 import { client } from "./client";
+import { linearService } from "@restackio/integrations-linear";
 
 async function services() {
   const workflowsPath = require.resolve("./Workflows");
@@ -36,6 +37,8 @@ async function services() {
         },
       }),
       openaiService({ client }),
+      openaiService({ client, taskQueueSuffix: "-beta" }),
+      linearService({ client }),
     ]);
 
     console.log("Services running successfully.");

@@ -46,10 +46,10 @@ export async function chunkWorkflow({
   const { cost, result } = await step<typeof openaiFunctions>({
     taskQueue: openaiTaskQueue,
   }).openaiChatCompletionsBase({
-    systemPrompt:
+    systemContent:
       "You are a helpful assistant that summarizes posthog recordings. Here is the snapshot blob of it",
     model: "gpt-4o-mini",
-    content: `
+    userContent: `
       Here is a chunk of the recording blob:
       ${chunk}
       For the particular extract the behavior of the user and summarize it.
@@ -74,7 +74,7 @@ export async function chunkWorkflow({
   const input: ChunkSummaryEvent = {
     recordingId,
     summary,
-    cost,
+    cost: cost ?? 0,
   };
 
   try {

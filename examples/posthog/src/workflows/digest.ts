@@ -3,17 +3,21 @@ import { recordingWorkflow } from "./recording";
 import * as functions from "../functions";
 import * as openaiFunctions from "@restackio/integrations-openai/functions";
 import { openaiTaskQueue } from "@restackio/integrations-openai/taskQueue";
+import * as linearFunctions from "@restackio/integrations-linear/functions";
+import { linearTaskQueue } from "@restackio/integrations-linear/taskQueue";
 
 export async function digestWorkflow({
   projectId,
   host,
   maxRecordings,
   maxChunksPerRecordingBlob,
+  linearTeamId,
 }: {
   projectId: string;
   host: string;
   maxRecordings?: number;
   maxChunksPerRecordingBlob?: number;
+  linearTeamId?: string;
 }) {
   let totalCost = 0;
   // Get last 24h recordings
@@ -57,18 +61,16 @@ export async function digestWorkflow({
   // Create a digest from all the chunks summaries
 
   const { cost, result } = await step<typeof openaiFunctions>({
-    taskQueue: openaiTaskQueue,
+    taskQueue: `${openaiTaskQueue}-beta`,
   }).openaiChatCompletionsBase({
-    systemPrompt:
-      "You are a helpful assistant that summarizes posthog recordings.",
-    model: "gpt-4o-mini",
-    content: `
-      Summarize the following PostHog recordings analysis into a digestible email, following the structure:
+    model: "o1-preview",
+    userContent: `
+      Summarize the following PostHog recordings analysis into a linear issue in markdown format, following the structure:
 
         •	10-second overview: Briefly mention the most urgent and critical user behavior or anomalies.
         •	30-second summary: Highlight key user interactions and events, such as network requests, page views, and modal interactions. Focus on patterns or significant moments.
         •	1-minute deep dive: Provide a more detailed breakdown of the user’s behavior, including network activity, UI interactions, and any potential anomalies. Include timestamps or specific event details when relevant.
-      Finally, end the email with a brief call to action or recommendation.
+      Finally, end the issue description with a brief call to action or recommendation.
       Include the url to the recordings when necessary so user can easily access them.
       To make the recording url replace the RECORDING_ID in: ${host}/project/${projectId}/replay/RECORDING_ID
 
@@ -76,14 +78,33 @@ export async function digestWorkflow({
       ${JSON.stringify(summaries)}
     `,
     price: {
-      input: 0.00000015,
-      output: 0.0000006,
+      input: 0.000015,
+      output: 0.00006,
     },
   });
 
-  totalCost += cost;
+  totalCost += cost ?? 0;
 
   const digest = result.choices[0].message.content;
+
+  if (linearTeamId) {
+    const linearResult = await step<typeof linearFunctions>({
+      taskQueue: linearTaskQueue,
+    }).linearCreateIssue({
+      issue: {
+        teamId: linearTeamId,
+        title: `PostHog Digest - ${new Date().toISOString()}`,
+        description: digest,
+      },
+    });
+
+    return {
+      digest,
+      totalCost,
+      summaries,
+      linearResult,
+    };
+  }
 
   return {
     digest,

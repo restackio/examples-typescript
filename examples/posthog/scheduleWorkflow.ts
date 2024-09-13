@@ -10,8 +10,17 @@ async function scheduleWorkflow() {
         projectId: process.env.POSTHOG_PROJECT_ID,
         host: process.env.POSTHOG_HOST,
         maxRecordings: 5, // Useful to limit cost when debugging locally. Comment out to run for all recordings
-        maxChunksPerRecordingBlob: 10, // Useful to limit cost when debugging locally. Comment out to process all chunks
+        maxChunksPerRecordingBlob: 10, // Useful to limit cost when debugging locally. Comment out to process all chunks per recording
+        linearTeamId: process.env.LINEAR_TEAM_ID,
       },
+      // schedule: { // Comment out to run everyday
+      //   intervals: [
+      //     {
+      //       every: "1 day",
+      //       offset: "-8 hours",
+      //     },
+      //   ],
+      // },
     });
 
     console.log("Workflow scheduled successfully:", workflowRunId);

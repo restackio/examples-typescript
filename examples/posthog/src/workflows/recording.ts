@@ -110,10 +110,10 @@ export async function recordingWorkflow({
   const { cost, result } = await step<typeof openaiFunctions>({
     taskQueue: openaiTaskQueue,
   }).openaiChatCompletionsBase({
-    systemPrompt:
+    systemContent:
       "You are a helpful assistant that summarizes posthog recordings.",
     model: "gpt-4o-mini",
-    content: `
+    userContent: `
       Here are summaries of each chunk of the recording blob:
       ${summaries}
       The users events are ${JSON.stringify(events)}
@@ -126,7 +126,7 @@ export async function recordingWorkflow({
     },
   });
 
-  totalCost += cost;
+  totalCost += cost ?? 0;
 
   const summaryResult = result.choices[0].message.content;
 

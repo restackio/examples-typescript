@@ -16,7 +16,10 @@ import {
   ToolCallEvent,
 } from "@restackio/integrations-openai/types";
 import { agentPrompt } from "../../functions/openai/prompt";
-import { ChatCompletionAssistantMessageParam } from "openai/resources/index";
+import {
+  ChatModel,
+  ChatCompletionAssistantMessageParam,
+} from "openai/resources/index";
 
 export async function conversationWorkflow({
   assistantName,
@@ -39,7 +42,10 @@ export async function conversationWorkflow({
       taskQueue: "erp",
     }).erpGetTools();
 
+    const model: ChatModel = "gpt-4o-mini";
+
     const commonOpenaiOptions = {
+      model,
       assistantName,
       tools,
       streamAtCharacter: "•",
