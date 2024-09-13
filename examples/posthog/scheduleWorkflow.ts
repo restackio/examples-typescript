@@ -13,14 +13,14 @@ async function scheduleWorkflow() {
         maxChunksPerRecordingBlob: 10, // Useful to limit cost when debugging locally. Comment out to process all chunks per recording
         linearTeamId: process.env.LINEAR_TEAM_ID,
       },
-      // schedule: { // Comment out to run everyday
-      //   intervals: [
-      //     {
-      //       every: "1 day",
-      //       offset: "-8 hours",
-      //     },
-      //   ],
-      // },
+      schedule: {
+        calendars: [
+          {
+            dayOfWeek: "*",
+            hour: 17, // Everyday at 5pm UTC = 10am
+          },
+        ],
+      },
     });
 
     console.log("Workflow scheduled successfully:", workflowRunId);
