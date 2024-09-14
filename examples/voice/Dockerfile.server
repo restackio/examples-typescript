@@ -22,15 +22,20 @@ COPY --from=installer /app .
 COPY ./src ./src
 
 RUN npm run build
-
-# ------- Builder ----------
+# ------- Runner ----------
 
 FROM node:20-bullseye-slim AS runner
 
-COPY --from=builder /app .
+RUN addgroup --system --gid 1001 service
+RUN adduser --system --uid 1001 service
+USER service
 
 WORKDIR /app
 
+COPY --from=builder /app .
+
+ENV NODE_OPTIONS=”--max-old-space-size=4096″
+
 EXPOSE 80
 
-CMD ["npm", "run", "start-server"]
+CMD ["node", "dist/services"]

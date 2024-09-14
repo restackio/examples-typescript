@@ -22,3 +22,7 @@ pnpm dev
 # Schedule digest workflow with
 
 pnpm workflow
+
+# deploy
+
+pnpm restack-up

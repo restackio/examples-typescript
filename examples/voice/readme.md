@@ -23,6 +23,10 @@ pnpm ngrok
 
 pnpm call
 
+# Deploy
+
+pnpm restack-up
+
 ### Troubleshooting
 
 Error: listen EADDRINUSE: address already in use :::4000

@@ -9,7 +9,8 @@
     "dev": "pnpm start.watch",
     "build": "tsc --build",
     "clean": "rm -rf node_modules",
-    "workflow": "ts-node ./scheduleWorkflow.ts"
+    "workflow": "ts-node ./scheduleWorkflow.ts",
+    "restack-up": "node restack_up.mjs"
   },
   "nodemonConfig": {
     "execMap": {

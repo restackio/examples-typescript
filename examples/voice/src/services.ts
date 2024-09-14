@@ -12,7 +12,7 @@ import { deepgramService } from "@restackio/integrations-deepgram";
 import { client } from "./client";
 
 export async function services() {
-  const workflowsPath = require.resolve("./Workflows");
+  const workflowsPath = require.resolve("./workflows");
 
   try {
     await Promise.all([

@@ -11,7 +11,7 @@ import { client } from "./client";
 import { linearService } from "@restackio/integrations-linear";
 
 async function services() {
-  const workflowsPath = require.resolve("./Workflows");
+  const workflowsPath = require.resolve("./workflows");
 
   try {
     // https://posthog.com/docs/api#rate-limiting

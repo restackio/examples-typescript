@@ -43,3 +43,7 @@ flowchart TD
     P1 -->|sends status + output | E
     P2 -->|sends status output | E
 ```
+
+# Deploy
+
+pnpm restack-up

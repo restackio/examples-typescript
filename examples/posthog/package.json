@@ -8,7 +8,8 @@
     "dev": "ts-node-dev --respawn --transpile-only src/services.ts",
     "build": "tsc --build",
     "clean": "rm -rf node_modules",
-    "workflow": "ts-node ./scheduleWorkflow.ts"
+    "workflow": "ts-node ./scheduleWorkflow.ts",
+    "restack-up": "node restack_up.mjs"
   },
   "keywords": [],
   "author": "",
@@ -16,6 +17,7 @@
   "dependencies": {
     "@restackio/integrations-linear": "^0.0.2",
     "@restackio/integrations-openai": "^0.0.22",
+   
     "@restackio/restack-sdk-ts": "^0.0.57",
     "@temporalio/workflow": "1.11.1",
     "dotenv": "^16.4.5",
@@ -25,7 +27,8 @@
     "zod-to-json-schema": "^3.23.3"
   },
   "devDependencies": {
-    "@types/node": "^22.5.4",
+    "@restackio/restack-sdk-cloud-ts": "^1.0.5",
+    "@types/node": "^22.5.5",
     "@types/uuid": "^10.0.0",
     "nodemon": "^3.1.4",
     "ts-node": "^10.9.2",
