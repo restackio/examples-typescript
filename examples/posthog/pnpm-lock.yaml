@@ -15,8 +15,8 @@ importers:
         specifier: ^0.0.22
         version: 0.0.22(zod@3.23.8)
       '@restackio/restack-sdk-ts':
-        specifier: ^0.0.57
-        version: 0.0.57
+        specifier: ^0.0.60
+        version: 0.0.60
       '@temporalio/workflow':
         specifier: 1.11.1
         version: 1.11.1
@@ -170,8 +170,8 @@ packages:
     resolution: {integrity: sha512-xAVoEBwuHNZo0OZQskThIwzj3ln8m2lJRlhKl7CYhJdGeUTK4Fo0zwrg31i9Wz0JnInXgWwGYYro8gcrpb3nYg==}
     engines: {node: '>=20'}
 
-  '@restackio/restack-sdk-ts@0.0.57':
-    resolution: {integrity: sha512-68p5ua5BgX6eJk2CrCMc0nKeSonCfvQM7F4EAEfc9OfC/vHg5S+IDOzxRxsa+y2/TSzKXwyRNmuDRIv4umjt7Q==}
+  '@restackio/restack-sdk-ts@0.0.60':
+    resolution: {integrity: sha512-TliaoZ6Lh4C15/8tkIrcBuPwc1kjz94Zq9gi84xuuNNYb8tDYGlNL2UlsXa2FRKeac7anYpt0eh1P+ryphikjA==}
     engines: {node: '>=20'}
 
   '@swc/core-darwin-arm64@1.7.26':
@@ -1324,7 +1324,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@restackio/restack-sdk-ts@0.0.57':
+  '@restackio/restack-sdk-ts@0.0.60':
     dependencies:
       '@temporalio/activity': 1.11.1
       '@temporalio/client': 1.11.1
