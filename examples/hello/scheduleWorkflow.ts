@@ -1,14 +1,16 @@
 import { client } from "./src/client";
 
-async function scheduleWorkflow() {
+export type InputSchedule = {
+  name: string;
+};
+
+async function scheduleWorkflow(input: InputSchedule) {
   try {
     const workflowId = `${Date.now()}-helloWorkflow`;
     const runId = await client.scheduleWorkflow({
       workflowName: "helloWorkflow",
       workflowId,
-      input: {
-        name: "test",
-      },
+      input,
     });
 
     const result = await client.getWorkflowResult({ workflowId, runId });
@@ -22,4 +24,6 @@ async function scheduleWorkflow() {
   }
 }
 
-scheduleWorkflow();
+scheduleWorkflow({
+  name: "test",
+});

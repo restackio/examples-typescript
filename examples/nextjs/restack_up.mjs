@@ -18,23 +18,19 @@ const main = async () => {
     },
   ];
 
-  const servicesApp = {
-    name: "services",
-    dockerFilePath: "examples/hello/Dockerfile",
-    dockerBuildContext: "examples/hello",
+  const nextjsApp = {
+    name: "nextjs",
+    dockerFilePath: "examples/nextjs/Dockerfile",
+    dockerBuildContext: "examples/nextjs",
     environmentVariables: [
-      {
-        name: "OPENAI_API_KEY",
-        value: process.env.OPENAI_API_KEY,
-      },
-      ...restackEngineEnvs,
+      ...restackEngineEnvs
     ],
   };
 
   await restackCloudClient.stack({
     name: "development environment",
     previewEnabled: false,
-    applications: [servicesApp],
+    applications: [nextjsApp],
   });
 
   await restackCloudClient.up();
