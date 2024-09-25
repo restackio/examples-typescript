@@ -1,6 +1,6 @@
+name: restack-engine
 services:
-  app:
-    container_name: restack-engine
+  studio:
     image: ghcr.io/restackio/local-operator:main
     ports:
       - "5233:5233"

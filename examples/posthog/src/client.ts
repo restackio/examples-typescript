@@ -4,11 +4,10 @@ import "dotenv/config";
 
 export const connectionOptions = {
   envId: process.env.RESTACK_ENGINE_ENV_ID!,
-  apiKey: process.env.RESTACK_ENGINE_API_KEY!,
-  address: process.env.RESTACK_ENGINE_API_ADDRESS!,
-  temporalNamespace: process.env.RESTACK_ENGINE_TEMPORAL_NAMESPACE!,
+  address: process.env.RESTACK_ENGINE_ENV_ADDRESS!,
+  apiKey: process.env.RESTACK_ENGINE_ENV_API_KEY!,
 };
 
 export const client = new Restack(
-  process.env.RESTACK_ENGINE_API_KEY ? connectionOptions : undefined
+  process.env.RESTACK_ENGINE_ENV_API_KEY ? connectionOptions : undefined
 );
