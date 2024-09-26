@@ -3,7 +3,7 @@ import Restack from "@restackio/restack-sdk-ts";
 import { Example } from "../components/examplesList";
 
 const connectionOptions = {
-  envId: process.env.RESTACK_ENGINE_ID!,
+  engineId: process.env.RESTACK_ENGINE_ID!,
   address: process.env.RESTACK_ENGINE_ADDRESS!,
   apiKey: process.env.RESTACK_ENGINE_API_KEY!,
 };
