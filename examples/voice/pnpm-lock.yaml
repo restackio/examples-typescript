@@ -12,17 +12,17 @@ importers:
         specifier: ^3.6.0
         version: 3.6.0(bufferutil@4.0.8)(encoding@0.1.12)
       '@restackio/integrations-deepgram':
-        specifier: ^0.0.7
-        version: 0.0.7(bufferutil@4.0.8)(encoding@0.1.12)
+        specifier: ^0.0.8
+        version: 0.0.8(bufferutil@4.0.8)(encoding@0.1.12)
       '@restackio/integrations-openai':
-        specifier: ^0.0.22
-        version: 0.0.22(encoding@0.1.12)(zod@3.23.8)
+        specifier: ^0.0.3
+        version: 0.0.3(encoding@0.1.12)(zod@3.23.8)
       '@restackio/integrations-twilio':
-        specifier: ^0.0.4
-        version: 0.0.4
+        specifier: ^0.0.5
+        version: 0.0.5
       '@restackio/integrations-websocket':
-        specifier: ^0.0.11
-        version: 0.0.11(bufferutil@4.0.8)
+        specifier: ^0.0.12
+        version: 0.0.12(bufferutil@4.0.8)
       '@restackio/restack-sdk-ts':
         specifier: ^0.0.66
         version: 0.0.66
@@ -193,17 +193,17 @@ packages:
   '@protobufjs/utf8@1.1.0':
     resolution: {integrity: sha512-Vvn3zZrhQZkkBE8LSuW3em98c0FwgO4nxzv6OdSxPKJIEKY2bGbHn+mhGIPerzI4twdxaP8/0+06HBpwf345Lw==}
 
-  '@restackio/integrations-deepgram@0.0.7':
-    resolution: {integrity: sha512-Hm0Z//Q46xHQnmpL7dixB8rHP98Rc1Wab5MAG2FoHwSKRhSvDPXLPq2qlGzxBNCWER8yprM+9wJZ7FM9ibTyLA==}
+  '@restackio/integrations-deepgram@0.0.8':
+    resolution: {integrity: sha512-99GHdrP0dt4UsYYAySLWQFzAOx469FzmmXXwvpbmbQ4ZELavmyR4QMxxs1IGWvL9B1kMq2kdUyvJyVt9q48H/w==}
 
-  '@restackio/integrations-openai@0.0.22':
-    resolution: {integrity: sha512-NzUhLdI1y+DLmYElsxfUMhsVQ0vBdjYayMUY8vgBdNpJGVoFWC7ATml4vJPAC1VuZ6jOpQ5e3mcnM+pcARgssQ==}
+  '@restackio/integrations-openai@0.0.3':
+    resolution: {integrity: sha512-kp/b0tbKxWM/lkbK2Vi6l6nnh3u3oJ6R+EXmFyxkKNOTlBz4e+XfXKFodz0PWXZtQuXzi8mGA/+SYqxb93Z9ZA==}
 
-  '@restackio/integrations-twilio@0.0.4':
-    resolution: {integrity: sha512-FA6WDIq7qRgwKEmvzVPoGLRR9dzDueXMn39KtrzkFcS9IKrJF3B+cewoGA2LEHpWNtD6d8hva66hZFipgzl8Wg==}
+  '@restackio/integrations-twilio@0.0.5':
+    resolution: {integrity: sha512-olepmD/snHYPHJ62iRsHTrPC/zFDaWtqQICwyDZub6jkTKULtMkjospNmNZ3xT/pZ/sCx0yqW/2rGl97D88kmQ==}
 
-  '@restackio/integrations-websocket@0.0.11':
-    resolution: {integrity: sha512-MvoXjA6VYA9gYN4r9hjKoYzqsAt9Ogd8HlSgsjyRNy0Bky9OW4enknjpLvM6gP5g8/jJ1CofEa9bif0aoH8uIQ==}
+  '@restackio/integrations-websocket@0.0.12':
+    resolution: {integrity: sha512-6fWEjmpNGwo4qE+p2Mm/aGNjHMFvsFkddt/QA/cQMuASLRG9D1ohApfckpy/4zpyYkjNBJq/GWQnXbeJnFzskw==}
 
   '@restackio/restack-sdk-cloud-ts@1.0.5':
     resolution: {integrity: sha512-xAVoEBwuHNZo0OZQskThIwzj3ln8m2lJRlhKl7CYhJdGeUTK4Fo0zwrg31i9Wz0JnInXgWwGYYro8gcrpb3nYg==}
@@ -1655,7 +1655,7 @@ snapshots:
 
   '@protobufjs/utf8@1.1.0': {}
 
-  '@restackio/integrations-deepgram@0.0.7(bufferutil@4.0.8)(encoding@0.1.12)':
+  '@restackio/integrations-deepgram@0.0.8(bufferutil@4.0.8)(encoding@0.1.12)':
     dependencies:
       '@deepgram/sdk': 3.6.0(bufferutil@4.0.8)(encoding@0.1.12)
     transitivePeerDependencies:
@@ -1663,21 +1663,21 @@ snapshots:
       - encoding
       - utf-8-validate
 
-  '@restackio/integrations-openai@0.0.22(encoding@0.1.12)(zod@3.23.8)':
+  '@restackio/integrations-openai@0.0.3(encoding@0.1.12)(zod@3.23.8)':
     dependencies:
       openai: 4.61.0(encoding@0.1.12)(zod@3.23.8)
     transitivePeerDependencies:
       - encoding
       - zod
 
-  '@restackio/integrations-twilio@0.0.4':
+  '@restackio/integrations-twilio@0.0.5':
     dependencies:
       twilio: 5.3.0
     transitivePeerDependencies:
       - debug
       - supports-color
 
-  '@restackio/integrations-websocket@0.0.11(bufferutil@4.0.8)':
+  '@restackio/integrations-websocket@0.0.12(bufferutil@4.0.8)':
     dependencies:
       ws: 8.18.0(bufferutil@4.0.8)
     transitivePeerDependencies:

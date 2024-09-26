@@ -9,11 +9,11 @@ importers:
   .:
     dependencies:
       '@restackio/integrations-linear':
-        specifier: ^0.0.2
-        version: 0.0.2
+        specifier: ^0.0.3
+        version: 0.0.3
       '@restackio/integrations-openai':
-        specifier: ^0.0.22
-        version: 0.0.22(zod@3.23.8)
+        specifier: ^0.0.23
+        version: 0.0.23(zod@3.23.8)
       '@restackio/restack-sdk-ts':
         specifier: ^0.0.66
         version: 0.0.66
@@ -160,11 +160,11 @@ packages:
   '@protobufjs/utf8@1.1.0':
     resolution: {integrity: sha512-Vvn3zZrhQZkkBE8LSuW3em98c0FwgO4nxzv6OdSxPKJIEKY2bGbHn+mhGIPerzI4twdxaP8/0+06HBpwf345Lw==}
 
-  '@restackio/integrations-linear@0.0.2':
-    resolution: {integrity: sha512-nb+T8CGOBlrJZYUfHaMNlsXYx6/59n7HJOzd/e3Gd1aIaDX1KkgyCv85mkPJkNQT3U2wvGuNeD747xZTmwXIdA==}
+  '@restackio/integrations-linear@0.0.3':
+    resolution: {integrity: sha512-eb+Uq71aPW6IV7+rV8fBwmgGOtutD1WKwJoOwPgPsKQ6sm5V3WH+1A60vR35/Y54h8k1ZD5X4Fmz9qslOAlaXA==}
 
-  '@restackio/integrations-openai@0.0.22':
-    resolution: {integrity: sha512-NzUhLdI1y+DLmYElsxfUMhsVQ0vBdjYayMUY8vgBdNpJGVoFWC7ATml4vJPAC1VuZ6jOpQ5e3mcnM+pcARgssQ==}
+  '@restackio/integrations-openai@0.0.23':
+    resolution: {integrity: sha512-cTKk3mirbn25i4S/wG5b0o6gAoiPojkHptIP0q/C0aTLysm/Ps0daL4cVY/Q0hXmKfXLQ9+rxHkJOLS5zhMYrw==}
 
   '@restackio/restack-sdk-cloud-ts@1.0.5':
     resolution: {integrity: sha512-xAVoEBwuHNZo0OZQskThIwzj3ln8m2lJRlhKl7CYhJdGeUTK4Fo0zwrg31i9Wz0JnInXgWwGYYro8gcrpb3nYg==}
@@ -1300,13 +1300,13 @@ snapshots:
 
   '@protobufjs/utf8@1.1.0': {}
 
-  '@restackio/integrations-linear@0.0.2':
+  '@restackio/integrations-linear@0.0.3':
     dependencies:
       '@linear/sdk': 29.0.0
     transitivePeerDependencies:
       - encoding
 
-  '@restackio/integrations-openai@0.0.22(zod@3.23.8)':
+  '@restackio/integrations-openai@0.0.23(zod@3.23.8)':
     dependencies:
       openai: 4.61.0(zod@3.23.8)
     transitivePeerDependencies:
