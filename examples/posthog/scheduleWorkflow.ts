@@ -9,18 +9,19 @@ async function scheduleWorkflow() {
       input: {
         projectId: process.env.POSTHOG_PROJECT_ID,
         host: process.env.POSTHOG_HOST,
-        maxRecordings: 5, // Useful to limit cost when debugging locally. Comment out to run for all recordings
-        maxChunksPerRecordingBlob: 10, // Useful to limit cost when debugging locally. Comment out to process all chunks per recording
+        maxRecordings: 2, // Useful to limit cost when debugging locally. Comment out to run for all recordings
+        maxChunksPerRecordingBlob: 2, // Useful to limit cost when debugging locally. Comment out to process all chunks per recording
         linearTeamId: process.env.LINEAR_TEAM_ID,
       },
-      schedule: {
-        calendars: [
-          {
-            dayOfWeek: "*",
-            hour: 17, // Everyday at 5pm UTC = 10am PST
-          },
-        ],
-      },
+      // Uncomment to schedule workflow to run at a specific time
+      // schedule: {
+      //   calendars: [
+      //     {
+      //       dayOfWeek: "*",
+      //       hour: 17, // Everyday at 5pm UTC = 10am PST
+      //     },
+      //   ],
+      // },
     });
 
     console.log("Workflow scheduled successfully:", workflowRunId);
