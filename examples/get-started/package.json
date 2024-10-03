@@ -8,7 +8,7 @@
         "trigger": "ts-node ./triggerWorkflow.ts",
         "start.watch": "nodemon --exec ts-node --esm src/services.ts",
         "build": "tsc --build",
-        "clean": "rm -rf node_modules",
+        "clean": "rm -rf node_modules"
     },
     "nodemonConfig": {
         "ext": "ts",
