@@ -1,0 +1,30 @@
+{
+    "name": "sdk-example-ts",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "service": "ts-node src/services.ts",
+        "trigger": "ts-node ./triggerWorkflow.ts",
+        "start.watch": "nodemon --exec ts-node --esm src/services.ts",
+        "build": "tsc --build",
+        "clean": "rm -rf node_modules",
+    },
+    "nodemonConfig": {
+        "ext": "ts",
+        "watch": [
+            "src"
+        ]
+    },
+    "dependencies": {
+        "@restackio/restack-sdk-ts": "^0.0.73",
+        "@temporalio/workflow": "^1.11.2"
+    },
+    "devDependencies": {
+        "@restackio/restack-sdk-cloud-ts": "^1.0.15",
+        "@types/node": "^20.16.9",
+        "nodemon": "^2.0.22",
+        "ts-node": "^10.9.2",
+        "typescript": "^5.6.2"
+    }
+}
