@@ -1,6 +1,6 @@
 import { client } from "./src/client";
 
-async function triggerWorkflow() {
+async function scheduleWorkflow() {
 
     const workflowId = `${Date.now()}-helloWorkflow`;
     const runId = await client.scheduleWorkflow({
@@ -13,4 +13,4 @@ async function triggerWorkflow() {
 
 };
 
-triggerWorkflow();
+scheduleWorkflow();
