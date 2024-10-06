@@ -15,8 +15,8 @@ npm i
 # Publish your service
 npm run service
 
-# Trigger the workflow
-npm run trigger
+# Schedule the workflow
+npm run schedule
 
 # Check the Desktop UI to see your workflow executed
 http://localhost:5233
