@@ -1,4 +1,4 @@
-import { executeChild, step } from "@restackio/restack-sdk-ts/workflow";
+import { executeChild, step } from "@restackio/ai/workflow";
 import { recordingWorkflow } from "./recording";
 import * as functions from "../functions";
 import * as openaiFunctions from "@restackio/integrations-openai/functions";

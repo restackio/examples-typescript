@@ -1,6 +1,6 @@
-import { defineEvent, onEvent } from "@restackio/restack-sdk-ts/event";
+import { defineEvent, onEvent } from "@restackio/ai/event";
 import * as functions from "../functions";
-import { condition, log, step } from "@restackio/restack-sdk-ts/workflow";
+import { condition, log, step } from "@restackio/ai/workflow";
 import z from "zod";
 import { ChunkSummary } from "./chunk";
 import zodToJsonSchema from "zod-to-json-schema";

@@ -1,4 +1,4 @@
-import { log } from "@restackio/restack-sdk-ts/function";
+import { log } from "@restackio/ai/function";
 import "dotenv/config";
 
 export async function posthogGetSnapshotBlob({

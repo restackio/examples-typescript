@@ -1,5 +1,5 @@
-import Restack from "@restackio/restack-sdk-ts";
-import { SendWorkflowEvent } from "@restackio/restack-sdk-ts/event";
+import Restack from "@restackio/ai";
+import { SendWorkflowEvent } from "@restackio/ai/event";
 
 export async function workflowSendEvent({
   event,

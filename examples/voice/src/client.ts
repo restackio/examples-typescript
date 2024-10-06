@@ -1,4 +1,4 @@
-import Restack from "@restackio/restack-sdk-ts";
+import Restack from "@restackio/ai";
 
 import "dotenv/config";
 

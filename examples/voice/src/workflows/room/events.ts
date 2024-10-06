@@ -1,4 +1,4 @@
-import { defineEvent } from "@restackio/restack-sdk-ts/event";
+import { defineEvent } from "@restackio/ai/event";
 import { WebsocketEvent } from "@restackio/integrations-websocket/types";
 
 export type RoomInfo = {

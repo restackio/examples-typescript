@@ -8,15 +8,15 @@ importers:
 
   .:
     dependencies:
+      '@restackio/ai':
+        specifier: ^0.0.75
+        version: 0.0.75
       '@restackio/integrations-linear':
         specifier: ^0.0.3
         version: 0.0.3
       '@restackio/integrations-openai':
         specifier: ^0.0.23
         version: 0.0.23(zod@3.23.8)
-      '@restackio/restack-sdk-ts':
-        specifier: ^0.0.72
-        version: 0.0.72
       '@temporalio/workflow':
         specifier: 1.11.1
         version: 1.11.1
@@ -160,6 +160,10 @@ packages:
   '@protobufjs/utf8@1.1.0':
     resolution: {integrity: sha512-Vvn3zZrhQZkkBE8LSuW3em98c0FwgO4nxzv6OdSxPKJIEKY2bGbHn+mhGIPerzI4twdxaP8/0+06HBpwf345Lw==}
 
+  '@restackio/ai@0.0.75':
+    resolution: {integrity: sha512-Q3IKIJHseWM+CDoZWvgPmuv15ryZkHsCY2jq6FbdnW44MMjOOcI3QUbpZJPHLGlLZ5ucnSbQxiZBvHDDnOZfVQ==}
+    engines: {node: '>=20'}
+
   '@restackio/integrations-linear@0.0.3':
     resolution: {integrity: sha512-eb+Uq71aPW6IV7+rV8fBwmgGOtutD1WKwJoOwPgPsKQ6sm5V3WH+1A60vR35/Y54h8k1ZD5X4Fmz9qslOAlaXA==}
 
@@ -168,10 +172,6 @@ packages:
 
   '@restackio/restack-sdk-cloud-ts@1.0.5':
     resolution: {integrity: sha512-xAVoEBwuHNZo0OZQskThIwzj3ln8m2lJRlhKl7CYhJdGeUTK4Fo0zwrg31i9Wz0JnInXgWwGYYro8gcrpb3nYg==}
-    engines: {node: '>=20'}
-
-  '@restackio/restack-sdk-ts@0.0.72':
-    resolution: {integrity: sha512-OSyZEGUGbZTFMDi8NdxxDgWkX/BkcKPN91NVBXFsmpRy9aIoXCBt7rCrQX+EMwknYic6zSdCnrgIlmPwFtUOvA==}
     engines: {node: '>=20'}
 
   '@swc/core-darwin-arm64@1.7.26':
@@ -1300,6 +1300,18 @@ snapshots:
 
   '@protobufjs/utf8@1.1.0': {}
 
+  '@restackio/ai@0.0.75':
+    dependencies:
+      '@temporalio/activity': 1.11.1
+      '@temporalio/client': 1.11.1
+      '@temporalio/worker': 1.11.1
+      '@temporalio/workflow': 1.11.1
+    transitivePeerDependencies:
+      - '@swc/helpers'
+      - esbuild
+      - uglify-js
+      - webpack-cli
+
   '@restackio/integrations-linear@0.0.3':
     dependencies:
       '@linear/sdk': 29.0.0
@@ -1323,18 +1335,6 @@ snapshots:
       zod: 3.23.8
     transitivePeerDependencies:
       - supports-color
-
-  '@restackio/restack-sdk-ts@0.0.72':
-    dependencies:
-      '@temporalio/activity': 1.11.1
-      '@temporalio/client': 1.11.1
-      '@temporalio/worker': 1.11.1
-      '@temporalio/workflow': 1.11.1
-    transitivePeerDependencies:
-      - '@swc/helpers'
-      - esbuild
-      - uglify-js
-      - webpack-cli
 
   '@swc/core-darwin-arm64@1.7.26':
     optional: true

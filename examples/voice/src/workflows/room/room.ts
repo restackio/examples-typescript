@@ -4,8 +4,8 @@ import {
   condition,
   startChild,
   workflowInfo,
-} from "@restackio/restack-sdk-ts/workflow";
-import { onEvent } from "@restackio/restack-sdk-ts/event";
+} from "@restackio/ai/workflow";
+import { onEvent } from "@restackio/ai/event";
 import * as functions from "../../functions";
 import { conversationWorkflow } from "../conversation/conversation";
 import {

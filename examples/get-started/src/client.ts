@@ -1,3 +1,3 @@
-import Restack from "@restackio/restack-sdk-ts";
+import Restack from "@restackio/ai";
 
 export const client = new Restack();
