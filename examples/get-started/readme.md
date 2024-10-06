@@ -12,7 +12,7 @@ cd sdk-ts-examples/examples/get-started
 # Install dependencies
 npm i
 
-# Publish your service
+# Run your service in the background
 npm run service
 
 # Schedule the workflow
