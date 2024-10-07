@@ -3,7 +3,7 @@ import express from "express";
 import { createServer } from "http";
 import WebSocket, { WebSocketServer } from "ws";
 import VoiceResponse from "twilio/lib/twiml/VoiceResponse";
-import Restack from "@restackio/restack-sdk-ts";
+import Restack from "@restackio/ai";
 import { roomWorkflow } from "./workflows/room/room";
 import { RoomInfo, streamInfoEvent } from "./workflows/room/events";
 import cors from "cors";

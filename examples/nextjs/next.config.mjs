@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   experimental: {
-    serverComponentsExternalPackages: ['@restackio/restack-sdk-ts'],
+    serverComponentsExternalPackages: ['@restackio/ai'],
   },
 }
 export default nextConfig;

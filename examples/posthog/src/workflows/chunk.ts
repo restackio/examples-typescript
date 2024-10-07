@@ -1,4 +1,4 @@
-import { log, step } from "@restackio/restack-sdk-ts/workflow";
+import { log, step } from "@restackio/ai/workflow";
 import * as functions from "../functions";
 import * as openaiFunctions from "@restackio/integrations-openai/functions";
 import { openaiTaskQueue } from "@restackio/integrations-openai/taskQueue";

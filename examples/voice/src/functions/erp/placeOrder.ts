@@ -1,4 +1,4 @@
-import { log, sleep } from "@restackio/restack-sdk-ts/function";
+import { log, sleep } from "@restackio/ai/function";
 import { z } from "zod";
 import { toolInputWithQty } from "./tools";
 

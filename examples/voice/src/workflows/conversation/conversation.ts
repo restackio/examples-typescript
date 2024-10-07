@@ -1,11 +1,6 @@
-import {
-  step,
-  log,
-  workflowInfo,
-  condition,
-} from "@restackio/restack-sdk-ts/workflow";
+import { step, log, workflowInfo, condition } from "@restackio/ai/workflow";
 import * as functions from "../../functions";
-import { onEvent } from "@restackio/restack-sdk-ts/event";
+import { onEvent } from "@restackio/ai/event";
 import { streamEvent, toolCallEvent, conversationEndEvent } from "./events";
 import { openaiTaskQueue } from "@restackio/integrations-openai/taskQueue";
 import * as openaiFunctions from "@restackio/integrations-openai/functions";

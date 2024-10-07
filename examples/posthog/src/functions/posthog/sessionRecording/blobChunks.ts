@@ -1,7 +1,7 @@
-import { functionInfo, log } from "@restackio/restack-sdk-ts/function";
+import { functionInfo, log } from "@restackio/ai/function";
 import "dotenv/config";
 import { posthogGetSnapshotBlob } from "./snapshotBlob";
-import Restack from "@restackio/restack-sdk-ts";
+import Restack from "@restackio/ai";
 import { chunkWorkflow } from "../../../workflows/chunk";
 
 export async function posthogBlobChunks({
