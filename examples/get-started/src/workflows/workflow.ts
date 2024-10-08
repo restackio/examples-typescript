@@ -1,4 +1,3 @@
-import { welcome, goodbye } from "../functions/functions";
 import { log, step } from "@restackio/ai/workflow";
 
 export async function greetingWorkflow(name: String) {
