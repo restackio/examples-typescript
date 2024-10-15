@@ -1,30 +1,32 @@
 {
-    "name": "sdk-example-ts",
-    "version": "1.0.0",
-    "description": "",
-    "main": "index.js",
-    "scripts": {
-        "service": "ts-node src/services.ts",
-        "schedule": "ts-node ./scheduleWorkflow.ts",
-        "start.watch": "nodemon --exec ts-node --esm src/services.ts",
-        "build": "tsc --build",
-        "clean": "rm -rf node_modules"
+    "name": "@restackio/get-started",
+    "version": "1.0.4",
+    "description": "Get started with Restack AI SDK",
+    "bin": {
+        "get-started": "bin/get-started.js"
     },
-    "nodemonConfig": {
-        "ext": "ts",
-        "watch": [
-            "src"
-        ]
-    },
+    "files": [
+        "bin",
+        "src",
+        "scheduleWorkflow.ts",
+        "tsconfig.json"
+    ],
+    "keywords": [
+        "restack",
+        "starter",
+        "template"
+    ],
+    "author": "Your Name",
+    "license": "MIT",
     "dependencies": {
+        "nodemon": "^2.0.22",
+        "ts-node": "^10.9.2",
+        "typescript": "^5.6.2",
         "@restackio/ai": "^0.0.75",
         "@temporalio/workflow": "^1.11.2"
     },
-    "devDependencies": {
-        "@restackio/restack-sdk-cloud-ts": "^1.0.15",
-        "@types/node": "^20.16.9",
-        "nodemon": "^2.0.22",
-        "ts-node": "^10.9.2",
-        "typescript": "^5.6.2"
+    "scripts": {
+        "service": "ts-node src/services.ts",
+        "schedule": "ts-node scheduleWorkflow.ts"
     }
 }
