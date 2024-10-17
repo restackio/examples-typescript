@@ -9,7 +9,6 @@ async function scheduleWorkflow() {
     });
 
     const result = await client.getWorkflowResult({ workflowId, runId });
-    process.exit(0); // Exit the process successfully
 
 };
 
