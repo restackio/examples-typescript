@@ -4,6 +4,8 @@ import fs from 'fs';
 import { execSync } from 'child_process';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import waitOn from 'wait-on';
+
 // @ts-ignore
 import packageJson from '../package.json';
 
@@ -21,7 +23,6 @@ async function main() {
   // Copy files
   const projectName = (await clack.text({
     message: 'Enter the project folder name:',
-    placeholder: './restack-get-started',
     defaultValue: 'restack-get-started',
     initialValue: 'restack-get-started',
     validate(value) {
@@ -70,6 +71,10 @@ async function main() {
 	})) as boolean;
 
   if (openRestack) {
+    const s = clack.spinner();
+    s.start('Waiting for Restack Engine Studio to start');
+    await waitOn({ resources: ['http://localhost:5233'] });
+    s.stop();
     execSync('open http://localhost:5233', { stdio: 'inherit', cwd: targetDir });
   }
 

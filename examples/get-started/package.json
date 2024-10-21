@@ -19,18 +19,19 @@
     ],
     "license": "MIT",
     "dependencies": {
-      "@restackio/ai": "^0.0.75",
-      "@temporalio/workflow": "^1.11.2",
-      "nodemon": "^2.0.22",
+        "@restackio/ai": "^0.0.75",
+        "@temporalio/workflow": "^1.11.2",
+        "nodemon": "^2.0.22",
         "ts-node": "^10.9.2",
-        "typescript": "^5.6.2"
-      },
-      "scripts": {
+        "typescript": "^5.6.2",
+        "wait-on": "^8.0.1"
+    },
+    "scripts": {
         "build-bin": "pnpm tsup --outDir bin --format esm bin/get-started.ts",
         "service": "ts-node src/services.ts",
         "schedule": "ts-node scheduleWorkflow.ts"
-      },
-      "devDependencies": {
+    },
+    "devDependencies": {
         "@clack/prompts": "^0.7.0",
         "tsup": "8.3.0"
     }

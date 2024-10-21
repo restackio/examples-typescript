@@ -25,9 +25,9 @@ var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__ge
   mod
 ));
 
-// ../node_modules/sisteransi/src/index.js
+// node_modules/.pnpm/sisteransi@1.0.5/node_modules/sisteransi/src/index.js
 var require_src = __commonJS({
-  "../node_modules/sisteransi/src/index.js"(exports, module) {
+  "node_modules/.pnpm/sisteransi@1.0.5/node_modules/sisteransi/src/index.js"(exports, module) {
     "use strict";
     var ESC = "\x1B";
     var CSI = `${ESC}[`;
@@ -81,9 +81,9 @@ var require_src = __commonJS({
   }
 });
 
-// ../node_modules/picocolors/picocolors.js
+// node_modules/.pnpm/picocolors@1.1.1/node_modules/picocolors/picocolors.js
 var require_picocolors = __commonJS({
-  "../node_modules/picocolors/picocolors.js"(exports, module) {
+  "node_modules/.pnpm/picocolors@1.1.1/node_modules/picocolors/picocolors.js"(exports, module) {
     var p = process || {};
     var argv = p.argv || [];
     var env = p.env || {};
@@ -102,50 +102,50 @@ var require_picocolors = __commonJS({
       return result + string.substring(cursor);
     };
     var createColors = (enabled = isColorSupported) => {
-      let f = enabled ? formatter : () => String;
+      let f2 = enabled ? formatter : () => String;
       return {
         isColorSupported: enabled,
-        reset: f("\x1B[0m", "\x1B[0m"),
-        bold: f("\x1B[1m", "\x1B[22m", "\x1B[22m\x1B[1m"),
-        dim: f("\x1B[2m", "\x1B[22m", "\x1B[22m\x1B[2m"),
-        italic: f("\x1B[3m", "\x1B[23m"),
-        underline: f("\x1B[4m", "\x1B[24m"),
-        inverse: f("\x1B[7m", "\x1B[27m"),
-        hidden: f("\x1B[8m", "\x1B[28m"),
-        strikethrough: f("\x1B[9m", "\x1B[29m"),
-        black: f("\x1B[30m", "\x1B[39m"),
-        red: f("\x1B[31m", "\x1B[39m"),
-        green: f("\x1B[32m", "\x1B[39m"),
-        yellow: f("\x1B[33m", "\x1B[39m"),
-        blue: f("\x1B[34m", "\x1B[39m"),
-        magenta: f("\x1B[35m", "\x1B[39m"),
-        cyan: f("\x1B[36m", "\x1B[39m"),
-        white: f("\x1B[37m", "\x1B[39m"),
-        gray: f("\x1B[90m", "\x1B[39m"),
-        bgBlack: f("\x1B[40m", "\x1B[49m"),
-        bgRed: f("\x1B[41m", "\x1B[49m"),
-        bgGreen: f("\x1B[42m", "\x1B[49m"),
-        bgYellow: f("\x1B[43m", "\x1B[49m"),
-        bgBlue: f("\x1B[44m", "\x1B[49m"),
-        bgMagenta: f("\x1B[45m", "\x1B[49m"),
-        bgCyan: f("\x1B[46m", "\x1B[49m"),
-        bgWhite: f("\x1B[47m", "\x1B[49m"),
-        blackBright: f("\x1B[90m", "\x1B[39m"),
-        redBright: f("\x1B[91m", "\x1B[39m"),
-        greenBright: f("\x1B[92m", "\x1B[39m"),
-        yellowBright: f("\x1B[93m", "\x1B[39m"),
-        blueBright: f("\x1B[94m", "\x1B[39m"),
-        magentaBright: f("\x1B[95m", "\x1B[39m"),
-        cyanBright: f("\x1B[96m", "\x1B[39m"),
-        whiteBright: f("\x1B[97m", "\x1B[39m"),
-        bgBlackBright: f("\x1B[100m", "\x1B[49m"),
-        bgRedBright: f("\x1B[101m", "\x1B[49m"),
-        bgGreenBright: f("\x1B[102m", "\x1B[49m"),
-        bgYellowBright: f("\x1B[103m", "\x1B[49m"),
-        bgBlueBright: f("\x1B[104m", "\x1B[49m"),
-        bgMagentaBright: f("\x1B[105m", "\x1B[49m"),
-        bgCyanBright: f("\x1B[106m", "\x1B[49m"),
-        bgWhiteBright: f("\x1B[107m", "\x1B[49m")
+        reset: f2("\x1B[0m", "\x1B[0m"),
+        bold: f2("\x1B[1m", "\x1B[22m", "\x1B[22m\x1B[1m"),
+        dim: f2("\x1B[2m", "\x1B[22m", "\x1B[22m\x1B[2m"),
+        italic: f2("\x1B[3m", "\x1B[23m"),
+        underline: f2("\x1B[4m", "\x1B[24m"),
+        inverse: f2("\x1B[7m", "\x1B[27m"),
+        hidden: f2("\x1B[8m", "\x1B[28m"),
+        strikethrough: f2("\x1B[9m", "\x1B[29m"),
+        black: f2("\x1B[30m", "\x1B[39m"),
+        red: f2("\x1B[31m", "\x1B[39m"),
+        green: f2("\x1B[32m", "\x1B[39m"),
+        yellow: f2("\x1B[33m", "\x1B[39m"),
+        blue: f2("\x1B[34m", "\x1B[39m"),
+        magenta: f2("\x1B[35m", "\x1B[39m"),
+        cyan: f2("\x1B[36m", "\x1B[39m"),
+        white: f2("\x1B[37m", "\x1B[39m"),
+        gray: f2("\x1B[90m", "\x1B[39m"),
+        bgBlack: f2("\x1B[40m", "\x1B[49m"),
+        bgRed: f2("\x1B[41m", "\x1B[49m"),
+        bgGreen: f2("\x1B[42m", "\x1B[49m"),
+        bgYellow: f2("\x1B[43m", "\x1B[49m"),
+        bgBlue: f2("\x1B[44m", "\x1B[49m"),
+        bgMagenta: f2("\x1B[45m", "\x1B[49m"),
+        bgCyan: f2("\x1B[46m", "\x1B[49m"),
+        bgWhite: f2("\x1B[47m", "\x1B[49m"),
+        blackBright: f2("\x1B[90m", "\x1B[39m"),
+        redBright: f2("\x1B[91m", "\x1B[39m"),
+        greenBright: f2("\x1B[92m", "\x1B[39m"),
+        yellowBright: f2("\x1B[93m", "\x1B[39m"),
+        blueBright: f2("\x1B[94m", "\x1B[39m"),
+        magentaBright: f2("\x1B[95m", "\x1B[39m"),
+        cyanBright: f2("\x1B[96m", "\x1B[39m"),
+        whiteBright: f2("\x1B[97m", "\x1B[39m"),
+        bgBlackBright: f2("\x1B[100m", "\x1B[49m"),
+        bgRedBright: f2("\x1B[101m", "\x1B[49m"),
+        bgGreenBright: f2("\x1B[102m", "\x1B[49m"),
+        bgYellowBright: f2("\x1B[103m", "\x1B[49m"),
+        bgBlueBright: f2("\x1B[104m", "\x1B[49m"),
+        bgMagentaBright: f2("\x1B[105m", "\x1B[49m"),
+        bgCyanBright: f2("\x1B[106m", "\x1B[49m"),
+        bgWhiteBright: f2("\x1B[107m", "\x1B[49m")
       };
     };
     module.exports = createColors();
@@ -153,10 +153,11 @@ var require_picocolors = __commonJS({
   }
 });
 
-// ../node_modules/@clack/core/dist/index.mjs
+// node_modules/.pnpm/@clack+core@0.3.4/node_modules/@clack/core/dist/index.mjs
 var import_sisteransi = __toESM(require_src(), 1);
-import { stdin as $, stdout as k } from "node:process";
 var import_picocolors = __toESM(require_picocolors(), 1);
+import { stdin as $, stdout as k } from "node:process";
+import * as f from "node:readline";
 import _ from "node:readline";
 import { WriteStream as U } from "node:tty";
 function q({ onlyFirst: t = false } = {}) {
@@ -476,8 +477,24 @@ var TD = class extends x {
   }
 };
 var PD = globalThis.process.platform.startsWith("win");
+function WD({ input: t = $, output: u = k, overwrite: F = true, hideCursor: e2 = true } = {}) {
+  const s = f.createInterface({ input: t, output: u, prompt: "", tabSize: 1 });
+  f.emitKeypressEvents(t, s), t.isTTY && t.setRawMode(true);
+  const C2 = (D, { name: i }) => {
+    if (String(D) === "" && process.exit(0), !F) return;
+    let n = i === "return" ? 0 : -1, E2 = i === "return" ? -1 : 0;
+    f.moveCursor(u, n, E2, () => {
+      f.clearLine(u, 1, () => {
+        t.once("keypress", C2);
+      });
+    });
+  };
+  return e2 && process.stdout.write(import_sisteransi.cursor.hide), t.once("keypress", C2), () => {
+    t.off("keypress", C2), e2 && process.stdout.write(import_sisteransi.cursor.show), t.isTTY && !PD && t.setRawMode(false), s.terminal = false, s.close();
+  };
+}
 
-// ../node_modules/@clack/prompts/dist/index.mjs
+// node_modules/.pnpm/@clack+prompts@0.7.0/node_modules/@clack/prompts/dist/index.mjs
 var import_picocolors2 = __toESM(require_picocolors(), 1);
 var import_sisteransi2 = __toESM(require_src(), 1);
 import h from "node:process";
@@ -570,12 +587,37 @@ ${import_picocolors2.default.gray(d2)}  ${r2}
 
 `);
 };
+var de = () => {
+  const r2 = _2 ? ["\u25D2", "\u25D0", "\u25D3", "\u25D1"] : ["\u2022", "o", "O", "0"], n = _2 ? 80 : 120;
+  let i, t, s = false, c2 = "";
+  const l2 = (v2 = "") => {
+    s = true, i = WD(), c2 = v2.replace(/\.+$/, ""), process.stdout.write(`${import_picocolors2.default.gray(a2)}
+`);
+    let g2 = 0, p = 0;
+    t = setInterval(() => {
+      const O2 = import_picocolors2.default.magenta(r2[g2]), P2 = ".".repeat(Math.floor(p)).slice(0, 3);
+      process.stdout.write(import_sisteransi2.cursor.move(-999, 0)), process.stdout.write(import_sisteransi2.erase.down(1)), process.stdout.write(`${O2}  ${c2}${P2}`), g2 = g2 + 1 < r2.length ? g2 + 1 : 0, p = p < r2.length ? p + 0.125 : 0;
+    }, n);
+  }, u = (v2 = "", g2 = 0) => {
+    c2 = v2 ?? c2, s = false, clearInterval(t);
+    const p = g2 === 0 ? import_picocolors2.default.green(S2) : g2 === 1 ? import_picocolors2.default.red(I2) : import_picocolors2.default.red(x2);
+    process.stdout.write(import_sisteransi2.cursor.move(-999, 0)), process.stdout.write(import_sisteransi2.erase.down(1)), process.stdout.write(`${p}  ${c2}
+`), i();
+  }, m2 = (v2 = "") => {
+    c2 = v2 ?? c2;
+  }, $2 = (v2) => {
+    const g2 = v2 > 1 ? "Something went wrong" : "Canceled";
+    s && u(g2, v2);
+  };
+  return process.on("uncaughtExceptionMonitor", () => $2(2)), process.on("unhandledRejection", () => $2(2)), process.on("SIGINT", () => $2(1)), process.on("SIGTERM", () => $2(1)), process.on("exit", $2), { start: l2, stop: u, message: m2 };
+};
 
 // bin/get-started.ts
 import fs from "fs";
 import { execSync } from "child_process";
 import path from "path";
 import { fileURLToPath } from "url";
+import waitOn from "wait-on";
 
 // package.json
 var package_default = {
@@ -603,7 +645,8 @@ var package_default = {
     "@temporalio/workflow": "^1.11.2",
     nodemon: "^2.0.22",
     "ts-node": "^10.9.2",
-    typescript: "^5.6.2"
+    typescript: "^5.6.2",
+    "wait-on": "^8.0.1"
   },
   scripts: {
     "build-bin": "pnpm tsup --outDir bin --format esm bin/get-started.ts",
@@ -611,6 +654,7 @@ var package_default = {
     schedule: "ts-node scheduleWorkflow.ts"
   },
   devDependencies: {
+    "@clack/prompts": "^0.7.0",
     tsup: "8.3.0"
   }
 };
@@ -625,7 +669,6 @@ async function main() {
   let targetDir;
   const projectName = await te({
     message: "Enter the project folder name:",
-    placeholder: "./restack-get-started",
     defaultValue: "restack-get-started",
     initialValue: "restack-get-started",
     validate(value) {
@@ -665,6 +708,10 @@ async function main() {
     initialValue: true
   });
   if (openRestack) {
+    const s = de();
+    s.start("Waiting for Restack Engine Studio to start");
+    await waitOn({ resources: ["http://localhost:5233"] });
+    s.stop();
     execSync("open http://localhost:5233", { stdio: "inherit", cwd: targetDir });
   }
   const blue = "\x1B[34m";
