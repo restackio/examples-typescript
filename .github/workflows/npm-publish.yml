@@ -6,6 +6,12 @@ on:
       - 'main'
     paths:
       - 'examples/get-started/**'
+  # TODO: Remove after testing
+  pull_request:
+    branches:
+      - '*'
+    paths:
+      - 'examples/get-started/**'
 
 jobs:
   publish:

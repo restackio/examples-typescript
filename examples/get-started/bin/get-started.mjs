@@ -589,6 +589,7 @@ var package_default = {
     "bin",
     "src",
     "scheduleWorkflow.ts",
+    "readme.md",
     "tsconfig.json"
   ],
   keywords: [
@@ -596,7 +597,6 @@ var package_default = {
     "starter",
     "template"
   ],
-  author: "Your Name",
   license: "MIT",
   dependencies: {
     "@restackio/ai": "^0.0.75",
@@ -633,7 +633,6 @@ async function main() {
     }
   });
   if (projectName) {
-    console.log("\u{1F680} ~ main ~ targetDir:", targetDir);
     targetDir = path.join(currentDir, projectName);
     const filesToCopy = ["src", "scheduleWorkflow.ts", "tsconfig.json"];
     filesToCopy.forEach((file) => {
@@ -675,11 +674,11 @@ Project created successfully!
 
 We suggest that you begin with following commands:
 
-To navigate to the project, run: "${blue}cd ${projectName}${noColor}"
+To navigate to the project, run: ${blue}cd ${projectName}${noColor}
 
-To start the service, run: "${blue}npm run service${noColor}"
+To start the service, run: ${blue}npm run service${noColor}
 
-To schedule a workflow, run: "${blue}npm run schedule${noColor}"
+To schedule a workflow, run: ${blue}npm run schedule${noColor}
 `);
 }
 main();
