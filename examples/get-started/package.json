@@ -9,6 +9,7 @@
         "bin",
         "src",
         "scheduleWorkflow.ts",
+        "readme.md",
         "tsconfig.json"
     ],
     "keywords": [
@@ -16,7 +17,6 @@
         "starter",
         "template"
     ],
-    "author": "Your Name",
     "license": "MIT",
     "dependencies": {
         "@restackio/ai": "^0.0.75",

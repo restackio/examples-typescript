@@ -1,0 +1,35 @@
+name: Publish to npm
+
+on:
+  push:
+    branches:
+      - 'main'
+    paths:
+      - 'examples/get-started/**'
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 20
+      
+      # Only install dev dependencies, for the binary. No need for source code.
+      - name: Install dependencies
+        run: pnpm install --dev
+        working-directory: ./examples/get-started
+      
+      - name: Build binary
+        run: pnpm run build-bin
+        working-directory: ./examples/get-started
+      
+      - name: Publish to npm
+        run: npm publish --access public
+        working-directory: ./examples/get-started
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
