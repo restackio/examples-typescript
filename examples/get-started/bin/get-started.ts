@@ -4,8 +4,10 @@ import fs from 'fs';
 import { execSync } from 'child_process';
 import path from 'path';
 import { fileURLToPath } from 'url';
+// @ts-ignore
 import packageJson from '../package.json';
 
+// @ts-ignore
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const packageRoot = path.join(__dirname, '..');
@@ -14,6 +16,7 @@ async function main() {
   clack.intro('Welcome Restack Get started'!);
 
   const currentDir = process.cwd();
+  let targetDir: string;
 
   // Copy files
   const projectName = (await clack.text({
@@ -27,8 +30,7 @@ async function main() {
   })) as string;
 
   if (projectName) {
-    const targetDir = path.join(currentDir, projectName);
-    console.log('🚀 ~ main ~ targetDir:', targetDir);
+    targetDir = path.join(currentDir, projectName);
     const filesToCopy = ['src', 'scheduleWorkflow.ts', 'tsconfig.json'];
     filesToCopy.forEach(file => {
       fs.cpSync(path.join(packageRoot, file), path.join(targetDir, file), { recursive: true });
@@ -37,7 +39,7 @@ async function main() {
     // Copy package.json separately and modify it
     delete packageJson.bin;
     delete packageJson.files;
-    fs.writeFileSync(path.join(currentDir, 'package.json'), JSON.stringify(packageJson, null, 2));
+    fs.writeFileSync(path.join(targetDir, 'package.json'), JSON.stringify(packageJson, null, 2));
   }
 
   const installDependencies = (await clack.confirm({
@@ -47,20 +49,44 @@ async function main() {
 
   if (installDependencies) {
     console.log('Installing dependencies...');
-    execSync('npm install', { stdio: 'inherit', cwd: currentDir });
+    execSync('npm install', { stdio: 'inherit', cwd: targetDir });
   }
 
-	 const startRestack = (await clack.confirm({
+	const startRestack = (await clack.confirm({
 		message: 'Start Restack Engine?',
 		initialValue: true,
-	 })) as boolean;
+	})) as boolean;
 
   if (startRestack) {
     console.log('Starting Restack Engine...');
+    execSync('docker rm -f studio', { stdio: 'inherit', cwd: targetDir });
     execSync('docker run -d --pull always --name studio -p 5233:5233 -p 6233:6233 -p 7233:7233 ghcr.io/restackio/engine:main', { stdio: 'inherit', cwd: currentDir });
+    console.log(`Restack Engine Studio started on http://localhost:5233`);
   }
 
-  clack.outro('👋 Goodbye');
+  const openRestack = (await clack.confirm({
+		message: 'Open Restack Engine Studio?',
+		initialValue: true,
+	})) as boolean;
+
+  if (openRestack) {
+    execSync('open http://localhost:5233', { stdio: 'inherit', cwd: targetDir });
+  }
+
+  const blue = '\x1b[34m';
+  const noColor = '\x1b[0m';
+  
+  clack.outro(`
+Project created successfully!
+
+We suggest that you begin with following commands:
+
+To navigate to the project, run: ${blue}cd ${projectName}${noColor}
+
+To start the service, run: ${blue}npm run service${noColor}
+
+To schedule a workflow, run: ${blue}npm run schedule${noColor}
+`);
 }
 
 main();

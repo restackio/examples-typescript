@@ -3,7 +3,7 @@
     "version": "1.0.4",
     "description": "Get started with Restack AI SDK",
     "bin": {
-        "get-started": "bin/get-started.js"
+        "get-started": "bin/get-started.mjs"
     },
     "files": [
         "bin",
@@ -19,14 +19,18 @@
     "author": "Your Name",
     "license": "MIT",
     "dependencies": {
+        "@restackio/ai": "^0.0.75",
+        "@temporalio/workflow": "^1.11.2",
         "nodemon": "^2.0.22",
         "ts-node": "^10.9.2",
-        "typescript": "^5.6.2",
-        "@restackio/ai": "^0.0.75",
-        "@temporalio/workflow": "^1.11.2"
+        "typescript": "^5.6.2"
     },
     "scripts": {
+        "build-bin": "pnpm tsup --outDir bin --format esm bin/get-started.ts",
         "service": "ts-node src/services.ts",
         "schedule": "ts-node scheduleWorkflow.ts"
+    },
+    "devDependencies": {
+        "tsup": "8.3.0"
     }
 }
