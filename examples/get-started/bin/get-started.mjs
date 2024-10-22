@@ -25,9 +25,9 @@ var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__ge
   mod
 ));
 
-// node_modules/.pnpm/sisteransi@1.0.5/node_modules/sisteransi/src/index.js
+// node_modules/sisteransi/src/index.js
 var require_src = __commonJS({
-  "node_modules/.pnpm/sisteransi@1.0.5/node_modules/sisteransi/src/index.js"(exports, module) {
+  "node_modules/sisteransi/src/index.js"(exports, module) {
     "use strict";
     var ESC = "\x1B";
     var CSI = `${ESC}[`;
@@ -81,9 +81,9 @@ var require_src = __commonJS({
   }
 });
 
-// node_modules/.pnpm/picocolors@1.1.1/node_modules/picocolors/picocolors.js
+// node_modules/picocolors/picocolors.js
 var require_picocolors = __commonJS({
-  "node_modules/.pnpm/picocolors@1.1.1/node_modules/picocolors/picocolors.js"(exports, module) {
+  "node_modules/picocolors/picocolors.js"(exports, module) {
     var p = process || {};
     var argv = p.argv || [];
     var env = p.env || {};
@@ -153,7 +153,7 @@ var require_picocolors = __commonJS({
   }
 });
 
-// node_modules/.pnpm/@clack+core@0.3.4/node_modules/@clack/core/dist/index.mjs
+// node_modules/@clack/core/dist/index.mjs
 var import_sisteransi = __toESM(require_src(), 1);
 var import_picocolors = __toESM(require_picocolors(), 1);
 import { stdin as $, stdout as k } from "node:process";
@@ -494,7 +494,7 @@ function WD({ input: t = $, output: u = k, overwrite: F = true, hideCursor: e2 =
   };
 }
 
-// node_modules/.pnpm/@clack+prompts@0.7.0/node_modules/@clack/prompts/dist/index.mjs
+// node_modules/@clack/prompts/dist/index.mjs
 var import_picocolors2 = __toESM(require_picocolors(), 1);
 var import_sisteransi2 = __toESM(require_src(), 1);
 import h from "node:process";
