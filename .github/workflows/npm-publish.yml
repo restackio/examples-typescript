@@ -24,6 +24,7 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: 20
+          registry-url: 'https://registry.npmjs.org'
       
       # Only install dev dependencies, for the binary. No need to install deps for the source code.
       - name: Install dependencies
@@ -33,9 +34,6 @@ jobs:
       
       - name: Build binary
         run: pnpm run build-bin
-        working-directory: ./examples/get-started
-      - name: Run git diff
-        run: git diff
         working-directory: ./examples/get-started
 
       - name: Publish to npm
