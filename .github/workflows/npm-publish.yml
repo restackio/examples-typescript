@@ -34,7 +34,10 @@ jobs:
       - name: Build binary
         run: pnpm run build-bin
         working-directory: ./examples/get-started
-      
+      - name: Run git diff
+        run: git diff
+        working-directory: ./examples/get-started
+
       - name: Publish to npm
         run: pnpm publish --access public
         working-directory: ./examples/get-started
