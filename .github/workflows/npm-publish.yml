@@ -39,7 +39,8 @@ jobs:
         working-directory: ./examples/get-started
 
       - name: Publish to npm
-        run: pnpm publish --access public
+        # --no-git-checks is needed because "rollup-linux-x64-gnu" is out sync
+        run: pnpm publish --access public --no-git-checks
         working-directory: ./examples/get-started
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
