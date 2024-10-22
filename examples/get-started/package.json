@@ -1,6 +1,6 @@
 {
     "name": "@restackio/get-started",
-    "version": "1.0.5",
+    "version": "1.0.6",
     "description": "Get started with Restack AI SDK",
     "bin": {
         "get-started": "bin/get-started.mjs"
@@ -26,13 +26,16 @@
         "typescript": "^5.6.2",
         "wait-on": "^8.0.1"
     },
+    "engines": {
+        "node": ">=20"
+    },
     "scripts": {
-        "build-bin": "pnpm tsup --outDir bin --format esm bin/get-started.ts",
+        "build-bin": "pnpm esbuild bin/get-started.ts --outfile=bin/get-started.mjs --format=esm",
         "service": "ts-node src/services.ts",
         "schedule": "ts-node scheduleWorkflow.ts"
     },
     "devDependencies": {
         "@clack/prompts": "^0.7.0",
-        "tsup": "8.3.0"
+        "esbuild": "^0.24.0"
     }
 }

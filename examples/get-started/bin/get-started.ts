@@ -7,9 +7,6 @@ import { fileURLToPath } from 'url';
 import waitOn from 'wait-on';
 
 // @ts-ignore
-import packageJson from '../package.json';
-
-// @ts-ignore
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const packageRoot = path.join(__dirname, '..');
@@ -32,15 +29,10 @@ async function main() {
 
   if (projectName) {
     targetDir = path.join(currentDir, projectName);
-    const filesToCopy = ['src', 'scheduleWorkflow.ts', 'tsconfig.json'];
+    const filesToCopy = ['src', 'scheduleWorkflow.ts', 'tsconfig.json', 'package.json'];
     filesToCopy.forEach(file => {
       fs.cpSync(path.join(packageRoot, file), path.join(targetDir, file), { recursive: true });
     });
-    
-    // Copy package.json separately and modify it
-    delete packageJson.bin;
-    delete packageJson.files;
-    fs.writeFileSync(path.join(targetDir, 'package.json'), JSON.stringify(packageJson, null, 2));
   }
 
   const installDependencies = (await clack.confirm({
@@ -72,7 +64,7 @@ async function main() {
 
   if (openRestack) {
     const s = clack.spinner();
-    s.start('Waiting for Restack Engine Studio to start');
+    s.start('Waiting for Restack Engine Studio to be ready...');
     await waitOn({ resources: ['http://localhost:5233'] });
     s.stop();
     execSync('open http://localhost:5233', { stdio: 'inherit', cwd: targetDir });
