@@ -1,6 +1,6 @@
 {
     "name": "@restackio/get-started",
-    "version": "1.0.10",
+    "version": "1.0.11",
     "description": "Get started with Restack AI SDK",
     "bin": {
         "get-started": "bin/get-started.mjs"
@@ -9,6 +9,7 @@
         "bin",
         "src",
         "scheduleWorkflow.ts",
+        ".gitignore",
         "readme.md",
         "tsconfig.json"
     ],
