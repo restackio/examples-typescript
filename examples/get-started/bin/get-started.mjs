@@ -622,7 +622,7 @@ import waitOn from "wait-on";
 // package.json
 var package_default = {
   name: "@restackio/get-started",
-  version: "1.0.4",
+  version: "1.0.7",
   description: "Get started with Restack AI SDK",
   bin: {
     "get-started": "bin/get-started.mjs"
@@ -656,6 +656,11 @@ var package_default = {
   devDependencies: {
     "@clack/prompts": "^0.7.0",
     tsup: "8.3.0"
+  },
+  pnpm: {
+    overrides: {
+      rollup: "npm:@rollup/wasm-node"
+    }
   }
 };
 

@@ -29,7 +29,7 @@ jobs:
       # Only install dev dependencies, for the binary. No need to install deps for the source code.
       - name: Install dependencies
         # Weird tsup quirk https://github.com/npm/cli/issues/4828#issuecomment-2404560937
-        run: pnpm i @rollup/rollup-linux-x64-gnu && pnpm install --dev
+        run: pnpm install --dev
         working-directory: ./examples/get-started
       
       - name: Build binary
