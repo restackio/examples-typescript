@@ -1,4 +1,4 @@
-name: Publish to npm
+name: Publish "get-started" to npm
 
 on:
   push:
@@ -6,15 +6,24 @@ on:
       - 'main'
     paths:
       - 'examples/get-started/**'
-  # TODO: Remove after testing
-  pull_request:
-    branches:
-      - '*'
-    paths:
-      - 'examples/get-started/**'
 
 jobs:
+  check_version:
+    runs-on: ubuntu-latest
+    outputs:
+      version_changed: ${{ steps.check_version.outputs.changed }}
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 2
+      - name: Check if version has changed
+        id: check_version
+        run: |
+          git diff HEAD^ HEAD -- examples/get-started/package.json | grep '"version"' && echo "changed=true" >> $GITHUB_OUTPUT || echo "changed=false" >> $GITHUB_OUTPUT
+
   publish:
+    needs: check_version
+    if: needs.check_version.outputs.version_changed == 'true'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -28,7 +37,6 @@ jobs:
       
       # Only install dev dependencies, for the binary. No need to install deps for the source code.
       - name: Install dependencies
-        # Weird tsup quirk https://github.com/npm/cli/issues/4828#issuecomment-2404560937
         run: pnpm install --dev
         working-directory: ./examples/get-started
       
@@ -37,8 +45,7 @@ jobs:
         working-directory: ./examples/get-started
 
       - name: Publish to npm
-        # --no-git-checks is needed because "rollup-linux-x64-gnu" is out sync
-        run: pnpm publish --access public --no-git-checks
+        run: pnpm publish --access public
         working-directory: ./examples/get-started
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

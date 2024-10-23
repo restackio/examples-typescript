@@ -20,6 +20,7 @@
     "license": "MIT",
     "dependencies": {
         "@restackio/ai": "^0.0.75",
+        "@restackio/integrations-openai": "^0.0.24",
         "@temporalio/workflow": "^1.11.2",
         "nodemon": "^2.0.22",
         "ts-node": "^10.9.2",
@@ -40,5 +41,4 @@
             "rollup": "npm:@rollup/wasm-node"
         }
     }
-    
 }

@@ -32,7 +32,7 @@ async function main() {
 
   if (projectName) {
     targetDir = path.join(currentDir, projectName);
-    const filesToCopy = ['src', 'scheduleWorkflow.ts', 'tsconfig.json'];
+    const filesToCopy = ['src', 'scheduleWorkflow.ts', 'tsconfig.json', '.gitignore'];
     filesToCopy.forEach(file => {
       fs.cpSync(path.join(packageRoot, file), path.join(targetDir, file), { recursive: true });
     });
