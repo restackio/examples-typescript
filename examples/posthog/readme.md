@@ -21,7 +21,7 @@ pnpm dev
 
 # Schedule digest workflow with
 
-pnpm workflow
+pnpm schedule
 
 # deploy
 
