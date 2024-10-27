@@ -9,41 +9,41 @@ importers:
   .:
     dependencies:
       '@restackio/ai':
-        specifier: ^0.0.75
-        version: 0.0.75(@swc/helpers@0.5.11)
+        specifier: ^0.0.80
+        version: 0.0.80(@swc/helpers@0.5.11)
       next:
         specifier: 14.2.13
         version: 14.2.13(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react:
-        specifier: ^18.3.1
+        specifier: ^18
         version: 18.3.1
       react-dom:
-        specifier: ^18.3.1
+        specifier: ^18
         version: 18.3.1(react@18.3.1)
     devDependencies:
       '@types/node':
-        specifier: ^20.16.10
+        specifier: ^20
         version: 20.16.10
       '@types/react':
-        specifier: ^18.3.11
+        specifier: ^18
         version: 18.3.11
       '@types/react-dom':
-        specifier: ^18.3.0
+        specifier: ^18
         version: 18.3.0
       eslint:
-        specifier: ^8.57.1
+        specifier: ^8
         version: 8.57.1
       eslint-config-next:
         specifier: 14.2.13
         version: 14.2.13(eslint@8.57.1)(typescript@5.6.2)
       postcss:
-        specifier: ^8.4.47
+        specifier: ^8
         version: 8.4.47
       tailwindcss:
-        specifier: ^3.4.13
+        specifier: ^3.4.1
         version: 3.4.13
       typescript:
-        specifier: ^5.6.2
+        specifier: ^5
         version: 5.6.2
 
 packages:
@@ -248,8 +248,8 @@ packages:
   '@protobufjs/utf8@1.1.0':
     resolution: {integrity: sha512-Vvn3zZrhQZkkBE8LSuW3em98c0FwgO4nxzv6OdSxPKJIEKY2bGbHn+mhGIPerzI4twdxaP8/0+06HBpwf345Lw==}
 
-  '@restackio/ai@0.0.75':
-    resolution: {integrity: sha512-Q3IKIJHseWM+CDoZWvgPmuv15ryZkHsCY2jq6FbdnW44MMjOOcI3QUbpZJPHLGlLZ5ucnSbQxiZBvHDDnOZfVQ==}
+  '@restackio/ai@0.0.80':
+    resolution: {integrity: sha512-igmdZOTPm70lB7QWTrp7hg1M/btsTIlWUqvZbPD9bbECCrVjsyOxlvqmZuL7fxkKfa2OR0H4P9TO5VLyEwCztQ==}
     engines: {node: '>=20'}
 
   '@rtsao/scc@1.1.0':
@@ -2199,7 +2199,7 @@ snapshots:
 
   '@protobufjs/utf8@1.1.0': {}
 
-  '@restackio/ai@0.0.75(@swc/helpers@0.5.11)':
+  '@restackio/ai@0.0.80(@swc/helpers@0.5.11)':
     dependencies:
       '@temporalio/activity': 1.11.2
       '@temporalio/client': 1.11.2
