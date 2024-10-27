@@ -21,7 +21,7 @@
     "dependencies": {
         "@restackio/ai": "^0.0.80",
         "@temporalio/workflow": "^1.11.2",
-        "nodemon": "^2.0.22",
+        "nodemon": "^3.1.7",
         "ts-node": "^10.9.2",
         "wait-on": "^8.0.1"
     },
