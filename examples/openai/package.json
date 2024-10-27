@@ -1,5 +1,5 @@
 {
-  "name": "sdk-example-ts",
+  "name": "restack-examples-ts-openai",
   "version": "1.0.0",
   "description": "Basic OpenAI example",
   "main": "index.js",

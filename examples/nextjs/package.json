@@ -1,5 +1,5 @@
 {
-  "name": "nextjs",
+  "name": "restack-examples-ts-nextjs",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -7,10 +7,12 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "clean": "rm -rf node_modules"
+    "clean": "rm -rf node_modules",
+    "restack-up": "node restack_up.mjs"
   },
   "dependencies": {
     "@restackio/ai": "^0.0.80",
+    "@restackio/restack-sdk-cloud-ts": "^1.0.16",
     "next": "14.2.13",
     "react": "^18",
     "react-dom": "^18"

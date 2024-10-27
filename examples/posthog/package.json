@@ -1,5 +1,5 @@
 {
-  "name": "restack-posthog",
+  "name": "restack-examples-ts-posthog",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",

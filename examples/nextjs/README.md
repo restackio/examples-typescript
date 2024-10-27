@@ -40,6 +40,10 @@ Now you can add a backend to the example. In other examples, you can see how to 
 
 ## Deploy on Restack
 
+```
+pnpm restack up
+```
+
 To deploy this Next.js application on Restack, you can use the provided `restack_up.mjs` script. This script utilizes the Restack Cloud SDK to define and deploy your application stack. It sets up the necessary environment variables and configures the Next.js application for deployment. 
 
 To get started, ensure you have the required Restack Cloud credentials and environment variables set up. Then, run the script to initiate the deployment process. 
