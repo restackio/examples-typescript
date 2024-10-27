@@ -1,0 +1,36 @@
+{
+    "name": "restack-examples-ts-express",
+    "version": "0.0.1",
+    "description": "Basic Express example",
+    "main": "server.ts",
+    "scripts": {
+      "start": "ts-node src/server.ts",
+      "start.watch": "nodemon src/server.ts",
+      "dev": "pnpm start.watch",
+      "build": "tsc --build",
+      "clean": "rm -rf node_modules",
+      "restack-up": "node restack_up.mjs"
+    },
+    "nodemonConfig": {
+      "execMap": {
+        "ts": "ts-node"
+      },
+      "ext": "ts",
+      "watch": [
+        "src"
+      ]
+    },
+    "dependencies": {
+      "@restackio/ai": "^0.0.80",
+      "@temporalio/workflow": "^1.11.2",
+      "express": "^4.21.1",
+      "dotenv": "^16.4.5",
+    },
+    "devDependencies": {
+      "@restackio/restack-sdk-cloud-ts": "^1.0.15",
+      "@types/node": "^20.16.9",
+      "nodemon": "^2.0.22",
+      "ts-node": "^10.9.2"
+    }
+  }
+  
