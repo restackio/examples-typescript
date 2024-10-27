@@ -1,7 +1,7 @@
 {
   "name": "sdk-example-ts",
   "version": "1.0.0",
-  "description": "",
+  "description": "Basic OpenAI example",
   "main": "index.js",
   "scripts": {
     "start": "ts-node src/services.ts",
@@ -22,8 +22,8 @@
     ]
   },
   "dependencies": {
-    "@restackio/integrations-openai": "^0.0.23",
-    "@restackio/ai": "^0.0.75",
+    "@restackio/integrations-openai": "^0.0.29",
+    "@restackio/ai": "^0.0.80",
     "@temporalio/workflow": "^1.11.2",
     "dotenv": "^16.4.5",
     "zod": "^3.23.8",
