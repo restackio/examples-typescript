@@ -25,7 +25,7 @@ Your code will be running in pods and syncing with Restack engine to execute wor
 
 In another shell:
 
-pnpm workflow
+pnpm schedule
 
 Will schedule to start example workflow immediately.
 
