@@ -9,14 +9,14 @@ importers:
   .:
     dependencies:
       '@restackio/ai':
-        specifier: ^0.0.75
-        version: 0.0.75
+        specifier: ^0.0.80
+        version: 0.0.80
       '@restackio/integrations-linear':
-        specifier: ^0.0.3
-        version: 0.0.3
+        specifier: ^0.0.6
+        version: 0.0.6
       '@restackio/integrations-openai':
-        specifier: ^0.0.23
-        version: 0.0.23(zod@3.23.8)
+        specifier: ^0.0.29
+        version: 0.0.29(zod@3.23.8)
       '@temporalio/workflow':
         specifier: 1.11.1
         version: 1.11.1
@@ -160,15 +160,15 @@ packages:
   '@protobufjs/utf8@1.1.0':
     resolution: {integrity: sha512-Vvn3zZrhQZkkBE8LSuW3em98c0FwgO4nxzv6OdSxPKJIEKY2bGbHn+mhGIPerzI4twdxaP8/0+06HBpwf345Lw==}
 
-  '@restackio/ai@0.0.75':
-    resolution: {integrity: sha512-Q3IKIJHseWM+CDoZWvgPmuv15ryZkHsCY2jq6FbdnW44MMjOOcI3QUbpZJPHLGlLZ5ucnSbQxiZBvHDDnOZfVQ==}
+  '@restackio/ai@0.0.80':
+    resolution: {integrity: sha512-igmdZOTPm70lB7QWTrp7hg1M/btsTIlWUqvZbPD9bbECCrVjsyOxlvqmZuL7fxkKfa2OR0H4P9TO5VLyEwCztQ==}
     engines: {node: '>=20'}
 
-  '@restackio/integrations-linear@0.0.3':
-    resolution: {integrity: sha512-eb+Uq71aPW6IV7+rV8fBwmgGOtutD1WKwJoOwPgPsKQ6sm5V3WH+1A60vR35/Y54h8k1ZD5X4Fmz9qslOAlaXA==}
+  '@restackio/integrations-linear@0.0.6':
+    resolution: {integrity: sha512-ZM4kqNFz4pStcl+m3VnoVlO3pW+hZOM9gUH7OSnGAROJciqgHg7FY6cmHeH9prT1194WsvgeAUzQtvwwudjPEA==}
 
-  '@restackio/integrations-openai@0.0.23':
-    resolution: {integrity: sha512-cTKk3mirbn25i4S/wG5b0o6gAoiPojkHptIP0q/C0aTLysm/Ps0daL4cVY/Q0hXmKfXLQ9+rxHkJOLS5zhMYrw==}
+  '@restackio/integrations-openai@0.0.29':
+    resolution: {integrity: sha512-pZmU9aeLW/yno2jtReSYyC+20tHCEmpInkwtYG3LZpmwWgyiUmz2hjxlnZ2H1r5WQQWL9xUvV2TOrk3dCKfg0A==}
 
   '@restackio/restack-sdk-cloud-ts@1.0.5':
     resolution: {integrity: sha512-xAVoEBwuHNZo0OZQskThIwzj3ln8m2lJRlhKl7CYhJdGeUTK4Fo0zwrg31i9Wz0JnInXgWwGYYro8gcrpb3nYg==}
@@ -297,9 +297,6 @@ packages:
 
   '@types/node@22.5.5':
     resolution: {integrity: sha512-Xjs4y5UPO/CLdzpgR6GirZJx36yScjh73+2NlLlkFRSoQN8B0DpfXPdZGnvVmLRLOsqDpOfTNv7D9trgGhmOIA==}
-
-  '@types/qs@6.9.16':
-    resolution: {integrity: sha512-7i+zxXdPD0T4cKDuxCUXJ4wHcsJLwENa6Z3dCu8cfCK743OGy5Nu1RmAGqDPsoTDINVEcdXKRvR/zre+P2Ku1A==}
 
   '@types/strip-bom@3.0.0':
     resolution: {integrity: sha512-xevGOReSYGM7g/kUBZzPqCrR/KYAo+F0yiPc85WFTJa0MSLtyFTVTU6cJu/aV4mid7IffDIWqo69THF2o4JiEQ==}
@@ -438,10 +435,6 @@ packages:
     resolution: {integrity: sha512-tjwM5exMg6BGRI+kNmTntNsvdZS1X8BFYS6tnJ2hdH0kVxM6/eVZ2xy+FqStSWvYmtfFMDLIxurorHwDKfDz5Q==}
     engines: {node: '>=18'}
 
-  call-bind@1.0.7:
-    resolution: {integrity: sha512-GHTSNSYICQ7scH7sZ+M2rFopRoLh8t2bLSW6BbgrtLsahOIB5iyAVJf9GjWK3cYTDaMj4XdBpM1cA6pIS0Kv2w==}
-    engines: {node: '>= 0.4'}
-
   caniuse-lite@1.0.30001660:
     resolution: {integrity: sha512-GacvNTTuATm26qC74pt+ad1fW15mlQ/zuTzzY1ZoIzECTP8HURDfF43kNxPgf7H1jmelCBQTTbBNxdSXOA7Bqg==}
 
@@ -502,10 +495,6 @@ packages:
     resolution: {integrity: sha512-WY/3TUME0x3KPYdRRxEJJvXRHV4PyPoUsxtZa78lwItwRQRHhd2U9xOscaT/YTf8uCXIAjeJOFBVEh/7FtD8Xg==}
     engines: {node: '>=18'}
 
-  define-data-property@1.1.4:
-    resolution: {integrity: sha512-rBMvIzlpA8v6E+SJZoo++HAYqsLrkg7MSfIinMPFhmkorw7X+dOXVJQs+QT69zGkzMyfDnIMN2Wid1+NbL3T+A==}
-    engines: {node: '>= 0.4'}
-
   define-lazy-prop@3.0.0:
     resolution: {integrity: sha512-N+MeXYoqr3pOgn8xfyRPREN7gHakLYjhsHhWGT3fWAiL4IkAt0iDw14QiiEm2bE30c5XX5q0FtAA3CK5f9/BUg==}
     engines: {node: '>=12'}
@@ -534,14 +523,6 @@ packages:
   enhanced-resolve@5.17.1:
     resolution: {integrity: sha512-LMHl3dXhTcfv8gM4kEzIUeTQ+7fpdA0l2tUf34BddXPkz2A5xJ5L/Pchd5BL6rdccM9QGvu0sWZzK1Z1t4wwyg==}
     engines: {node: '>=10.13.0'}
-
-  es-define-property@1.0.0:
-    resolution: {integrity: sha512-jxayLKShrEqqzJ0eumQbVhTYQM27CfT1T35+gCgDFoL82JLsXqTJ76zv6A0YLOgEnLUMvLzsDsGIrl8NFpT2gQ==}
-    engines: {node: '>= 0.4'}
-
-  es-errors@1.3.0:
-    resolution: {integrity: sha512-Zf5H2Kxt2xjTvbJvP2ZWLEICxA6j+hAmMzIlypy4xcBg1vKVnx89Wy0GbS+kf5cwCVFFzdCFh2XSCFNULS6csw==}
-    engines: {node: '>= 0.4'}
 
   es-module-lexer@1.5.4:
     resolution: {integrity: sha512-MVNK56NiMrOwitFB7cqDwq0CQutbw+0BvLshJSse0MUNU+y1FC3bUS/AQg7oUng+/wKrrki7JfmwtVHkVfPLlw==}
@@ -613,10 +594,6 @@ packages:
     resolution: {integrity: sha512-DyFP3BM/3YHTQOCUL/w0OZHR0lpKeGrxotcHWcqNEdnltqFwXVfhEBQ94eIo34AfQpo0rGki4cyIiftY06h2Fg==}
     engines: {node: 6.* || 8.* || >= 10.*}
 
-  get-intrinsic@1.2.4:
-    resolution: {integrity: sha512-5uYhsJH8VJBTv7oslg4BznJYhDoRI6waYCxMmCdnTrcCrHA/fCFKoTFz2JKKE0HdDFUF7/oQuhzumXJK7paBRQ==}
-    engines: {node: '>= 0.4'}
-
   glob-parent@5.1.2:
     resolution: {integrity: sha512-AOIgSQCepiJYwP3ARnGx+5VnTu2HBYdzbGP45eLw1vr3zB3vZLeyed1sC9hnbcOc9/SrMyM5RPQrkGz4aS9Zow==}
     engines: {node: '>= 6'}
@@ -627,9 +604,6 @@ packages:
   glob@7.2.3:
     resolution: {integrity: sha512-nFR0zLpU2YCaRxwoCJvL6UvCH2JFyFVIvwTLsIf21AuHlMskA1hhTdk+LlYJtOlYt9v6dvszD2BGRqBL+iQK9Q==}
     deprecated: Glob versions prior to v9 are no longer supported
-
-  gopd@1.0.1:
-    resolution: {integrity: sha512-d65bNlIadxvpb/A2abVdlqKqV563juRnZ1Wtk6s1sIR8uNsXR70xqIzVqxVf1eTqDunwT2MkczEeaezCKTZhwA==}
 
   graceful-fs@4.2.11:
     resolution: {integrity: sha512-RbJ5/jmFcNNCcDV5o9eTnBLJ/HszWV0P73bc+Ff4nS/rJj+YaS6IGyiOL0VoBYX+l1Wrl3k63h/KrH+nhJ0XvQ==}
@@ -645,17 +619,6 @@ packages:
   has-flag@4.0.0:
     resolution: {integrity: sha512-EykJT/Q1KjTWctppgIAgfSO0tKVuZUjhgMr17kqTumMl6Afv3EISleU7qZUzoXDFTAHTDC4NOoG/ZxU3EvlMPQ==}
     engines: {node: '>=8'}
-
-  has-property-descriptors@1.0.2:
-    resolution: {integrity: sha512-55JNKuIW+vq4Ke1BjOTjM2YctQIvCT7GFzHwmfZPGo5wnrgkid0YQtnAleFSqumZm4az3n2BS+erby5ipJdgrg==}
-
-  has-proto@1.0.3:
-    resolution: {integrity: sha512-SJ1amZAJUiZS+PhsVLf5tGydlaVB8EdFpaSO4gmiUKUOxk8qzn5AIy4ZeJUmh22znIdk/uMAUT2pl3FxzVUH+Q==}
-    engines: {node: '>= 0.4'}
-
-  has-symbols@1.0.3:
-    resolution: {integrity: sha512-l3LCuF6MgDNwTDKkdYGEihYjt5pRPbEg46rtlmnSPlUbgmB8LOIrKJbYYFBSbnPaJexMKtiPO8hmeRjRz2Td+A==}
-    engines: {node: '>= 0.4'}
 
   hasown@2.0.2:
     resolution: {integrity: sha512-0hJU9SCPvmMzIBdZFqNPXWa6dqh7WdH0cII9y+CyS8rG3nL48Bclra9HmKhVVUHyPWNH5Y7xDwAB7bfgSjkUMQ==}
@@ -815,10 +778,6 @@ packages:
     resolution: {integrity: sha512-6eZs5Ls3WtCisHWp9S2GUy8dqkpGi4BVSz3GaqiE6ezub0512ESztXUwUB6C6IKbQkY2Pnb/mD4WYojCRwcwLA==}
     engines: {node: '>=0.10.0'}
 
-  object-inspect@1.13.2:
-    resolution: {integrity: sha512-IRZSRuzJiynemAXPYtPe5BoI/RESNYR7TYm50MC5Mqbd3Jmw5y790sErYw3V6SryFJD64b74qQQs9wn5Bg/k3g==}
-    engines: {node: '>= 0.4'}
-
   once@1.4.0:
     resolution: {integrity: sha512-lNaJgI+2Q5URQBkccEKHTQOPaXdUxnZZElQTZY0MFUAuaEqe1E+Nyvgdz/aIyNi6Z9MzO5dv1H8n58/GELp3+w==}
 
@@ -826,8 +785,8 @@ packages:
     resolution: {integrity: sha512-mnkeQ1qP5Ue2wd+aivTD3NHd/lZ96Lu0jgf0pwktLPtx6cTZiH7tyeGRRHs0zX0rbrahXPnXlUnbeXyaBBuIaw==}
     engines: {node: '>=18'}
 
-  openai@4.61.0:
-    resolution: {integrity: sha512-xkygRBRLIUumxzKGb1ug05pWmJROQsHkGuj/N6Jiw2dj0dI19JvbFpErSZKmJ/DA+0IvpcugZqCAyk8iLpyM6Q==}
+  openai@4.68.4:
+    resolution: {integrity: sha512-LRinV8iU9VQplkr25oZlyrsYGPGasIwYN8KFMAAFTHHLHjHhejtJ5BALuLFrkGzY4wfbKhOhuT+7lcHZ+F3iEA==}
     hasBin: true
     peerDependencies:
       zod: ^3.23.8
@@ -866,10 +825,6 @@ packages:
   punycode@2.3.1:
     resolution: {integrity: sha512-vYt7UD1U9Wg6138shLtLOvdAu+8DsC/ilFtEVHcH+wydcSpNE20AfSOduf6MkRFahL5FY7X1oU7nKVZFtfq8Fg==}
     engines: {node: '>=6'}
-
-  qs@6.13.0:
-    resolution: {integrity: sha512-+38qI9SOr8tfZ4QmJNplMUxqjbe7LKvvZgWdExBOmd+egZTtjLB67Gu0HRX3u/XOq7UU2Nx6nsjvS16Z9uwfpg==}
-    engines: {node: '>=0.6'}
 
   randombytes@2.1.0:
     resolution: {integrity: sha512-vYl3iOX+4CKUWuxGi9Ukhie6fsqXqS9FE2Zaic4tNFD2N2QQaXOMFbuKK4QmDHC0JO6B1Zp41J0LpT0oR68amQ==}
@@ -915,14 +870,6 @@ packages:
 
   serialize-javascript@6.0.2:
     resolution: {integrity: sha512-Saa1xPByTTq2gdeFZYLLo+RFE35NHZkAbqZeWNd3BpzppeVisAqpDjcp8dyf6uIvEqJRd46jemmyA4iFIeVk8g==}
-
-  set-function-length@1.2.2:
-    resolution: {integrity: sha512-pgRc4hJ4/sNjWCSS9AmnS40x3bNMDTknHgL5UaMBTMyJnU90EgWh1Rz+MC9eFu4BuN/UwZjKQuY/1v3rM7HMfg==}
-    engines: {node: '>= 0.4'}
-
-  side-channel@1.0.6:
-    resolution: {integrity: sha512-fDW/EZ6Q9RiO8eFG8Hj+7u/oW+XrPTIChwCOM2+th2A6OblDtYYIpve9m+KvI9Z4C9qSEXlaGR6bTEYHReuglA==}
-    engines: {node: '>= 0.4'}
 
   simple-git@3.26.0:
     resolution: {integrity: sha512-5tbkCSzuskR6uA7uA23yjasmA0RzugVo8QM2bpsnxkrgP13eisFT7TMS4a+xKEJvbmr4qf+l0WT3eKa9IxxUyw==}
@@ -1300,7 +1247,7 @@ snapshots:
 
   '@protobufjs/utf8@1.1.0': {}
 
-  '@restackio/ai@0.0.75':
+  '@restackio/ai@0.0.80':
     dependencies:
       '@temporalio/activity': 1.11.1
       '@temporalio/client': 1.11.1
@@ -1312,15 +1259,15 @@ snapshots:
       - uglify-js
       - webpack-cli
 
-  '@restackio/integrations-linear@0.0.3':
+  '@restackio/integrations-linear@0.0.6':
     dependencies:
       '@linear/sdk': 29.0.0
     transitivePeerDependencies:
       - encoding
 
-  '@restackio/integrations-openai@0.0.23(zod@3.23.8)':
+  '@restackio/integrations-openai@0.0.29(zod@3.23.8)':
     dependencies:
-      openai: 4.61.0(zod@3.23.8)
+      openai: 4.68.4(zod@3.23.8)
     transitivePeerDependencies:
       - encoding
       - zod
@@ -1475,8 +1422,6 @@ snapshots:
   '@types/node@22.5.5':
     dependencies:
       undici-types: 6.19.8
-
-  '@types/qs@6.9.16': {}
 
   '@types/strip-bom@3.0.0': {}
 
@@ -1636,14 +1581,6 @@ snapshots:
     dependencies:
       run-applescript: 7.0.0
 
-  call-bind@1.0.7:
-    dependencies:
-      es-define-property: 1.0.0
-      es-errors: 1.3.0
-      function-bind: 1.1.2
-      get-intrinsic: 1.2.4
-      set-function-length: 1.2.2
-
   caniuse-lite@1.0.30001660: {}
 
   cargo-cp-artifact@0.1.9: {}
@@ -1702,12 +1639,6 @@ snapshots:
       bundle-name: 4.1.0
       default-browser-id: 5.0.0
 
-  define-data-property@1.1.4:
-    dependencies:
-      es-define-property: 1.0.0
-      es-errors: 1.3.0
-      gopd: 1.0.1
-
   define-lazy-prop@3.0.0: {}
 
   delayed-stream@1.0.0: {}
@@ -1728,12 +1659,6 @@ snapshots:
     dependencies:
       graceful-fs: 4.2.11
       tapable: 2.2.1
-
-  es-define-property@1.0.0:
-    dependencies:
-      get-intrinsic: 1.2.4
-
-  es-errors@1.3.0: {}
 
   es-module-lexer@1.5.4: {}
 
@@ -1788,14 +1713,6 @@ snapshots:
 
   get-caller-file@2.0.5: {}
 
-  get-intrinsic@1.2.4:
-    dependencies:
-      es-errors: 1.3.0
-      function-bind: 1.1.2
-      has-proto: 1.0.3
-      has-symbols: 1.0.3
-      hasown: 2.0.2
-
   glob-parent@5.1.2:
     dependencies:
       is-glob: 4.0.3
@@ -1811,10 +1728,6 @@ snapshots:
       once: 1.4.0
       path-is-absolute: 1.0.1
 
-  gopd@1.0.1:
-    dependencies:
-      get-intrinsic: 1.2.4
-
   graceful-fs@4.2.11: {}
 
   graphql@15.9.0: {}
@@ -1822,14 +1735,6 @@ snapshots:
   has-flag@3.0.0: {}
 
   has-flag@4.0.0: {}
-
-  has-property-descriptors@1.0.2:
-    dependencies:
-      es-define-property: 1.0.0
-
-  has-proto@1.0.3: {}
-
-  has-symbols@1.0.3: {}
 
   hasown@2.0.2:
     dependencies:
@@ -1963,8 +1868,6 @@ snapshots:
 
   normalize-path@3.0.0: {}
 
-  object-inspect@1.13.2: {}
-
   once@1.4.0:
     dependencies:
       wrappy: 1.0.2
@@ -1976,17 +1879,15 @@ snapshots:
       is-inside-container: 1.0.0
       is-wsl: 3.1.0
 
-  openai@4.61.0(zod@3.23.8):
+  openai@4.68.4(zod@3.23.8):
     dependencies:
       '@types/node': 18.19.50
       '@types/node-fetch': 2.6.11
-      '@types/qs': 6.9.16
       abort-controller: 3.0.0
       agentkeepalive: 4.5.0
       form-data-encoder: 1.7.2
       formdata-node: 4.4.1
       node-fetch: 2.7.0
-      qs: 6.13.0
     optionalDependencies:
       zod: 3.23.8
     transitivePeerDependencies:
@@ -2024,10 +1925,6 @@ snapshots:
   pstree.remy@1.1.8: {}
 
   punycode@2.3.1: {}
-
-  qs@6.13.0:
-    dependencies:
-      side-channel: 1.0.6
 
   randombytes@2.1.0:
     dependencies:
@@ -2070,22 +1967,6 @@ snapshots:
   serialize-javascript@6.0.2:
     dependencies:
       randombytes: 2.1.0
-
-  set-function-length@1.2.2:
-    dependencies:
-      define-data-property: 1.1.4
-      es-errors: 1.3.0
-      function-bind: 1.1.2
-      get-intrinsic: 1.2.4
-      gopd: 1.0.1
-      has-property-descriptors: 1.0.2
-
-  side-channel@1.0.6:
-    dependencies:
-      call-bind: 1.0.7
-      es-errors: 1.3.0
-      get-intrinsic: 1.2.4
-      object-inspect: 1.13.2
 
   simple-git@3.26.0:
     dependencies:

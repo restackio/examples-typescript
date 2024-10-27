@@ -20,17 +20,30 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-## Learn More
+# Install Restack Web UI 
 
-To learn more about Next.js, take a look at the following resources:
+To install the Restack Web UI, you can use Docker.
+```
+docker run -d --pull always --name studio -p 5233:5233 -p 6233:6233 -p 7233:7233 ghcr.io/restackio/restack:main
+```
+# Schedule Restack workflow from NextJS frontend
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+The example is a NextJS application with front and backend. You can schedule the workflow example from the user interface. 
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+![Example UI](./restack-examples-ts-nextjs.png)
 
-## Deploy on Vercel
+When the client successfully schedules the workflow, you can see the started workflow in the Restack Web UI. You should see the following screen:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+![Success Web UI](./restack-examples-ts-nextjs-web-ui.png)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Now you can add a backend to the example. In other examples, you can see how to ideally structure the backend app with workflows, functions and services.
+
+## Deploy on Restack
+
+To deploy this Next.js application on Restack, you can use the provided `restack_up.mjs` script. This script utilizes the Restack Cloud SDK to define and deploy your application stack. It sets up the necessary environment variables and configures the Next.js application for deployment. 
+
+To get started, ensure you have the required Restack Cloud credentials and environment variables set up. Then, run the script to initiate the deployment process. 
+
+For more detailed information on deploying your repository to Restack, refer to the [Restack Cloud deployment documentation](https://docs.restack.io/restack-cloud/deployrepo).
+
+
