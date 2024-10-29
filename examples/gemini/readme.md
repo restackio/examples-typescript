@@ -49,21 +49,6 @@ pnpm schedule
 
 Will schedule to start example workflow immediately. The code for this is on `scheduleWorkflow.ts`. In here you can see how the helloWorkflow is scheduled to be exectuted.
 
-# Architecture
-
-```mermaid
-flowchart TD
-    C[fa:fa-bolt scheduleWorkflow client] -->|registers workflow with schedule| E{Restack Engine}
-    E --> |queries results| C
-    E -->|pulls queue with input| P1[fa:fa-ship restack pod]
-    E -->|orchestrates with rate limit| P2[fa:fa-ship gemini pod]
-    P1 -->|runs| W[fa:fa-th-list example workflow]
-    P1 -->|runs| Go[fa:fa-code goodbye function]
-    P2 -->|runs| Gr[fa:fa-code greet function]
-    P1 -->|sends status + output | E
-    P2 -->|sends status output | E
-```
-
 ## Deploy on Restack
 
 ```bash

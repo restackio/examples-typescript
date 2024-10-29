@@ -21,19 +21,19 @@ const main = async () => {
 
   const servicesApp = {
     name: "services",
-    dockerFilePath: "examples/gemini/Dockerfile",
-    dockerBuildContext: "examples/gemini",
+    dockerFilePath: "examples/composio/Dockerfile",
+    dockerBuildContext: "examples/composio",
     environmentVariables: [
       {
-        name: "GEMINI_API_KEY",
-        value: process.env.GEMINI_API_KEY,
+        name: "COMPOSIO_API_KEY",
+        value: process.env.COMPOSIO_API_KEY,
       },
       ...restackEngineEnvs,
     ],
   };
 
   await restackCloudClient.stack({
-    name: "gemini development environment",
+    name: "composio development environment",
     previewEnabled: false,
     applications: [servicesApp],
   });

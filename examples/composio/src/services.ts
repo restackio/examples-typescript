@@ -1,4 +1,4 @@
-import { geminiService } from "@restackio/integrations-google-gemini";
+import { composioService } from "@restackio/integrations-composio";
 
 import { client } from "./client";
 
@@ -10,8 +10,8 @@ async function services() {
       client.startService({
         workflowsPath,
       }),
-      // Start the gemini service
-      geminiService({ client }),
+      // Start the composio service
+      composioService({ client }),
     ]);
 
     console.log("Services running successfully.");

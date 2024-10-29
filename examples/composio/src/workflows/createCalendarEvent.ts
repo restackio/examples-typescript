@@ -12,7 +12,6 @@ export async function createCalendarEventWorkflow({
   await step<typeof composioFunctions>({
     taskQueue: composioTaskQueue,
   }).createCalendarEvent({
-    composioApiKey: process.env.COMPOSIO_API_KEY || "",
     entityId,
     calendarInstruction,
   });

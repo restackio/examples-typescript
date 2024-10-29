@@ -12,11 +12,8 @@ importers:
         specifier: ^0.0.80
         version: 0.0.80
       '@restackio/integrations-composio':
-        specifier: ^0.0.2
-        version: 0.0.2(@swc/core@1.7.26)(@types/node@20.16.10)(bufferutil@4.0.8)(react@18.3.1)(sswr@2.1.0(svelte@5.1.4))(svelte@5.1.4)(typescript@5.6.3)(utf-8-validate@6.0.4)(vue@3.5.12(typescript@5.6.3))(ws@8.18.0(bufferutil@4.0.8)(utf-8-validate@6.0.4))(zod@3.23.8)
-      '@restackio/integrations-google-gemini':
-        specifier: ^0.0.1
-        version: 0.0.1
+        specifier: ^0.0.3
+        version: 0.0.3(@swc/core@1.7.26)(@types/node@20.16.10)(bufferutil@4.0.8)(react@18.3.1)(sswr@2.1.0(svelte@5.1.4))(svelte@5.1.4)(typescript@5.6.3)(utf-8-validate@6.0.4)(vue@3.5.12(typescript@5.6.3))(ws@8.18.0(bufferutil@4.0.8)(utf-8-validate@6.0.4))(zod@3.23.8)
       '@temporalio/workflow':
         specifier: ^1.11.2
         version: 1.11.2
@@ -197,10 +194,6 @@ packages:
   '@faker-js/faker@8.4.1':
     resolution: {integrity: sha512-XQ3cU+Q8Uqmrbf2e0cIC/QN43sTBSC8KF12u29Mb47tWrt2hAgBXSgpZMj4Ao8Uk0iJcU99QsOCaIL8934obCg==}
     engines: {node: ^14.17.0 || ^16.13.0 || >=18.0.0, npm: '>=6.14.13'}
-
-  '@google/generative-ai@0.21.0':
-    resolution: {integrity: sha512-7XhUbtnlkSEZK15kN3t+tzIMxsbKm/dSkKBFalj+20NvPKe1kBY7mR2P7vuijEn+f06z5+A8bVGKO0v39cr6Wg==}
-    engines: {node: '>=18.0.0'}
 
   '@grpc/grpc-js@1.11.2':
     resolution: {integrity: sha512-DWp92gDD7/Qkj7r8kus6/HCINeo3yPZWZ3paKgDgsbKbSpoxKg1yvN8xe2Q8uE3zOsPe3bX8FQX2+XValq2yTw==}
@@ -401,11 +394,8 @@ packages:
     resolution: {integrity: sha512-OpKav5QYbesnigQuTwmIke0pKnw4ZwdWAeJNOrEWN5r/DFPiSUoYrZJ+XggiPxTSI0gb6JX/35k9U+LF5bQAoQ==}
     engines: {node: '>=18'}
 
-  '@restackio/integrations-composio@0.0.2':
-    resolution: {integrity: sha512-OBdBvga0CjANn7rWo47fVMXdDaaKhxBIeK8X4BQs0LT6Nueqe+amebxWss39jFJmnJ1U6XYMVnh03h8Uz3hdAQ==}
-
-  '@restackio/integrations-google-gemini@0.0.1':
-    resolution: {integrity: sha512-ALL3CExYAO/yC6OVWulssEZj1XV5JuN/Gsx8dzv2DPuUkM8OiKCI5+LxtlP5hhfUKrlBdYk+020vwhyXT3+jGA==}
+  '@restackio/integrations-composio@0.0.3':
+    resolution: {integrity: sha512-T1yOA2dJQHyHZrruCNvztD+SVfOvgtEWoHVtfk/JdkKPmIb5/WtQZP34Ty/Q0PosilNx5jR8QzSe/L9QbzS5BQ==}
 
   '@restackio/integrations-openai@0.0.30':
     resolution: {integrity: sha512-TcrogL0foxRbm9G0TkdwG8RsvBA5UNQGzBPo6eKxlb4DVEAC8CKVe9gkLLQ5wBFKRFo/hFbzXiZG7jZGlQ9hGQ==}
@@ -2361,8 +2351,6 @@ snapshots:
 
   '@faker-js/faker@8.4.1': {}
 
-  '@google/generative-ai@0.21.0': {}
-
   '@grpc/grpc-js@1.11.2':
     dependencies:
       '@grpc/proto-loader': 0.7.13
@@ -2545,22 +2533,6 @@ snapshots:
 
   '@kwsites/promise-deferred@1.1.1': {}
 
-  '@langchain/core@0.2.36(openai@4.56.0(zod@3.23.8))':
-    dependencies:
-      ansi-styles: 5.2.0
-      camelcase: 6.3.0
-      decamelize: 1.2.0
-      js-tiktoken: 1.0.15
-      langsmith: 0.1.68(openai@4.56.0(zod@3.23.8))
-      mustache: 4.2.0
-      p-queue: 6.6.2
-      p-retry: 4.6.2
-      uuid: 10.0.0
-      zod: 3.23.8
-      zod-to-json-schema: 3.23.5(zod@3.23.8)
-    transitivePeerDependencies:
-      - openai
-
   '@langchain/core@0.2.36(openai@4.68.4(zod@3.23.8))':
     dependencies:
       ansi-styles: 5.2.0
@@ -2587,9 +2559,9 @@ snapshots:
     transitivePeerDependencies:
       - encoding
 
-  '@langchain/textsplitters@0.0.3(openai@4.56.0(zod@3.23.8))':
+  '@langchain/textsplitters@0.0.3(openai@4.68.4(zod@3.23.8))':
     dependencies:
-      '@langchain/core': 0.2.36(openai@4.56.0(zod@3.23.8))
+      '@langchain/core': 0.2.36(openai@4.68.4(zod@3.23.8))
       js-tiktoken: 1.0.15
     transitivePeerDependencies:
       - openai
@@ -2654,7 +2626,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@restackio/integrations-composio@0.0.2(@swc/core@1.7.26)(@types/node@20.16.10)(bufferutil@4.0.8)(react@18.3.1)(sswr@2.1.0(svelte@5.1.4))(svelte@5.1.4)(typescript@5.6.3)(utf-8-validate@6.0.4)(vue@3.5.12(typescript@5.6.3))(ws@8.18.0(bufferutil@4.0.8)(utf-8-validate@6.0.4))(zod@3.23.8)':
+  '@restackio/integrations-composio@0.0.3(@swc/core@1.7.26)(@types/node@20.16.10)(bufferutil@4.0.8)(react@18.3.1)(sswr@2.1.0(svelte@5.1.4))(svelte@5.1.4)(typescript@5.6.3)(utf-8-validate@6.0.4)(vue@3.5.12(typescript@5.6.3))(ws@8.18.0(bufferutil@4.0.8)(utf-8-validate@6.0.4))(zod@3.23.8)':
     dependencies:
       '@restackio/integrations-openai': 0.0.30(zod@3.23.8)
       composio-core: 0.2.7(@swc/core@1.7.26)(@types/node@20.16.10)(bufferutil@4.0.8)(react@18.3.1)(sswr@2.1.0(svelte@5.1.4))(svelte@5.1.4)(typescript@5.6.3)(utf-8-validate@6.0.4)(vue@3.5.12(typescript@5.6.3))(ws@8.18.0(bufferutil@4.0.8)(utf-8-validate@6.0.4))
@@ -2732,10 +2704,6 @@ snapshots:
       - youtube-transcript
       - youtubei.js
       - zod
-
-  '@restackio/integrations-google-gemini@0.0.1':
-    dependencies:
-      '@google/generative-ai': 0.21.0
 
   '@restackio/integrations-openai@0.0.30(zod@3.23.8)':
     dependencies:
@@ -3176,7 +3144,7 @@ snapshots:
     dependencies:
       humanize-ms: 1.2.1
 
-  ai@3.4.26(openai@4.56.0(zod@3.23.8))(react@18.3.1)(sswr@2.1.0(svelte@5.1.4))(svelte@5.1.4)(vue@3.5.12(typescript@5.6.3))(zod@3.23.8):
+  ai@3.4.26(openai@4.68.4(zod@3.23.8))(react@18.3.1)(sswr@2.1.0(svelte@5.1.4))(svelte@5.1.4)(vue@3.5.12(typescript@5.6.3))(zod@3.23.8):
     dependencies:
       '@ai-sdk/provider': 0.0.26
       '@ai-sdk/provider-utils': 1.0.22(zod@3.23.8)
@@ -3192,7 +3160,7 @@ snapshots:
       secure-json-parse: 2.7.0
       zod-to-json-schema: 3.23.5(zod@3.23.8)
     optionalDependencies:
-      openai: 4.56.0(zod@3.23.8)
+      openai: 4.68.4(zod@3.23.8)
       react: 18.3.1
       sswr: 2.1.0(svelte@5.1.4)
       svelte: 5.1.4
@@ -3412,9 +3380,9 @@ snapshots:
       '@faker-js/faker': 8.4.1
       '@hey-api/client-axios': 0.2.9(axios@1.7.7)
       '@hono/node-server': 1.13.3(hono@4.6.8)
-      '@langchain/core': 0.2.36(openai@4.56.0(zod@3.23.8))
+      '@langchain/core': 0.2.36(openai@4.68.4(zod@3.23.8))
       '@langchain/openai': 0.2.11
-      ai: 3.4.26(openai@4.56.0(zod@3.23.8))(react@18.3.1)(sswr@2.1.0(svelte@5.1.4))(svelte@5.1.4)(vue@3.5.12(typescript@5.6.3))(zod@3.23.8)
+      ai: 3.4.26(openai@4.68.4(zod@3.23.8))(react@18.3.1)(sswr@2.1.0(svelte@5.1.4))(svelte@5.1.4)(vue@3.5.12(typescript@5.6.3))(zod@3.23.8)
       axios: 1.7.7
       chalk: 4.1.2
       cli-progress: 3.12.0
@@ -3425,9 +3393,9 @@ snapshots:
       enumify: 2.0.0
       hono: 4.6.8
       inquirer: 10.2.2
-      langchain: 0.2.20(axios@1.7.7)(openai@4.56.0(zod@3.23.8))(ws@8.18.0(bufferutil@4.0.8)(utf-8-validate@6.0.4))
+      langchain: 0.2.20(axios@1.7.7)(openai@4.68.4(zod@3.23.8))(ws@8.18.0(bufferutil@4.0.8)(utf-8-validate@6.0.4))
       open: 8.4.2
-      openai: 4.56.0(zod@3.23.8)
+      openai: 4.68.4(zod@3.23.8)
       pusher-js: 8.4.0-rc2
       resolve-package-path: 4.0.3
       ts-node: 10.9.2(@swc/core@1.7.26)(@types/node@20.16.10)(typescript@5.6.3)
@@ -3802,16 +3770,16 @@ snapshots:
 
   kuler@2.0.0: {}
 
-  langchain@0.2.20(axios@1.7.7)(openai@4.56.0(zod@3.23.8))(ws@8.18.0(bufferutil@4.0.8)(utf-8-validate@6.0.4)):
+  langchain@0.2.20(axios@1.7.7)(openai@4.68.4(zod@3.23.8))(ws@8.18.0(bufferutil@4.0.8)(utf-8-validate@6.0.4)):
     dependencies:
-      '@langchain/core': 0.2.36(openai@4.56.0(zod@3.23.8))
+      '@langchain/core': 0.2.36(openai@4.68.4(zod@3.23.8))
       '@langchain/openai': 0.2.11
-      '@langchain/textsplitters': 0.0.3(openai@4.56.0(zod@3.23.8))
+      '@langchain/textsplitters': 0.0.3(openai@4.68.4(zod@3.23.8))
       binary-extensions: 2.3.0
       js-tiktoken: 1.0.15
       js-yaml: 4.1.0
       jsonpointer: 5.0.1
-      langsmith: 0.1.68(openai@4.56.0(zod@3.23.8))
+      langsmith: 0.1.68(openai@4.68.4(zod@3.23.8))
       openapi-types: 12.1.3
       p-retry: 4.6.2
       uuid: 10.0.0
@@ -3824,17 +3792,6 @@ snapshots:
     transitivePeerDependencies:
       - encoding
       - openai
-
-  langsmith@0.1.68(openai@4.56.0(zod@3.23.8)):
-    dependencies:
-      '@types/uuid': 10.0.0
-      commander: 10.0.1
-      p-queue: 6.6.2
-      p-retry: 4.6.2
-      semver: 7.6.3
-      uuid: 10.0.0
-    optionalDependencies:
-      openai: 4.56.0(zod@3.23.8)
 
   langsmith@0.1.68(openai@4.68.4(zod@3.23.8)):
     dependencies:

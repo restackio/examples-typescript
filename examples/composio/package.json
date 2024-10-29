@@ -22,7 +22,7 @@
   },
   "dependencies": {
     "@restackio/ai": "^0.0.80",
-    "@restackio/integrations-composio": "^0.0.2",
+    "@restackio/integrations-composio": "^0.0.3",
     "@temporalio/workflow": "^1.11.2",
     "dotenv": "^16.4.5"
   },
