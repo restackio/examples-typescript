@@ -1,6 +1,6 @@
 # Overview
 
-The gemini example showcases how you can call gemini restack ai integration from your workflows. In this example the AI will reply with a greeting message to the name provided, e.g "John"
+The gemini example showcases how you can use the Restack AI Composio integration. A workflow has been created that will create an even on the google calendar of the provided entity.
 
 # Requirements
 
@@ -29,7 +29,7 @@ docker run -d --pull always --name studio -p 5233:5233 -p 6233:6233 -p 7233:7233
 
 Where all your code is defined, including workflow steps.
 
-add GEMINI_API_KEY in .env
+add `COMPOSIO_API_KEY` and `OPENAI_API_KEY` in .env
 
 ```bash
 pnpm i
@@ -47,7 +47,7 @@ In another shell:
 pnpm schedule
 ```
 
-Will schedule to start example workflow immediately. The code for this is on `scheduleWorkflow.ts`. In here you can see how the helloWorkflow is scheduled to be exectuted.
+Will schedule to start example workflow immediately. The code for this is on `scheduleWorkflow.ts`. In here you can see how the createCalendarEventWorkflow is scheduled to be exectuted.
 
 ## Deploy on Restack
 
