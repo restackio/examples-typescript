@@ -24,9 +24,7 @@
     "@restackio/ai": "^0.0.80",
     "@restackio/integrations-google-gemini": "^0.0.1",
     "@temporalio/workflow": "^1.11.2",
-    "dotenv": "^16.4.5",
-    "zod": "^3.23.8",
-    "zod-to-json-schema": "^3.23.3"
+    "dotenv": "^16.4.5"
   },
   "devDependencies": {
     "@restackio/cloud": "^1.0.17",
