@@ -27,6 +27,10 @@ RUN npm run build
 
 FROM node:20-bullseye-slim AS runner
 
+RUN apt-get update \
+  && apt-get install -y ca-certificates \
+  && rm -rf /var/lib/apt/lists/*
+
 RUN addgroup --system --gid 1001 service
 RUN adduser --system --uid 1001 service
 USER service
