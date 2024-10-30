@@ -16,17 +16,18 @@ To install the Restack Web UI, you can use Docker.
 docker run -d --pull always --name studio -p 5233:5233 -p 6233:6233 -p 7233:7233 ghcr.io/restackio/restack:main
 ```
 
-# Start pods
+# Start services
 
 Where all your code is defined, including workflow steps.
 
 add OPENAI_API_KEY in .env
 
+```bash
 pnpm i
 
 pnpm dev
-
-Your code will be running in pods and syncing with Restack engine to execute workflows or functions.
+```
+Your code will be running and syncing with Restack engine to execute workflows or functions.
 
 # Schedule a workflow
 
