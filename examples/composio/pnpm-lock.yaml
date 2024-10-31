@@ -12,8 +12,8 @@ importers:
         specifier: ^0.0.80
         version: 0.0.80
       '@restackio/integrations-composio':
-        specifier: ^0.0.3
-        version: 0.0.3(@swc/core@1.7.26)(@types/node@20.16.10)(bufferutil@4.0.8)(react@18.3.1)(sswr@2.1.0(svelte@5.1.4))(svelte@5.1.4)(typescript@5.6.3)(utf-8-validate@6.0.4)(vue@3.5.12(typescript@5.6.3))(ws@8.18.0(bufferutil@4.0.8)(utf-8-validate@6.0.4))(zod@3.23.8)
+        specifier: ^0.0.4
+        version: 0.0.4(@swc/core@1.7.26)(@types/node@20.16.10)(bufferutil@4.0.8)(react@18.3.1)(sswr@2.1.0(svelte@5.1.4))(svelte@5.1.4)(typescript@5.6.3)(utf-8-validate@6.0.4)(vue@3.5.12(typescript@5.6.3))(ws@8.18.0(bufferutil@4.0.8)(utf-8-validate@6.0.4))(zod@3.23.8)
       '@temporalio/workflow':
         specifier: ^1.11.2
         version: 1.11.2
@@ -394,11 +394,11 @@ packages:
     resolution: {integrity: sha512-OpKav5QYbesnigQuTwmIke0pKnw4ZwdWAeJNOrEWN5r/DFPiSUoYrZJ+XggiPxTSI0gb6JX/35k9U+LF5bQAoQ==}
     engines: {node: '>=18'}
 
-  '@restackio/integrations-composio@0.0.3':
-    resolution: {integrity: sha512-T1yOA2dJQHyHZrruCNvztD+SVfOvgtEWoHVtfk/JdkKPmIb5/WtQZP34Ty/Q0PosilNx5jR8QzSe/L9QbzS5BQ==}
+  '@restackio/integrations-composio@0.0.4':
+    resolution: {integrity: sha512-0jjpi7aLBylan1hq1HqRS690aCKiN1vf8Iy/42sq3dugHsj1GdcuzDfLVLZ8+xwetxrfp/h48y89IKR5lo0l6Q==}
 
-  '@restackio/integrations-openai@0.0.30':
-    resolution: {integrity: sha512-TcrogL0foxRbm9G0TkdwG8RsvBA5UNQGzBPo6eKxlb4DVEAC8CKVe9gkLLQ5wBFKRFo/hFbzXiZG7jZGlQ9hGQ==}
+  '@restackio/integrations-openai@0.0.32':
+    resolution: {integrity: sha512-nGPCCqm4xzlmzCtMcr+kvks5WkexPb8z+dGP7Eom10ELZXVeGLzdmEEBS8V2DUpkTJPP7Zfqufb2LVHfkTuXzA==}
 
   '@swc/core-darwin-arm64@1.7.2':
     resolution: {integrity: sha512-Zb8KiGaESzOgh5HBnp6Vhs2fRpngHIT81JOfIo0oaGlzAckamnG7UAXC/yK6cQ8q2KXc78utJ/yq/NM2yVKLqw==}
@@ -2626,9 +2626,9 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@restackio/integrations-composio@0.0.3(@swc/core@1.7.26)(@types/node@20.16.10)(bufferutil@4.0.8)(react@18.3.1)(sswr@2.1.0(svelte@5.1.4))(svelte@5.1.4)(typescript@5.6.3)(utf-8-validate@6.0.4)(vue@3.5.12(typescript@5.6.3))(ws@8.18.0(bufferutil@4.0.8)(utf-8-validate@6.0.4))(zod@3.23.8)':
+  '@restackio/integrations-composio@0.0.4(@swc/core@1.7.26)(@types/node@20.16.10)(bufferutil@4.0.8)(react@18.3.1)(sswr@2.1.0(svelte@5.1.4))(svelte@5.1.4)(typescript@5.6.3)(utf-8-validate@6.0.4)(vue@3.5.12(typescript@5.6.3))(ws@8.18.0(bufferutil@4.0.8)(utf-8-validate@6.0.4))(zod@3.23.8)':
     dependencies:
-      '@restackio/integrations-openai': 0.0.30(zod@3.23.8)
+      '@restackio/integrations-openai': 0.0.32(zod@3.23.8)
       composio-core: 0.2.7(@swc/core@1.7.26)(@types/node@20.16.10)(bufferutil@4.0.8)(react@18.3.1)(sswr@2.1.0(svelte@5.1.4))(svelte@5.1.4)(typescript@5.6.3)(utf-8-validate@6.0.4)(vue@3.5.12(typescript@5.6.3))(ws@8.18.0(bufferutil@4.0.8)(utf-8-validate@6.0.4))
       install: 0.13.0
     transitivePeerDependencies:
@@ -2705,7 +2705,7 @@ snapshots:
       - youtubei.js
       - zod
 
-  '@restackio/integrations-openai@0.0.30(zod@3.23.8)':
+  '@restackio/integrations-openai@0.0.32(zod@3.23.8)':
     dependencies:
       openai: 4.68.4(zod@3.23.8)
     transitivePeerDependencies:
