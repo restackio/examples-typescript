@@ -1,0 +1,33 @@
+{
+  "name": "human-loop-example",
+  "version": "1.0.0",
+  "description": "Basic human loop example",
+  "main": "index.js",
+  "scripts": {
+    "start": "ts-node src/services.ts",
+    "start.watch": "nodemon src/services.ts",
+    "dev": "pnpm start.watch",
+    "build": "tsc --build",
+    "clean": "rm -rf node_modules",
+    "schedule": "ts-node ./scheduleWorkflow.ts",
+    "restack-up": "node restack_up.mjs"
+  },
+  "nodemonConfig": {
+    "execMap": {
+      "ts": "ts-node"
+    },
+    "ext": "ts",
+    "watch": [
+      "src"
+    ]
+  },
+  "dependencies": {
+    "@restackio/ai": "^0.0.80",
+    "@temporalio/workflow": "^1.11.2"
+  },
+  "devDependencies": {
+    "@types/node": "^20.16.10",
+    "nodemon": "^2.0.22",
+    "ts-node": "^10.9.2"
+  }
+}
