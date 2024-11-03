@@ -16,13 +16,23 @@ pnpm i
 pnpm dev
 ```
 
+The serer should be up at http://localhost:8000
+
 ## Send a test request to the server
 
 ```
-curl 
+curl -X POST http://localhost:8000 -H "Content-Type: application/json" -d '{"workflowName": "my-workflow", "workflowId": "my-workflow-123"}'
 ```
 
-## Deploy on Restack
+## Build and Run Docker Container
+
+Build the Docker image and run the container with:
+
+```
+pnpm docker:dev
+```
+
+## (Optional) Deploy on Restack Cloud
 
 pnpm restack-up
 

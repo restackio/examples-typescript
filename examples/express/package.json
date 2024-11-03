@@ -1,36 +1,39 @@
 {
-    "name": "restack-examples-ts-express",
-    "version": "0.0.1",
-    "description": "Basic Express example",
-    "main": "server.ts",
-    "scripts": {
-      "start": "ts-node src/server.ts",
-      "start.watch": "nodemon src/server.ts",
-      "dev": "pnpm start.watch",
-      "build": "tsc --build",
-      "clean": "rm -rf node_modules",
-      "restack-up": "node restack_up.mjs"
+  "name": "restack-examples-ts-express",
+  "version": "0.0.1",
+  "description": "Basic Express example",
+  "main": "server.ts",
+  "scripts": {
+    "start": "ts-node src/server.ts",
+    "start.watch": "nodemon src/server.ts",
+    "dev": "pnpm start.watch",
+    "build": "tsc --build",
+    "clean": "rm -rf node_modules",
+    "docker:build": "docker build -t restack-express .",
+    "docker:run": "docker run -p 8000:8000 restack-express",
+    "docker:dev": "pnpm docker:build && pnpm docker:run",
+    "restack-up": "node restack_up.mjs"
+  },
+  "nodemonConfig": {
+    "execMap": {
+      "ts": "ts-node"
     },
-    "nodemonConfig": {
-      "execMap": {
-        "ts": "ts-node"
-      },
-      "ext": "ts",
-      "watch": [
-        "src"
-      ]
-    },
-    "dependencies": {
-      "@restackio/ai": "^0.0.80",
-      "@temporalio/workflow": "^1.11.2",
-      "express": "^4.21.1",
-      "dotenv": "^16.4.5",
-    },
-    "devDependencies": {
-      "@restackio/restack-sdk-cloud-ts": "^1.0.15",
-      "@types/node": "^20.16.9",
-      "nodemon": "^2.0.22",
-      "ts-node": "^10.9.2"
-    }
+    "ext": "ts",
+    "watch": [
+      "src"
+    ]
+  },
+  "dependencies": {
+    "@restackio/ai": "^0.0.80",
+    "@temporalio/workflow": "^1.11.2",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.1"
+  },
+  "devDependencies": {
+    "@restackio/restack-sdk-cloud-ts": "^1.0.15",
+    "@types/express": "^5.0.0",
+    "@types/node": "^20.16.9",
+    "nodemon": "^2.0.22",
+    "ts-node": "^10.9.2"
   }
-  
+}

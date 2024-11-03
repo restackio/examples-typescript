@@ -1,18 +1,8 @@
-import Restack from '@restackio/ai';
 import express from 'express';
 import dotenv from 'dotenv';
+import { client } from './client';
 
 dotenv.config();
-
-const connectionOptions = {
-    engineId: process.env.RESTACK_ENGINE_ID!,
-    address: process.env.RESTACK_ENGINE_ADDRESS!,
-    apiKey: process.env.RESTACK_ENGINE_API_KEY!,
-};
-
-const client = new Restack(
-    process.env.RESTACK_ENGINE_API_KEY ? connectionOptions : undefined
-);
 
 const app = express();
 const PORT = process.env.PORT || 8000;

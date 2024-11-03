@@ -1,23 +1,39 @@
-# Use an official Node.js runtime as the base image
-FROM node:18
+# Build stage
+FROM node:20-bullseye-slim AS builder
 
-# Set the working directory in the container
 WORKDIR /app
 
-# Copy package.json and package-lock.json to the working directory
+# Install pnpm
+RUN npm install -g pnpm
+
+# Copy package files
 COPY package*.json ./
 
-# Install the application dependencies
-RUN npm install
+# Install dependencies including TypeScript
+RUN pnpm install
+RUN pnpm add -D typescript
 
-# Copy the rest of the application code to the working directory
+# Copy source code
 COPY . .
 
-# Build the TypeScript code
-RUN npm run build
+# Build TypeScript code
+RUN pnpm run build
 
-# Expose the port that the app runs on
+# Production stage
+FROM node:20-bullseye-slim
+
+WORKDIR /app
+
+# Install pnpm
+RUN npm install -g pnpm
+
+# Copy package files and built code
+COPY --from=builder /app/package*.json ./
+COPY --from=builder /app/dist ./dist
+
+# Install production dependencies only
+RUN pnpm install --prod
+
 EXPOSE 8000
 
-# Command to run the application
 CMD ["node", "dist/server.js"]
