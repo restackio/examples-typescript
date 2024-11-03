@@ -1,0 +1,45 @@
+{
+  "name": "restack-examples-ts-swaggerexpress",
+  "version": "0.0.1",
+  "description": "Basic Express example with Swagger",
+  "main": "server.ts",
+  "scripts": {
+    "start": "ts-node src/server.ts",
+    "start.watch": "nodemon src/server.ts",
+    "dev": "pnpm start.watch",
+    "build": "tsc --build",
+    "clean": "rm -rf node_modules",
+    "docker:build": "docker build -t restack-swagger-express .",
+    "docker:run": "docker run -p 8000:8000 restack-swagger-express",
+    "docker:dev": "pnpm docker:build && pnpm docker:run",
+    "docker:stop": "docker stop $(docker ps -q --filter ancestor=restack-swagger-express) 2>/dev/null || true",
+    "docker:clean": "pnpm docker:stop && docker rm $(docker ps -a -q --filter ancestor=restack-swagger-express) 2>/dev/null || true && docker rmi restack-swagger-express -f",
+    "restack-up": "node restack_up.mjs"
+  },
+  "nodemonConfig": {
+    "execMap": {
+      "ts": "ts-node"
+    },
+    "ext": "ts",
+    "watch": [
+      "src"
+    ]
+  },
+  "dependencies": {
+    "@restackio/ai": "^0.0.80",
+    "@temporalio/workflow": "^1.11.2",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.1",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.0"
+  },
+  "devDependencies": {
+    "@restackio/restack-sdk-cloud-ts": "^1.0.16",
+    "@types/express": "^5.0.0",
+    "@types/node": "^20.16.9",
+    "@types/swagger-jsdoc": "^6.0.4",
+    "@types/swagger-ui-express": "^4.1.6",
+    "nodemon": "^2.0.22",
+    "ts-node": "^10.9.2"
+  }
+}
