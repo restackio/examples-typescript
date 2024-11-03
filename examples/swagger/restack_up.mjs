@@ -18,10 +18,10 @@ const main = async () => {
     },
   ];
 
-  const expressServer = {
-    name: "express",
-    dockerFilePath: "examples/express/Dockerfile",
-    dockerBuildContext: "examples/express",
+  const swaggerServer = {
+    name: "swagger",
+    dockerFilePath: "examples/swagger/Dockerfile",
+    dockerBuildContext: "examples/swagger",
     environmentVariables: [
       ...restackEngineEnvs
     ],
@@ -30,7 +30,7 @@ const main = async () => {
   await restackCloudClient.stack({
     name: "development environment",
     previewEnabled: false,
-    applications: [expressServer],
+    applications: [swaggerServer],
   });
 
   await restackCloudClient.up();
