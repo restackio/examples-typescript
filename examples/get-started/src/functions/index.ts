@@ -1,1 +1,1 @@
-export * from "./goodbye";
+export * from "./hello";

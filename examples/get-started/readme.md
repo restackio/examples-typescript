@@ -1,56 +1,43 @@
-# Requirements
+# Restack Get Started
 
-- Node 20 or higher
-- pnpm or other package manager
+A sample repository, which demonstrates working with Restack Framework and optional Restack OpenAI integration.
 
-## Install Restack Studio
+For a full Typescript documentation refer to <https://docs.restack.io/libraries/typescript/reference>
 
-To install the Restack Studio, you can use Docker.
+## Requirements
+
+- **Node 20+**, **pnpm** (or other package manager)
+
+## Install dependencies and start services
+
+```bash
+pnpm i
+pnpm dev
+```
+
+This will start Node.js app with two Restack Services. Your code will be running and syncing with Restack engine to execute workflows or functions.
+
+## Start Restack Studio
+
+To start the Restack Studio, you can use Docker.
 
 ```bash
 docker run -d --pull always --name studio -p 5233:5233 -p 6233:6233 -p 7233:7233 ghcr.io/restackio/restack:main
 ```
 
-## Start services
-
-Where all your code is defined, including workflow steps.
-
-add OPENAI_API_KEY in .env
+## Schedule a demo workflow
 
 ```bash
-pnpm i
-
-pnpm dev
+pnpm schedule-workflow
 ```
 
-Your code will be running and syncing with Restack engine to execute workflows or functions.
+This will trigger a demo Workflow - a greeting, which is a simple function and goodbye, which uses [@restackio/integration-openai](https://www.npmjs.com/package/@restackio/integrations-openai).
 
-## Schedule a workflow
+## Deploy on Restack Cloud
 
-In another shell:
-
-pnpm schedule
-
-Will schedule to start example workflow immediately.
-
-## Architecture
-
-```mermaid
-flowchart TD
-    C[fa:fa-bolt scheduleWorkflow client] -->|registers workflow with schedule| E{Restack Engine}
-    E --> |queries results| C
-    E -->|pulls queue with input| P1[fa:fa-ship restack pod]
-    E -->|orchestrates with rate limit| P2[fa:fa-ship openai pod]
-    P1 -->|runs| W[fa:fa-th-list example workflow]
-    P1 -->|runs| Go[fa:fa-code goodbye function]
-    P2 -->|runs| Gr[fa:fa-code greet function]
-    P1 -->|sends status + output | E
-    P2 -->|sends status output | E
-```
-
-## Deploy on Restack
-
+``` bash
 pnpm restack-up
+```
 
 To deploy the application on Restack, you can use the provided `restackUp.ts` script. This script utilizes the Restack Cloud SDK to define and deploy your application stack. It sets up the necessary environment variables and configures the application for deployment.
 

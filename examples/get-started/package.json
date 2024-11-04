@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Restack get started example",
   "scripts": {
-    "dev": "tsx --watch src/services.ts",
+    "dev": "tsx watch --include src src/services.ts",
     "build": "tsc --build",
     "schedule-workflow": "tsx scheduleWorkflow.ts",
     "restack-up": "tsx restackUp.ts",

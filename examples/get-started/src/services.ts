@@ -1,4 +1,4 @@
-import { goodbye } from "./functions";
+import { hello } from "./functions";
 import { openaiService } from "@restackio/integrations-openai";
 import { client } from "./client";
 
@@ -9,7 +9,7 @@ async function services() {
       // Start service with current workflows and functions
       client.startService({
         workflowsPath,
-        functions: { goodbye },
+        functions: { hello },
       }),
       // Start the openai service
       openaiService({ client }),
