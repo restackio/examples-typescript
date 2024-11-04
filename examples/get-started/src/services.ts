@@ -1,17 +1,26 @@
-import { welcome, goodbye } from "./functions/functions";
+import { goodbye } from "./functions";
+import { openaiService } from "@restackio/integrations-openai";
 import { client } from "./client";
 
-
 async function services() {
-
-    const workflowsPath = require.resolve("./workflows/workflow");
-
-    client.startService({
+  const workflowsPath = require.resolve("./workflows");
+  try {
+    await Promise.all([
+      // Start service with current workflows and functions
+      client.startService({
         workflowsPath,
-        functions: { welcome, goodbye }
-    });
+        functions: { goodbye },
+      }),
+      // Start the openai service
+      openaiService({ client }),
+    ]);
 
-};
+    console.log("Services running successfully.");
+  } catch (e) {
+    console.error("Failed to run services", e);
+  }
+}
 
-services();
-
+services().catch((err) => {
+  console.error("Error running services:", err);
+});

@@ -1,15 +1,29 @@
 import { client } from "./src/client";
 
-async function scheduleWorkflow() {
+export type InputSchedule = {
+  name: string;
+};
 
-    const workflowId = `${Date.now()}-greetingWorkflow`;
+async function scheduleWorkflow(input: InputSchedule) {
+  try {
+    const workflowId = `${Date.now()}-helloWorkflow`;
     const runId = await client.scheduleWorkflow({
-        workflowName: "greetingWorkflow",
-        workflowId,
+      workflowName: "helloWorkflow",
+      workflowId,
+      input,
     });
 
     const result = await client.getWorkflowResult({ workflowId, runId });
 
-};
+    console.log("Workflow result:", result);
 
-scheduleWorkflow();
+    process.exit(0); // Exit the process successfully
+  } catch (error) {
+    console.error("Error scheduling workflow:", error);
+    process.exit(1); // Exit the process with an error code
+  }
+}
+
+scheduleWorkflow({
+  name: "test",
+});

@@ -1,46 +1,27 @@
 {
-    "name": "@restackio/get-started",
-    "version": "1.0.12",
-    "description": "Get started with the Restack AI TypeScript library",
-    "bin": {
-        "get-started": "bin/get-started.mjs"
-    },
-    "files": [
-        "bin",
-        "src",
-        "scheduleWorkflow.ts",
-        "readme.md",
-        "tsconfig.json"
-    ],
-    "keywords": [
-        "restack",
-        "starter",
-        "template"
-    ],
-    "license": "MIT",
-    "dependencies": {
-        "@restackio/ai": "^0.0.80",
-        "@temporalio/workflow": "^1.11.2",
-        "nodemon": "^3.1.7",
-        "ts-node": "^10.9.2",
-        "wait-on": "^8.0.1"
-    },
-    "scripts": {
-        "dev": "nodemon src/services.ts",
-        "build-bin": "pnpm tsup --outDir bin --format esm bin/get-started.ts",
-        "service": "ts-node src/services.ts",
-        "schedule": "ts-node scheduleWorkflow.ts",
-        "clean": "rm -rf node_modules"
-    },
-    "devDependencies": {
-        "@clack/prompts": "^0.7.0",
-        "@types/node": "^22.8.1",
-        "tsup": "8.3.0",
-        "typescript": "5.6.2"
-    },
-    "pnpm": {
-        "overrides": {
-            "rollup": "npm:@rollup/wasm-node"
-        }
-    }
+  "name": "sdk-example-get-started",
+  "version": "1.0.0",
+  "description": "Restack get started example",
+  "scripts": {
+    "dev": "tsx --watch src/services.ts",
+    "build": "tsc --build",
+    "schedule-workflow": "tsx scheduleWorkflow.ts",
+    "restack-up": "tsx restackUp.ts",
+    "restack-studio": "docker run -d --pull always --name studio -p 5233:5233 -p 6233:6233 -p 7233:7233 ghcr.io/restackio/restack:main"
+  },
+  "dependencies": {
+    "@restackio/ai": "0.0.80",
+    "@restackio/integrations-openai": "0.0.29",
+    "@temporalio/workflow": "1.11.2",
+    "dotenv": "16.4.5",
+    "zod": "3.23.8",
+    "zod-to-json-schema": "3.23.3"
+  },
+  "devDependencies": {
+    "@restackio/cloud": "1.0.17",
+    "@types/node": "20.16.9",
+    "prettier": "3.3.3",
+    "tsx": "4.19.2",
+    "typescript": "5.6.3"
+  }
 }
