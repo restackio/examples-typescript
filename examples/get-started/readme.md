@@ -25,13 +25,13 @@ To start the Restack Studio, you can use Docker.
 docker run -d --pull always --name studio -p 5233:5233 -p 6233:6233 -p 7233:7233 ghcr.io/restackio/restack:main
 ```
 
-## Schedule a demo workflow
+## Schedule a demo Workflow
 
 ```bash
 pnpm schedule-workflow
 ```
 
-This will trigger a demo Workflow - a greeting, which is a simple function and goodbye, which uses [@restackio/integration-openai](https://www.npmjs.com/package/@restackio/integrations-openai).
+This will trigger a demo Workflow - a _greeting_, which is a simple function and _goodbye_, which uses [@restackio/integration-openai](https://www.npmjs.com/package/@restackio/integrations-openai).
 
 ## Deploy on Restack Cloud
 

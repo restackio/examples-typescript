@@ -1,7 +1,7 @@
 {
   "name": "sdk-example-get-started",
-  "version": "1.0.0",
-  "description": "Restack get started example",
+  "version": "0.0.1",
+  "description": "Restack Get Started example",
   "scripts": {
     "dev": "tsx watch --include src src/services.ts",
     "build": "tsc --build",
