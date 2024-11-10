@@ -1,0 +1,30 @@
+version: '3.8'
+services:
+  ollama:
+    image: ollama/ollama
+    container_name: ollama
+    volumes:
+      - ollama:/root/.ollama
+    ports:
+      - "11434:11434"
+    entrypoint: ["ollama"]
+    command: ["serve"]
+
+  llamastack:
+    image: llamastack/distribution-ollama
+    platform: linux/amd64
+    container_name: llamastack
+    ports:
+      - "5001:5000"
+    volumes:
+      - ~/.llama:/root/.llama
+      - type: bind
+        source: ./llamastack-run.yaml
+        target: /app/llamastack-run.yaml
+    depends_on:
+      - ollama
+    environment:
+      - OLLAMA_HOST=http://ollama:11434
+
+volumes:
+  ollama:

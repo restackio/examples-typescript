@@ -1,0 +1,9 @@
+built_at: "2024-11-10T00:00:00Z"
+image_name: "llamastack/distribution-ollama"
+model: "llama3.1:8b-instruct-fp16"
+host: "http://ollama:11434"
+inference:
+  - provider_id: "ollama0"
+    provider_type: "remote::ollama"
+    config:
+      url: "http://ollama:11434"
