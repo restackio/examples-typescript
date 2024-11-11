@@ -42,6 +42,7 @@ The Restack Web UI will be available at http://localhost:5233
 - [examples/express](examples/express) - Basic Express server to schedule restack workflows 
 - [examples/swagger](examples/swagger) - Express server with Swagger documentation to trigger restack workflow from Swagger UI
 - [examples/human-loop](examples/human-loop) - Example of human-in-the-loop workflows
+- [examples/gotohuman](examples/gotohuman) - Human-in-the-loop example using gotoHuman
 
 ## Documentation
 
