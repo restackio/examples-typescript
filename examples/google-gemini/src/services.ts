@@ -1,5 +1,4 @@
-import { goodbye } from "./functions";
-import { geminiService } from "@restackio/integrations-google-gemini";
+import { goodbye, geminiGenerateContent, geminiGenerateContentStream } from "./functions";
 
 import { client } from "./client";
 
@@ -13,7 +12,10 @@ async function services() {
         functions: { goodbye },
       }),
       // Start the gemini service
-      geminiService({ client }),
+      client.startService({
+        taskQueue: "gemini",
+        functions: { geminiGenerateContent, geminiGenerateContentStream },
+      }),
     ]);
 
     console.log("Services running successfully.");

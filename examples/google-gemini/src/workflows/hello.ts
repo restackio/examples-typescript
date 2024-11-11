@@ -1,7 +1,5 @@
 import { log, step } from "@restackio/ai/workflow";
-import { geminiTaskQueue } from "@restackio/integrations-google-gemini/taskQueue";
-import * as geminiFunctions from "@restackio/integrations-google-gemini/functions";
-import * as functions from "../functions/index.js";
+import * as functions from "../functions";
 
 interface Input {
   name: string;
@@ -12,8 +10,8 @@ export async function helloWorkflow({ name }: Input) {
 
   // Step 1 create greeting message with google gemini
 
-  const geminiOutput = await step<typeof geminiFunctions>({
-    taskQueue: geminiTaskQueue,
+  const geminiOutput = await step<typeof functions>({
+    taskQueue: "gemini",
   }).geminiGenerateContent({
     userContent,
   });

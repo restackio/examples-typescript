@@ -1,8 +1,6 @@
 import { log, step } from "@restackio/ai/workflow";
 import * as functions from "../functions";
 import { z } from "zod";
-import { openaiTaskQueue } from "@restackio/integrations-openai/taskQueue";
-import * as openaiFunctions from "@restackio/integrations-openai/functions";
 import zodToJsonSchema from "zod-to-json-schema";
 
 interface Input {
@@ -23,8 +21,8 @@ export async function helloWorkflow({ name }: Input) {
 
   // Step 1 create greeting message with openai
 
-  const openaiOutput = await step<typeof openaiFunctions>({
-    taskQueue: openaiTaskQueue,
+  const openaiOutput = await step<typeof functions>({
+    taskQueue: "openai",
   }).openaiChatCompletionsBase({
     userContent,
     jsonSchema,
