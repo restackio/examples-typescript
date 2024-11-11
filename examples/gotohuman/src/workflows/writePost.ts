@@ -1,8 +1,6 @@
 import { log, step, condition, workflowInfo } from "@restackio/ai/workflow";
 import { onEvent } from "@restackio/ai/event";
 import { z } from "zod";
-import { openaiTaskQueue } from "@restackio/integrations-openai/taskQueue";
-import * as openaiFunctions from "@restackio/integrations-openai/functions";
 import zodToJsonSchema from "zod-to-json-schema";
 import { HumanResponseInput, HumanResponseEvent } from "../events";
 import * as functions from "../functions";
@@ -28,11 +26,10 @@ export async function writePostWorkflow({ topic }: TopicInput) {
     schema: zodToJsonSchema(ResponseSchema),
   };
 
-  const openaiOutput = await step<typeof openaiFunctions>({
-    taskQueue: openaiTaskQueue,
+  const openaiOutput = await step<typeof functions>({
+    taskQueue: "openai",
   }).openaiChatCompletionsBase({
     userContent: prompt,
-    model: 'gpt-4o-mini',
     jsonSchema,
   });
 
