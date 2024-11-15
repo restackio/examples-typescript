@@ -1,0 +1,44 @@
+{
+  "name": "sdk-example-ts",
+  "version": "1.0.0",
+  "description": "Basic OpenAI example",
+  "main": "index.js",
+  "scripts": {
+    "start": "ts-node src/services.ts & ts-node src/server.ts",
+    "start.server": "ts-node src/server.ts",
+    "start.services": "ts-node src/services.ts",
+    "start.watch": "nodemon src/services.ts",
+    "dev": "pnpm start.watch",
+    "dev.server": "pnpm start.server",
+    "dev.services": "pnpm start.services",
+    "build": "tsc --build",
+    "clean": "rm -rf node_modules",
+    "schedule": "ts-node ./scheduleWorkflow.ts",
+    "restack-up": "node restack_up.mjs"
+  },
+  "nodemonConfig": {
+    "execMap": {
+      "ts": "ts-node"
+    },
+    "ext": "ts",
+    "watch": [
+      "src"
+    ]
+  },
+  "dependencies": {
+    "@restackio/ai": "^0.0.82",
+    "@temporalio/workflow": "^1.11.2",
+    "express": "^4.21.1",
+    "openai": "^4.71.1",
+    "dotenv": "^16.4.5",
+    "zod": "^3.23.8",
+    "zod-to-json-schema": "^3.23.3"
+  },
+  "devDependencies": {
+    "@restackio/restack-sdk-cloud-ts": "^1.0.15",
+    "@types/node": "^20.16.9",
+    "@types/express": "^5.0.0",
+    "nodemon": "^2.0.22",
+    "ts-node": "^10.9.2"
+  }
+}
