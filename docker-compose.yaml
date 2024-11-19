@@ -1,7 +1,7 @@
 name: restack-engine
 services:
   studio:
-    image: ghcr.io/restackio/engine:main
+    image: ghcr.io/restackio/restack:main
     ports:
       - "5233:5233"
       - "6233:6233"
