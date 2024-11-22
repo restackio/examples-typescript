@@ -1,9 +1,8 @@
-import { RestackCloud } from "@restackio/restack-sdk-cloud-ts";
+import { RestackCloud } from "@restackio/cloud";
 import "dotenv/config";
 
 const main = async () => {
   const restackCloudClient = new RestackCloud(process.env.RESTACK_CLOUD_TOKEN);
-
 
   const restackEngineEnvs = [
     {
@@ -26,13 +25,12 @@ const main = async () => {
     dockerBuildContext: "examples/posthog",
     environmentVariables: [
       ...restackEngineEnvs,
-      ...Object.keys(process.env).map(key => ({
+      ...Object.keys(process.env).map((key) => ({
         name: key,
         value: process.env[key],
       })),
     ],
   };
-
 
   await restackCloudClient.stack({
     name: "posthog-example",

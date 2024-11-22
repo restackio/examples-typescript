@@ -1,10 +1,10 @@
-import { RestackCloud } from "@restackio/restack-sdk-cloud-ts";
+import { RestackCloud } from "@restackio/cloud";
 import "dotenv/config";
 
 const main = async () => {
   const restackCloudClient = new RestackCloud(process.env.RESTACK_CLOUD_TOKEN);
 
-  const serverName = "server"
+  const serverName = "server";
 
   const restackEngineEnvs = [
     {
@@ -32,9 +32,9 @@ const main = async () => {
       },
       {
         name: "SERVER_HOST",
-        linkTo:serverName,
+        linkTo: serverName,
       },
-      ...restackEngineEnvs
+      ...restackEngineEnvs,
     ],
   };
 
@@ -75,10 +75,9 @@ const main = async () => {
         name: "TWILIO_AUTH_TOKEN",
         value: process.env.TWILIO_AUTH_TOKEN,
       },
-      ...restackEngineEnvs
+      ...restackEngineEnvs,
     ],
   };
-
 
   await restackCloudClient.stack({
     name: "development environment",

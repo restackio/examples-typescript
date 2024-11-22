@@ -30,7 +30,7 @@
     "express": "^4.21.1"
   },
   "devDependencies": {
-    "@restackio/restack-sdk-cloud-ts": "^1.0.15",
+    "@restackio/cloud": "^1.0.18",
     "@types/express": "^5.0.0",
     "@types/node": "^20.16.9",
     "nodemon": "^2.0.22",

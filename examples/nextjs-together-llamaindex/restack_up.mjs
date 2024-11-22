@@ -1,4 +1,5 @@
-import { RestackCloud } from "@restackio/restack-sdk-cloud-ts";
+import { RestackCloud } from "@restackio/cloud";
+import "dotenv/config";
 
 const main = async () => {
   const restackCloudClient = new RestackCloud(process.env.RESTACK_CLOUD_TOKEN);
@@ -22,9 +23,7 @@ const main = async () => {
     name: "nextjs",
     dockerFilePath: "examples/nextjs-together-llamaindex/frontend/Dockerfile",
     dockerBuildContext: "examples/nextjs-together-llamaindex/frontend",
-    environmentVariables: [
-      ...restackEngineEnvs
-    ],
+    environmentVariables: [...restackEngineEnvs],
   };
 
   const backendNodeJs = {
@@ -43,7 +42,7 @@ const main = async () => {
   await restackCloudClient.stack({
     name: "development environment",
     previewEnabled: false,
-    applications: [nextjsApp],
+    applications: [frontendNextJs, backendNodeJs],
   });
 
   await restackCloudClient.up();

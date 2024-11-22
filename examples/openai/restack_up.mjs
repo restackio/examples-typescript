@@ -1,4 +1,4 @@
-import { RestackCloud } from "@restackio/restack-sdk-cloud-ts";
+import { RestackCloud } from "@restackio/cloud";
 import "dotenv/config";
 
 const main = async () => {

@@ -1,6 +1,6 @@
 import zodToJsonSchema from "zod-to-json-schema";
 import { z } from "zod";
-import { log, step } from "@restackio/ai/workflow";
+import { log, step, sleep } from "@restackio/ai/workflow";
 import { openaiTaskQueue } from "@restackio/integrations-openai/taskQueue";
 import * as openaiFunctions from "@restackio/integrations-openai/functions";
 import * as functions from "../functions";
@@ -47,8 +47,4 @@ export async function helloWorkflow({ name }: Input) {
       });
     }
   }
-
-  return {
-    messages: { greetMessage, goodbyeMessage },
-  };
 }
