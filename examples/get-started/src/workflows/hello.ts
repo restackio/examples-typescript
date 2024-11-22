@@ -47,4 +47,8 @@ export async function helloWorkflow({ name }: Input) {
       });
     }
   }
+
+  return {
+    messages: { greetMessage, goodbyeMessage },
+  };
 }
