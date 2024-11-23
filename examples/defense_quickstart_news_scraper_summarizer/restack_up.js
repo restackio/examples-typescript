@@ -1,4 +1,5 @@
 import { RestackCloud } from "@restackio/cloud";
+import "dotenv/config";
 
 const main = async () => {
   const restackCloudClient = new RestackCloud(process.env.RESTACK_CLOUD_TOKEN);
@@ -19,19 +20,19 @@ const main = async () => {
   ];
 
   const engine = {
-    'name': 'restack_engine',
-    'image': 'ghcr.io/restackio/restack:main',
-    'portMapping': [
-        {
-            'port': 5233,
-            'path': '/',
-            'name': 'engine-frontend',
-        },
-        {
-            'port': 6233,
-            'path': '/api',
-            'name': 'engine-api',
-        }
+    name: "restack_engine",
+    image: "ghcr.io/restackio/restack:main",
+    portMapping: [
+      {
+        port: 5233,
+        path: "/",
+        name: "engine-frontend",
+      },
+      {
+        port: 6233,
+        path: "/api",
+        name: "engine-api",
+      },
     ],
     environmentVariables: [
       {
@@ -51,24 +52,26 @@ const main = async () => {
 
   const frontend = {
     name: "frontend",
-    dockerFilePath: "examples/defense_quickstart_news_scraper_summarizer/frontend/Dockerfile",
-    dockerBuildContext: "examples/defense_quickstart_news_scraper_summarizer/frontend",
-    environmentVariables: [
-      ...restackEngineEnvs,
-    ],
+    dockerFilePath:
+      "examples/defense_quickstart_news_scraper_summarizer/frontend/Dockerfile",
+    dockerBuildContext:
+      "examples/defense_quickstart_news_scraper_summarizer/frontend",
+    environmentVariables: [...restackEngineEnvs],
     portMapping: [
       {
         port: 3000,
-        path: '/',
-        name: 'frontend',
-      }
-    ]
+        path: "/",
+        name: "frontend",
+      },
+    ],
   };
-  
+
   const backend = {
     name: "backend",
-    dockerFilePath: "examples/defense_quickstart_news_scraper_summarizer/backend/Dockerfile",
-    dockerBuildContext: "examples/defense_quickstart_news_scraper_summarizer/backend",
+    dockerFilePath:
+      "examples/defense_quickstart_news_scraper_summarizer/backend/Dockerfile",
+    dockerBuildContext:
+      "examples/defense_quickstart_news_scraper_summarizer/backend",
     environmentVariables: [
       ...restackEngineEnvs,
       {
@@ -79,10 +82,10 @@ const main = async () => {
     portMapping: [
       {
         port: 3000,
-        path: '/',
-        name: 'backend',
-      }
-    ]
+        path: "/",
+        name: "backend",
+      },
+    ],
   };
 
   await restackCloudClient.stack({
