@@ -35,7 +35,9 @@ export async function generateEmailContent({
   const text = response.choices[0].message.content;
 
   if (!text) {
-    throw FunctionFailure.nonRetryable('Ai could not generate email content');
+    throw FunctionFailure.retryable(
+      'Ai could not generate email content, retrying...'
+    );
   }
 
   return text;

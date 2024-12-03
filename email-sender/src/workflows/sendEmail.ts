@@ -12,7 +12,13 @@ export async function sendEmailWorkflow({
   subject,
   to,
 }: SendEmailWorkflowInput) {
-  const text = await step<typeof functions>({}).generateEmailContent({
+  const text = await step<typeof functions>({
+    startToCloseTimeout: '10s', // maximum time given for step to be completed
+    retry: {
+      initialInterval: '1m', // after each failure, wait 1 minute before retrying
+      backoffCoefficient: 1, // no exponential backoff, meaning we wait the same amount of time between retries.
+    },
+  }).generateEmailContent({
     emailContext,
   });
 
