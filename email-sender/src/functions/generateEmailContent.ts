@@ -33,7 +33,13 @@ export async function generateEmailContent({
       max_tokens: 150,
     });
 
-    return response.choices[0].message.content;
+    const text = response.choices[0].message.content;
+
+    if (!text) {
+      throw FunctionFailure.nonRetryable('Ai could not generate email content');
+    }
+
+    return text;
   } catch (error) {
     console.error('Error generating email content:', error);
     throw new Error('Failed to generate email content');
