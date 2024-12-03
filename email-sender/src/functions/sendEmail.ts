@@ -7,23 +7,17 @@ import 'dotenv/config';
 type EmailInput = {
   emailContext: string;
   subject: string;
-  body: string;
   to: string;
 };
 
-export async function sendEmail({
-  emailContext,
-  subject,
-  body,
-  to,
-}: EmailInput) {
+export async function sendEmail({ emailContext, subject, to }: EmailInput) {
   if (!process.env.SENDGRID_API_KEY) {
     throw FunctionFailure.nonRetryable('SENDGRID_API_KEY is not set');
   }
 
   sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
-  const text = await generateEmailContent(emailContext);
+  const text = await generateEmailContent({ emailContext });
 
   if (!text) {
     throw FunctionFailure.nonRetryable('Failed to generate email content');

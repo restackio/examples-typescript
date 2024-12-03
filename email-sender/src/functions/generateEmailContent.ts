@@ -1,7 +1,13 @@
 import OpenAI from 'openai/index';
 import { FunctionFailure } from '@restackio/ai/function';
 
-export async function generateEmailContent(emailContext: string) {
+type GenerateEmailContentInput = {
+  emailContext: string;
+};
+
+export async function generateEmailContent({
+  emailContext,
+}: GenerateEmailContentInput) {
   if (!process.env.OPENAI_API_KEY) {
     throw FunctionFailure.nonRetryable('OPENAI_API_KEY is not set');
   }
