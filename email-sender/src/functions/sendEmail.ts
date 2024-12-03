@@ -1,5 +1,6 @@
 import sgMail from '@sendgrid/mail';
 import { FunctionFailure } from '@restackio/ai/function';
+
 import { generateEmailContent } from './generateEmailContent';
 
 import 'dotenv/config';
@@ -11,6 +12,12 @@ type EmailInput = {
 };
 
 export async function sendEmail({ emailContext, subject, to }: EmailInput) {
+  const fromEmail = process.env.FROM_EMAIL;
+
+  if (!fromEmail) {
+    throw FunctionFailure.nonRetryable('FROM_EMAIL is not set');
+  }
+
   if (!process.env.SENDGRID_API_KEY) {
     throw FunctionFailure.nonRetryable('SENDGRID_API_KEY is not set');
   }
@@ -25,7 +32,7 @@ export async function sendEmail({ emailContext, subject, to }: EmailInput) {
 
   const msg = {
     to,
-    from: 'your-email@example.com',
+    from: fromEmail,
     subject,
     text,
   };
