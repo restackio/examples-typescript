@@ -1,5 +1,7 @@
 import { client } from './src/client';
 
+import 'dotenv/config';
+
 type SendEmailWorkflowInput = {
   emailContext: string;
   subject: string;
@@ -28,5 +30,5 @@ scheduleWorkflow({
   emailContext:
     'This email should contain a greeting. And telling user we have launched a new AI feature with Restack workflows. Workflows now offer logging and automatic retries when one of its steps fails. Name of user is not provided. You can set as goodbye message on the email just say "Best regards" or something like that. No need to mention name of user or name of person sending the email.',
   subject: 'Hello from Restack',
-  to: 'osman.sist@gmail.com',
+  to: process.env.TO_EMAIL!,
 });

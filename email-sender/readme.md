@@ -27,7 +27,7 @@ docker run -d --pull always --name restack -p 5233:5233 -p 6233:6233 -p 7233:723
 
 Where all your code is defined, including workflow steps.
 
-add OPENAI_API_KEY, SENDGRID_API_KEY, FROM_EMAIL in .env
+add OPENAI_API_KEY, SENDGRID_API_KEY, FROM_EMAIL, TO_EMAIL in .env
 
 ```bash
 npm i
