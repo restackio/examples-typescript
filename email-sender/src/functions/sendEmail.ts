@@ -39,8 +39,7 @@ export async function sendEmail({ emailContext, subject, to }: EmailInput) {
 
   try {
     await sgMail.send(msg);
-    console.log(`Email sent to ${to} with subject ${subject}`);
   } catch (error) {
-    console.error(`Error sending email to ${to}:`, error);
+    throw FunctionFailure.nonRetryable('Failed to send email');
   }
 }
