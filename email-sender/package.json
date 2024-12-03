@@ -25,7 +25,8 @@
   "description": "",
   "dependencies": {
     "@restackio/ai": "^0.0.86",
-    "dotenv": "^16.4.6"
+    "dotenv": "^16.4.6",
+    "openai": "^4.74.0"
   },
   "devDependencies": {
     "@types/node": "^22.10.1",
