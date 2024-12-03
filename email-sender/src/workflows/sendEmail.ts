@@ -1,25 +1,30 @@
 import { log, step } from '@restackio/ai/workflow';
+
 import * as functions from '../functions';
 
 type SendEmailWorkflowInput = {
   emailContext: string;
   subject: string;
   to: string;
+  simulateFailure?: boolean;
+};
+
+const emailRetryPolicy = {
+  initialInterval: '10s', // after each failure, wait 10 seconds before retrying
+  backoffCoefficient: 1, // no exponential backoff, meaning we wait the same amount of time between retries.
 };
 
 export async function sendEmailWorkflow({
   emailContext,
   subject,
   to,
+  simulateFailure = false,
 }: SendEmailWorkflowInput) {
   const text = await step<typeof functions>({
-    startToCloseTimeout: '10s', // maximum time given for step to be completed
-    retry: {
-      initialInterval: '1m', // after each failure, wait 1 minute before retrying
-      backoffCoefficient: 1, // no exponential backoff, meaning we wait the same amount of time between retries.
-    },
+    retry: emailRetryPolicy,
   }).generateEmailContent({
     emailContext,
+    simulateFailure,
   });
 
   log.info('Email content generated');

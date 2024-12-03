@@ -9,6 +9,7 @@
     "build": "tsc --build",
     "clean": "rm -rf node_modules",
     "schedule": "ts-node ./scheduleWorkflow.ts",
+    "schedule-retries": "ts-node ./scheduleWorkflowRetries.ts",
     "restack-up": "node restack_up.mjs"
   },
   "nodemonConfig": {

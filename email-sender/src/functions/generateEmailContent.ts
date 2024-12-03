@@ -3,11 +3,23 @@ import { FunctionFailure } from '@restackio/ai/function';
 
 type GenerateEmailContentInput = {
   emailContext: string;
+  simulateFailure?: boolean;
 };
+
+let tries = 0;
 
 export async function generateEmailContent({
   emailContext,
+  simulateFailure = false,
 }: GenerateEmailContentInput) {
+  // this is just to simulate a failure and showcase how Restack will automatically retry this function when called from a workflow.
+  // after it is successful, your workflow will continue with its next steps.
+  if (simulateFailure && tries === 0) {
+    tries += 1;
+    throw FunctionFailure.retryable(
+      'Intentional failure to showcase retry logic'
+    );
+  }
   if (!process.env.OPENAI_API_KEY) {
     throw FunctionFailure.nonRetryable('OPENAI_API_KEY is not set');
   }
