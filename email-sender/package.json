@@ -2,6 +2,7 @@
   "name": "email-sender",
   "version": "1.0.0",
   "main": "index.js",
+  "description": "Sending an email with Sengrid example",
   "scripts": {
     "start": "ts-node src/services.ts",
     "start.watch": "nodemon src/services.ts",
@@ -21,9 +22,8 @@
       "src"
     ]
   },
-  "author": "",
+  "author": "Restack",
   "license": "ISC",
-  "description": "",
   "dependencies": {
     "@restackio/ai": "^0.0.86",
     "dotenv": "^16.4.6",
