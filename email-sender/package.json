@@ -26,6 +26,7 @@
   "license": "ISC",
   "dependencies": {
     "@restackio/ai": "^0.0.86",
+    "@sendgrid/mail": "^8.1.4",
     "dotenv": "^16.4.6",
     "openai": "^4.74.0"
   },
