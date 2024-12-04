@@ -2,7 +2,6 @@ import { client } from './src/client';
 
 import 'dotenv/config';
 
-
 async function scheduleWorkflow() {
   try {
     const workflowId = `${Date.now()}-sendEmailWorkflow`;
