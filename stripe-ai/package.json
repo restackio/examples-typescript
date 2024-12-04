@@ -1,0 +1,37 @@
+{
+  "name": "stripe-ai-example",
+  "version": "1.0.0",
+  "main": "index.js",
+  "description": "Stripe AI example",
+  "scripts": {
+    "start": "ts-node src/services.ts",
+    "start.watch": "nodemon src/services.ts",
+    "dev": "pnpm start.watch",
+    "build": "tsc --build",
+    "clean": "rm -rf node_modules",
+    "schedule": "ts-node ./scheduleWorkflow.ts",
+    "restack-up": "node restack_up.mjs"
+  },
+  "nodemonConfig": {
+    "execMap": {
+      "ts": "ts-node"
+    },
+    "ext": "ts",
+    "watch": [
+      "src"
+    ]
+  },
+  "author": "Restack",
+  "license": "ISC",
+  "dependencies": {
+    "@ai-sdk/openai": "^1.0.6",
+    "@restackio/ai": "^0.0.86",
+    "@stripe/agent-toolkit": "^0.1.21",
+    "dotenv": "^16.4.6"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.1",
+    "nodemon": "^3.1.7",
+    "ts-node": "^10.9.2"
+  }
+}
