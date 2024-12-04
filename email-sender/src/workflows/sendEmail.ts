@@ -30,7 +30,7 @@ export async function sendEmailWorkflow({
   log.info('Email content generated');
 
   await step<typeof functions>({}).sendEmail({
-    emailContext: text,
+    text,
     subject,
     to,
   });

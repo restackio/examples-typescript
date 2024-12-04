@@ -6,12 +6,12 @@ import { generateEmailContent } from './generateEmailContent';
 import 'dotenv/config';
 
 type EmailInput = {
-  emailContext: string;
+  text: string;
   subject: string;
   to: string;
 };
 
-export async function sendEmail({ emailContext, subject, to }: EmailInput) {
+export async function sendEmail({ text, subject, to }: EmailInput) {
   const fromEmail = process.env.FROM_EMAIL;
 
   if (!fromEmail) {
@@ -23,12 +23,6 @@ export async function sendEmail({ emailContext, subject, to }: EmailInput) {
   }
 
   sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-
-  const text = await generateEmailContent({ emailContext });
-
-  if (!text) {
-    throw FunctionFailure.nonRetryable('Failed to generate email content');
-  }
 
   const msg = {
     to,
