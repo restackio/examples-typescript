@@ -37,7 +37,7 @@ export async function createPaymentLink() {
       ...stripeAgentToolkit.getTools(),
     },
     maxSteps: 5,
-    prompt: 'Create a payment link for a new product called \"A-Generated-Product\" with a price of $100.',
+    prompt: 'Create a payment link for a new product called \"AI-Generated-Product\" with a price of $100.',
   });
 
   return result.text;
