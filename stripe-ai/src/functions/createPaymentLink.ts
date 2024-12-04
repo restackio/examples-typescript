@@ -10,6 +10,10 @@ export async function createPaymentLink() {
     throw FunctionFailure.nonRetryable('STRIPE_SECRET_KEY is not set');
   }
 
+  if (!process.env.OPENAI_API_KEY) {
+    throw FunctionFailure.nonRetryable('OPENAI_API_KEY is not set');
+  }
+
   const stripeAgentToolkit = new StripeAgentToolkit({
     secretKey: process.env.STRIPE_SECRET_KEY!,
     configuration: {
@@ -36,5 +40,5 @@ export async function createPaymentLink() {
     prompt: 'Create a payment link for a new product called \"A-Generated-Product\" with a price of $100.',
   });
 
-  return result;
+  return result.text;
 }
