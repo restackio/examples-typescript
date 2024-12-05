@@ -6,13 +6,13 @@ For a full Typescript documentation refer to <https://docs.restack.io/libraries/
 
 ## Requirements
 
-- **Node 20+**, **pnpm** (or other package manager)
+- **Node 20+**, **npm** (or other package manager)
 
 ## Install dependencies and start services
 
 ```bash
-pnpm i
-pnpm dev
+npm i
+npm run dev
 ```
 
 This will start Node.js app with two Restack Services. Your code will be running and syncing with Restack engine to execute workflows or functions.
@@ -28,7 +28,7 @@ docker run -d --pull always --name restack -p 5233:5233 -p 6233:6233 -p 7233:723
 ## Schedule a demo Workflow
 
 ```bash
-pnpm schedule-workflow
+npm run schedule-workflow
 ```
 
 This will trigger a demo Workflow - a _greeting_, which is a simple function and _goodbye_, which uses [@restackio/integration-openai](https://www.npmjs.com/package/@restackio/integrations-openai).
@@ -36,7 +36,7 @@ This will trigger a demo Workflow - a _greeting_, which is a simple function and
 ## Deploy on Restack Cloud
 
 ``` bash
-pnpm restack-up
+npm run restack-up
 ```
 
 To deploy the application on Restack, you can use the provided `restackUp.ts` script. This script utilizes the Restack Cloud SDK to define and deploy your application stack. It sets up the necessary environment variables and configures the application for deployment.

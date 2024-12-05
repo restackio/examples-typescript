@@ -10,7 +10,7 @@
     "restack-studio": "docker run -d --pull always --name restack -p 5233:5233 -p 6233:6233 -p 7233:7233 ghcr.io/restackio/restack:main"
   },
   "dependencies": {
-    "@restackio/ai": "0.0.85",
+    "@restackio/ai": "0.0.86",
     "@restackio/integrations-openai": "0.0.34",
     "@temporalio/workflow": "1.11.2",
     "dotenv": "16.4.5",
@@ -18,7 +18,7 @@
     "zod-to-json-schema": "3.23.3"
   },
   "devDependencies": {
-    "@restackio/cloud": "1.0.18",
+    "@restackio/cloud": "1.0.24",
     "@types/node": "20.16.9",
     "prettier": "3.3.3",
     "tsx": "4.19.2",
