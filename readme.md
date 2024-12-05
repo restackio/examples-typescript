@@ -29,6 +29,7 @@ The Restack Web UI will be available at http://localhost:5233
 
 ## Examples of key Restack functionalities
 
+- [get-started](get-started) - Basic starter template
 - [child-workflows](child-workflows) - Example of parent-child workflow orchestration
 - [encryption](encryption) - Example of encrypted data handling in workflows
 - [human-loop](human-loop) - Example of human-in-the-loop workflows
