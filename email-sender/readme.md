@@ -31,8 +31,8 @@ add OPENAI_API_KEY, SENDGRID_API_KEY, FROM_EMAIL, TO_EMAIL in .env
 
 ```bash
 npm i
-npm build
-npm dev
+npm run build
+npm run dev
 ```
 
 Your code will be running and syncing with Restack engine to execute workflows or functions.

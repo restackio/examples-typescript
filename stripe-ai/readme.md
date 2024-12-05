@@ -27,8 +27,8 @@ add OPENAI_API_KEY, STRIPE_SECRET_KEY in .env
 
 ```bash
 npm i
-npm build
-npm dev
+npm run build
+npm run dev
 ```
 
 Your code will be running and syncing with Restack engine to execute workflows or functions.
