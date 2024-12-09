@@ -4,6 +4,7 @@ import 'dotenv/config';
 
 type TranscribeAndTranslateWorkflowInput = {
   filePath: string;
+  targetLanguage: string;
 };
 
 async function scheduleWorkflow(input: TranscribeAndTranslateWorkflowInput) {
@@ -25,5 +26,6 @@ async function scheduleWorkflow(input: TranscribeAndTranslateWorkflowInput) {
 }
 
 scheduleWorkflow({
-  filePath: 'audio-transcript/audio/example.mp3',
+  filePath: './test.mp3',
+  targetLanguage: 'es',
 });

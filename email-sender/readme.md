@@ -45,7 +45,7 @@ In another shell:
 npm run schedule
 ```
 
-Will schedule to start example workflow immediately. The code for this is on `scheduleWorkflow.ts`. In here you can see how the sendEmailWorkflow is scheduled to be exectuted.
+Will schedule to start example workflow immediately. The code for this is on `scheduleWorkflow.ts`. In here you can see how the sendEmailWorkflow is scheduled to be executed.
 
 # Schedule workflow to send email with simulated failure and retries
 
