@@ -1,6 +1,6 @@
 # Overview
 
-This example showcases how transcribe an audio file and then translate text to a target language. You can use any mp3 file you have at your disposal to test the example. Update the filePath value at `scheduleWorkflow.ts`.
+This example showcases how transcribe an audio file and then translate text to a target language. You can use any mp3 file you have at your disposal to test the example. Update the filePath value at `scheduleWorkflow.ts`. A test.mp3 file is already provided and will be one used if you execute scheduleWorkflow.ts
 
 # Requirements
 
