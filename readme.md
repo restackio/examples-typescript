@@ -7,7 +7,7 @@ Restack is an open source framework for building autonomous AI applications in T
 Start the Restack Engine and Web UI using Docker:
 
 ```
-docker run -d --pull always --name restack -p 5233:5233 -p 6233:6233 -p 7233:7233 ghcr.io/restackio/engine:main
+docker run -d --pull always --name restack -p 5233:5233 -p 6233:6233 -p 7233:7233 ghcr.io/restackio/restack:main
 ```
 
 Or using Docker Compose:
