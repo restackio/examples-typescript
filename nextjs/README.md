@@ -38,12 +38,3 @@ When the client successfully schedules the workflow, you can see the started wor
 
 Now you can add a backend to the example. In other examples, you can see how to ideally structure the backend app with workflows, functions and services.
 
-## Deploy on Restack
-
-To deploy this Next.js application on Restack, you can use the provided `restack_up.mjs` script. This script utilizes the Restack Cloud SDK to define and deploy your application stack. It sets up the necessary environment variables and configures the Next.js application for deployment. 
-
-To get started, ensure you have the required Restack Cloud credentials and environment variables set up. Then, run the script to initiate the deployment process. 
-
-For more detailed information on deploying your repository to Restack, refer to the [Restack Cloud deployment documentation](https://docs.restack.io/restack-cloud/deployrepo).
-
-

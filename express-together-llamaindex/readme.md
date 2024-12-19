@@ -51,18 +51,6 @@ Build the Docker image and run the container with:
 pnpm docker:dev
 ```
 
-## (Optional) Deploy on Restack Cloud
+## Deploy on Restack Cloud
 
-```
-pnpm restack-up
-```
-
-To deploy the application on Restack, you can use the provided `restack_up.mjs` script. This script utilizes the Restack Cloud SDK to define and deploy your application stack. It sets up the necessary environment variables and configures the application for deployment.
-
-To get started, ensure you have the required Restack Cloud credentials and environment variables set up. Then, run the script to initiate the deployment process.
-
-For more detailed information on deploying your repository to Restack, refer to the [Restack Cloud deployment documentation](https://docs.restack.io/restack-cloud/deployrepo).
-
-```
-
-```
+To deploy the application on Restack, you can create an account at [Restack Console](https://console.restack.io)

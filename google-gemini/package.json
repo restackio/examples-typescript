@@ -27,7 +27,6 @@
     "dotenv": "^16.4.5"
   },
   "devDependencies": {
-    "@restackio/cloud": "^1.0.19",
     "@types/node": "^20.16.9",
     "nodemon": "^2.0.22",
     "ts-node": "^10.9.2",

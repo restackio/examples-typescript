@@ -9,8 +9,8 @@
     "dev": "pnpm start.watch",
     "build": "tsc --build",
     "clean": "rm -rf node_modules",
-    "schedule": "ts-node ./scheduleWorkflow.ts",
-    "restack-up": "node restack_up.mjs"
+    "service": "ts-node src/services.ts",
+    "schedule": "ts-node scheduleWorkflow.ts"
   },
   "nodemonConfig": {
     "execMap": {
@@ -29,9 +29,5 @@
     "@types/node": "^20.17.6",
     "nodemon": "^2.0.22",
     "ts-node": "^10.9.2"
-  },
-  "scripts": {
-    "service": "ts-node src/services.ts",
-    "schedule": "ts-node scheduleWorkflow.ts"
   }
 }

@@ -46,3 +46,7 @@ DISCORD_BOT_TOKEN=<your-bot-token> DISCORD_BOT_ID=<your-bot-id> DISCORD_CHANNEL_
 ```
 
 Will schedule to start example workflow immediately. This runs the `scheduleWorkflow` file.
+
+## Deploy on Restack Cloud
+
+To deploy the application on Restack, you can create an account at [Restack Console](https://console.restack.io)

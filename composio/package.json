@@ -24,13 +24,12 @@
   "dependencies": {
     "@restackio/ai": "0.0.90",
     "@temporalio/workflow": "1.11.2",
-    "dotenv": "16.4.5",
     "composio-core": "0.2.9-10-1",
+    "dotenv": "16.4.5",
     "install": "^0.13.0",
     "openai": "4.73.1"
   },
   "devDependencies": {
-    "@restackio/cloud": "1.0.21",
     "@types/node": "20.16.9",
     "dotenv-cli": "^7.4.4",
     "nodemon": "2.0.22",

@@ -47,3 +47,8 @@ pnpm schedule
 ```
 
 Will schedule to start example workflow immediately. This runs the `scheduleWorkflow` file.
+
+
+## Deploy on Restack Cloud
+
+To deploy the application on Restack, you can create an account at [Restack Console](https://console.restack.io)

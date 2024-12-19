@@ -11,8 +11,7 @@
     "clean": "rm -rf node_modules",
     "docker:build": "docker build -t restack-express .",
     "docker:run": "docker run -p 8000:8000 restack-express",
-    "docker:dev": "pnpm docker:build && pnpm docker:run",
-    "restack-up": "node restack_up.mjs"
+    "docker:dev": "pnpm docker:build && pnpm docker:run"
   },
   "nodemonConfig": {
     "execMap": {

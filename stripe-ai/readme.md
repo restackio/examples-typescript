@@ -43,3 +43,7 @@ npm run schedule
 
 Will schedule to start example workflow immediately. The code for this is on `scheduleWorkflow.ts`. In here you can see how the createPaymentLinkWorkflow is executed.
 
+
+## Deploy on Restack Cloud
+
+To deploy the application on Restack, you can create an account at [Restack Console](https://console.restack.io)

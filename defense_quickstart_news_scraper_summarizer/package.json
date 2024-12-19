@@ -1,18 +1,17 @@
 {
-    "name": "defense_quickstart_news_scraper_summarizer",
-    "version": "1.0.0",
-    "description": "This repository is a quickstart example for using Restack AI to scrape news articles and summarize them.",
-    "main": "restack_up.js",
-    "scripts": {
-      "test": "echo \"Error: no test specified\" && exit 1",
-      "restack:up": "dotenv -e .env node restack_up.js"
-    },
-    "type": "module",
-    "author": "",
-    "license": "ISC",
-    "dependencies": {
-      "@restackio/cloud": "^1.0.19",
-      "dotenv": "^16.4.5",
-      "dotenv-cli": "^7.4.2"
-    }
+  "name": "defense_quickstart_news_scraper_summarizer",
+  "version": "1.0.0",
+  "description": "This repository is a quickstart example for using Restack AI to scrape news articles and summarize them.",
+  "main": "restack_up.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "restack:up": "dotenv -e .env node restack_up.js"
+  },
+  "type": "module",
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "dotenv-cli": "^7.4.2"
   }
+}

@@ -11,26 +11,24 @@
     "restack-engine": "docker run -d --pull always --name restack -p 5233:5233 -p 6233:6233 -p 7233:7233 ghcr.io/restackio/restack:main",
     "docker:build": "docker build -t posthog .",
     "docker:run": "docker run -d -p 4000:4000 posthog",
-    "schedule": "ts-node ./scheduleWorkflow.ts",
-    "restack-up": "dotenv -e .env -- tsx restack_up.mjs"
+    "schedule": "ts-node ./scheduleWorkflow.ts"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@linear/sdk": "29.0.0",
     "@restackio/ai": "0.0.90",
     "@temporalio/workflow": "1.11.2",
-    "@linear/sdk": "29.0.0",
     "dotenv": "16.4.5",
     "openai": "4.71.1",
+    "tsx": "4.19.2",
     "typescript": "5.6.2",
     "uuid": "10.0.0",
     "zod": "3.23.8",
-    "zod-to-json-schema": "3.23.3",
-    "tsx": "4.19.2"
+    "zod-to-json-schema": "3.23.3"
   },
   "devDependencies": {
-    "@restackio/cloud": "1.0.21",
     "@types/node": "22.5.5",
     "@types/uuid": "10.0.0",
     "dotenv-cli": "7.4.4",
