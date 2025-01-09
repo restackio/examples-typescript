@@ -8,7 +8,7 @@ async function scheduleWorkflow(input: InputSchedule) {
   try {
     const workflowId = `${Date.now()}-GreetingWorkflow`;
     const runId = await client.scheduleWorkflow({
-      workflowName: "GreetingWorkflow",
+      workflowName: "greetingWorkflow",
       workflowId,
       input,
     });
