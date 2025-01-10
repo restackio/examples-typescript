@@ -11,7 +11,7 @@ async function scheduleWorkflow(input: TranscribeAndTranslateWorkflowInput) {
   try {
     const workflowId = `${Date.now()}-transcribeAndTranslateWorkflow`;
     await client.scheduleWorkflow({
-      workflowName: 'transcribeAndTranslateWorkflow',
+      workflowName: 'transcribeAndTranslate',
       workflowId,
       input,
     });
