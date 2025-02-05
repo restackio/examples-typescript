@@ -1,0 +1,39 @@
+{
+  "name": "sdk-example-ts",
+  "version": "1.0.0",
+  "description": "Basic LMNT example",
+ 
+  "scripts": {
+    "dev": "tsx watch --include src src/services.ts",
+    "clean": "rm -rf node_modules",
+    "build": "tsc --build",
+    "schedule-hello": "tsx ./scheduleWorkflow.ts helloWorkflow",
+    "schedule-voices": "tsx ./scheduleWorkflow.ts voicesWorkflow",
+    "restack-up": "node restack_up.mjs"
+  },
+  "nodemonConfig": {
+    "execMap": {
+      "ts": "ts-node"
+    },
+    "ext": "ts",
+    "watch": [
+      "src"
+    ]
+  },
+  "dependencies": {
+    "@restackio/ai": "^0.0.82",
+    "@temporalio/workflow": "^1.11.2",
+    "dotenv": "^16.4.5",
+    "lmnt-node": "^1.2.3",
+    "zod": "^3.23.8",
+    "zod-to-json-schema": "^3.23.3",
+    "tsx": "^4.19.2"
+  },
+  "devDependencies": {
+    "@restackio/restack-sdk-cloud-ts": "^1.0.15",
+    "@types/node": "^20.16.9",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.6.3"
+
+  }
+}
