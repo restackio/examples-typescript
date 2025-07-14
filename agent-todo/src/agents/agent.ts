@@ -5,12 +5,9 @@ import {
   log,
   step,
   childExecute,
-<<<<<<< HEAD
   shouldContinueAsNew,
   agentContinueAsNew,
-=======
   agentInfo,
->>>>>>> main
 } from "@restackio/ai/agent";
 import * as functions from "../functions";
 import { executeTodoWorkflow } from "../workflows/executeTodo";
@@ -136,7 +133,6 @@ export async function agentTodo(): Promise<agentTodoOutput | undefined> {
     endReceived = true;
   });
 
-<<<<<<< HEAD
   await condition(() => endReceived || shouldContinueAsNew());
 
   if (endReceived) {
@@ -145,10 +141,4 @@ export async function agentTodo(): Promise<agentTodoOutput | undefined> {
   }
 
   await agentContinueAsNew();
-=======
-  await condition(() => endReceived);
-  log.info("end condition met");
-
-  return { messages: agentMessages };
->>>>>>> main
 }
