@@ -70,6 +70,7 @@ export async function agentTwilio({ phoneNumber }: agentTwilioInput): Promise<ag
       child: logicWorkflow,
       childId:  `${uuid()}-logic`,
       input: {messages, roomName, context },
+      isAgent: false,
       taskQueue: "logic-workflow",
     })
 
