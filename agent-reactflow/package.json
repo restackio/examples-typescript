@@ -12,7 +12,7 @@
   "devDependencies": {
     "prettier": "^3.5.3",
     "turbo": "^2.4.4",
-    "@restackio/ai": "^0.0.115"
+    "@restackio/ai": "^0.0.124"
   },
   "packageManager": "pnpm@10.6.1",
   "engines": {

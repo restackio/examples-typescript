@@ -13,7 +13,7 @@
   "dependencies": {
     "@livekit/protocol": "^1.34.0",
     "@restackio/ai": "^0.0.129",
-    "@temporalio/workflow": "1.11.6",
+    "@temporalio/workflow": "1.11.8",
     "dotenv": "^16.4.7",
     "livekit-server-sdk": "^2.10.2",
     "openai": "^4.80.1"

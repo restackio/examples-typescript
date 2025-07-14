@@ -9,11 +9,12 @@ nvm use 20
 
 brew install pnpm
 
-# Install Restack Web UI 
+# Install Restack Web UI
 
 To install the Restack Web UI, you can use Docker.
+
 ```
-docker run -d --pull always --name restack -p 5233:5233 -p 6233:6233 -p 7233:7233 -p 9233:9233 ghcr.io/restackio/restack:main
+docker run -d --pull always --name restack -p 5233:5233 -p 6233:6233 -p 7233:7233 -p 9233:9233 p 10233:10233 ghcr.io/restackio/restack:main
 ```
 
 # Start services
@@ -27,6 +28,7 @@ pnpm i
 
 pnpm dev
 ```
+
 Your code will be running and syncing with Restack engine to execute workflows or functions.
 
 # Schedule a workflow

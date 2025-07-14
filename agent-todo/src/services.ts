@@ -4,6 +4,7 @@ import {
   getTools,
   getRandom,
   getResult,
+  sendEvent,
 } from "./functions";
 import { client } from "./client";
 
@@ -14,7 +15,7 @@ async function services() {
     await Promise.all([
       client.startService({
         agentsPath: agentsPath,
-        functions: { llmChat, createTodo, getTools },
+        functions: { llmChat, createTodo, getTools, sendEvent },
       }),
       client.startService({
         workflowsPath: workflowsPath,

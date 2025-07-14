@@ -5,11 +5,16 @@ import {
   log,
   step,
   childExecute,
+<<<<<<< HEAD
   shouldContinueAsNew,
   agentContinueAsNew,
+=======
+  agentInfo,
+>>>>>>> main
 } from "@restackio/ai/agent";
 import * as functions from "../functions";
 import { executeTodoWorkflow } from "../workflows/executeTodo";
+import { CreateTodoSchema, ExecuteTodoSchema } from "../functions/types";
 
 export type EndEvent = {
   end: boolean;
@@ -17,6 +22,8 @@ export type EndEvent = {
 
 export const messagesEvent = defineEvent<functions.Message[]>("messages");
 export const endEvent = defineEvent("end");
+export const createTodoEvent = defineEvent("createTodo");
+export const executeTodoWorkflowEvent = defineEvent("executeTodoWorkflow");
 
 type agentTodoOutput = {
   messages: functions.Message[];
@@ -26,80 +33,110 @@ export async function agentTodo(): Promise<agentTodoOutput | undefined> {
   let endReceived = false;
   let agentMessages: functions.Message[] = [];
 
-  const tools = await step<typeof functions>({}).getTools();
-
   onEvent(messagesEvent, async ({ messages }: { messages: functions.Message[] }) => {
     agentMessages.push(...messages);
 
     const result = await step<typeof functions>({}).llmChat({
       messages: agentMessages,
-      tools,
+      systemContent: "You are a helpful assistant that can create and execute todos.",
+      model: "gpt-4.1-mini"
     });
 
     agentMessages.push(result);
 
-    if (result.tool_calls) {
-      log.info("result.tool_calls", { result });
-      for (const toolCall of result.tool_calls) {
-        switch (toolCall.function.name) {
-          case "createTodo":
-            log.info("createTodo", { toolCall });
-            const toolResult = await step<typeof functions>({}).createTodo(
-              JSON.parse(toolCall.function.arguments)
-            );
+    if (result.structured_data?.type === "function_call") {
+      const { function_name, function_arguments } = result.structured_data;
+      log.info(function_name, { function_arguments });
 
-            agentMessages.push({
-              role: "tool",
-              tool_call_id: toolCall.id,
-              content: toolResult,
-            });
+      switch (function_name) {
+        case "createTodo":
+          await step<typeof functions>({}).sendEvent({
+            agentId: agentInfo().workflowId,
+            runId: agentInfo().runId,
+            eventName: "createTodo",
+            eventInput: function_arguments
+          });
+          break;
 
-            const toolChatResult = await step<typeof functions>({}).llmChat({
-              messages: agentMessages,
-              tools,
-            });
-
-            agentMessages.push(toolChatResult);
-
-            break;
-          case "executeTodoWorkflow":
-            log.info("executeTodoWorkflow", { toolCall });
-            const workflowId = `executeTodoWorkflow-${new Date().getTime()}`;
-            const workflowResult = await childExecute({
-              child: executeTodoWorkflow,
-              childId: workflowId,
-              input: JSON.parse(toolCall.function.arguments),
-              taskQueue: "todo-workflows",
-            });
-
-            agentMessages.push({
-              role: "tool",
-              tool_call_id: toolCall.id,
-              content: JSON.stringify(workflowResult),
-            });
-
-            const toolWorkflowResult = await step<typeof functions>({}).llmChat(
-              {
-                messages: agentMessages,
-                tools,
-              }
-            );
-
-            agentMessages.push(toolWorkflowResult);
-
-            break;
-          default:
-            break;
-        }
+        case "executeTodoWorkflow":
+          const args = ExecuteTodoSchema.parse(function_arguments);
+          await step<typeof functions>({}).sendEvent({
+            agentId: agentInfo().workflowId,
+            runId: agentInfo().runId,
+            eventName: "executeTodoWorkflow",
+            eventInput: { workflowId: `executeTodoWorkflow-${Date.now()}`, args }
+          });
+          break;
       }
     }
+
     return agentMessages;
+  });
+
+  onEvent(createTodoEvent, async (data: any) => {
+    try {
+      const parsedArgs = CreateTodoSchema.parse(data);
+      const stepResult = await step<typeof functions>({}).createTodo(parsedArgs);
+
+      await step<typeof functions>({}).sendEvent({
+        agentId: agentInfo().workflowId,
+        runId: agentInfo().runId,
+        eventName: "messages",
+        eventInput: {
+          messages: [{
+            role: "system",
+            content: `Function executed: ${stepResult}`
+          }]
+        }
+      });
+    } catch (error: any) {
+      log.error("Error in createTodo", { error: error.toString() });
+      agentMessages.push({
+        role: "system",
+        content: `Error handling createTodo: ${error.message}`
+      });
+    }
+  });
+
+  onEvent(executeTodoWorkflowEvent, async (data: any) => {
+    try {
+      const { workflowId, args } = data;
+      const workflowResult = await childExecute({
+        child: executeTodoWorkflow,
+        childId: workflowId,
+        input: args,
+        taskQueue: "todo-workflows"
+      });
+
+      await step<typeof functions>({}).sendEvent({
+        agentId: agentInfo().workflowId,
+        runId: agentInfo().runId,
+        eventName: "messages",
+        eventInput: {
+          messages: [{
+            role: "system",
+            content: `Todo workflow executed successfully! Status: ${workflowResult.status} Details: ${workflowResult.details} ID: ${workflowResult.todoId}`
+          }]
+        }
+      });
+    } catch (workflowError: any) {
+      log.error("Workflow execution failed", {
+        error: workflowError.toString(),
+        stack: workflowError.stack
+      });
+
+      agentMessages.push({
+        role: "system",
+        content: `The workflow execution failed: ${workflowError.message}`
+      });
+    }
   });
 
   onEvent(endEvent, async () => {
     endReceived = true;
   });
 
+<<<<<<< HEAD
   await condition(() => endReceived || shouldContinueAsNew());
 
   if (endReceived) {
@@ -108,4 +145,10 @@ export async function agentTodo(): Promise<agentTodoOutput | undefined> {
   }
 
   await agentContinueAsNew();
+=======
+  await condition(() => endReceived);
+  log.info("end condition met");
+
+  return { messages: agentMessages };
+>>>>>>> main
 }

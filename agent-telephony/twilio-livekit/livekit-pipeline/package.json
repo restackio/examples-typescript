@@ -30,7 +30,7 @@
     "@livekit/agents-plugin-openai": "^0.8.2",
     "@livekit/agents-plugin-silero": "^0.5.4",
     "@livekit/rtc-node": "^0.13.6",
-    "@restackio/ai": "^0.0.113",
+    "@restackio/ai": "^0.0.124",
     "dotenv": "^16.4.7"
   },
   "overrides": {

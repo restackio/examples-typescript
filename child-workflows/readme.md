@@ -22,7 +22,7 @@ This will start Node.js app with two Restack Services. Your code will be running
 To start the Restack Studio, you can use Docker.
 
 ```bash
-docker run -d --pull always --name restack -p 5233:5233 -p 6233:6233 -p 7233:7233 -p 9233:9233 ghcr.io/restackio/restack:main
+docker run -d --pull always --name restack -p 5233:5233 -p 6233:6233 -p 7233:7233 -p 9233:9233 p 10233:10233 ghcr.io/restackio/restack:main
 ```
 
 ## Schedule the parent workflow

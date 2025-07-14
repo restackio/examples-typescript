@@ -18,8 +18,8 @@
   "license": "ISC",
   "dependencies": {
     "@deepgram/sdk": "3.6.0",
-    "@restackio/ai": "0.0.105",
-    "@temporalio/workflow": "1.11.6",
+    "@restackio/ai": "0.0.124",
+    "@temporalio/workflow": "1.11.8",
     "cors": "2.8.5",
     "dotenv": "16.4.5",
     "express": "4.21.0",

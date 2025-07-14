@@ -7,11 +7,11 @@
     "build": "tsc --build",
     "start": "node dist/services.js",
     "schedule-workflow": "tsx scheduleWorkflow.ts",
-    "restack-web-ui": "docker run -d --pull always --name restack -p 5233:5233 -p 6233:6233 -p 7233:7233 -p 9233:9233 ghcr.io/restackio/restack:main"
+    "restack-web-ui": "docker run -d --pull always --name restack -p 5233:5233 -p 6233:6233 -p 7233:7233 -p 9233:9233 p 10233:10233 ghcr.io/restackio/restack:main"
   },
   "dependencies": {
-    "@restackio/ai": "^0.0.109",
-    "@temporalio/workflow": "1.11.6",
+    "@restackio/ai": "^0.0.124",
+    "@temporalio/workflow": "1.11.8",
     "dotenv": "16.4.5",
     "zod": "3.23.8",
     "zod-to-json-schema": "3.23.3"

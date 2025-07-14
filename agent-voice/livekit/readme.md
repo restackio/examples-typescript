@@ -14,7 +14,7 @@ Build an AI agent that users can interact with in realtime with voice.
 To start the Restack, use the following Docker command:
 
 ```bash
-docker run -d --pull always --name restack -p 5233:5233 -p 6233:6233 -p 7233:7233 -p 9233:9233 ghcr.io/restackio/restack:main
+docker run -d --pull always --name restack -p 5233:5233 -p 6233:6233 -p 7233:7233 -p 9233:9233 p 10233:10233 ghcr.io/restackio/restack:main
 ```
 
 ## Start Restack Agent with Stream
@@ -31,7 +31,6 @@ npm run dev
 This will start a Node.js app with Restack Services.
 Your code will be running and syncing with Restack to execute agents.
 
-
 ## Start Livekit voice pipeline
 
 at /agent-voice/livekit/livekit-pipeline/
@@ -46,13 +45,11 @@ npm run dev
 This will start a Node.js app with Restack Services.
 Your code will be running and syncing with Restack to execute agents.
 
-
 ## Configure Your Environment Variables
 
 Duplicate the `env.example` file and rename it to `.env`.
 
 Obtain a Restack API Key to interact with the 'gpt-4.1-mini' model at no cost from [Restack Cloud](https://console.restack.io/starter)
-
 
 ## Interact in realtime with the agent
 
@@ -63,6 +60,7 @@ https://github.com/livekit/agents-playground
 Modify your .env in https://github.com/livekit/agents-playground/blob/main/.env.example
 
 Run the following commands:
+
 ```bash
 npm run install
 ```
@@ -110,7 +108,6 @@ with input:
 The Livekit pipleine worker will connect to the room and you can start talking to the agent.
 
 ![Talk to the agent](./agent_voice_livekit.png)
-
 
 ## Follow the agent run
 

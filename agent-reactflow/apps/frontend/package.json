@@ -18,7 +18,7 @@
     "@radix-ui/react-scroll-area": "^1.2.2",
     "@radix-ui/react-separator": "^1.1.1",
     "@radix-ui/react-slot": "^1.1.1",
-    "@restackio/ai": "^0.0.115",
+    "@restackio/ai": "^0.0.130",
     "@restackio/react": "^0.10.3",
     "@xyflow/react": "^12.4.4",
     "ai": "^4.2.5",

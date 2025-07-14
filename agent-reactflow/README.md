@@ -19,7 +19,7 @@ See the full documentation on our [Agent with React Flow](https://docs.restack.i
 To start Restack, use the following Docker command:
 
 ```bash
-docker run -d --pull always --name restack -p 5233:5233 -p 6233:6233 -p 7233:7233 -p 9233:9233 ghcr.io/restackio/restack:main
+docker run -d --pull always --name restack -p 5233:5233 -p 6233:6233 -p 7233:7233 -p 9233:9233 -p 10233:10233 ghcr.io/restackio/restack:main
 ```
 
 ## Install dependencies and start services
@@ -114,7 +114,6 @@ pnpm event-agent
 
 It will connect to Restack and send an events to the agent.
 
-
 ## Deploy on Cloud
 
 ### Deploy frontend on Vercel
@@ -128,6 +127,7 @@ agent-reactflow/apps/frontend
 ```
 
 Build command
+
 ```bash
 turbo run build --filter=@agent-reactflow/frontend
 ```

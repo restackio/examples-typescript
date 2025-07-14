@@ -8,7 +8,7 @@
     "dev": "ts-node-dev --respawn --transpile-only src/services.ts",
     "build": "tsc --build",
     "clean": "rm -rf node_modules",
-    "restack-engine": "docker run -d --pull always --name restack -p 5233:5233 -p 6233:6233 -p 7233:7233 -p 9233:9233 ghcr.io/restackio/restack:main",
+    "restack-engine": "docker run -d --pull always --name restack -p 5233:5233 -p 6233:6233 -p 7233:7233 -p 9233:9233 p 10233:10233 ghcr.io/restackio/restack:main",
     "docker:build": "docker build -t posthog .",
     "docker:run": "docker run -d -p 4000:4000 posthog",
     "schedule": "ts-node ./scheduleWorkflow.ts"
@@ -18,8 +18,8 @@
   "license": "ISC",
   "dependencies": {
     "@linear/sdk": "29.0.0",
-    "@restackio/ai": "0.0.105",
-    "@temporalio/workflow": "1.11.6",
+    "@restackio/ai": "0.0.124",
+    "@temporalio/workflow": "1.11.8",
     "dotenv": "16.4.5",
     "openai": "4.71.1",
     "tsx": "4.19.2",

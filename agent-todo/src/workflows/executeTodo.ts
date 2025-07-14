@@ -1,41 +1,51 @@
 import { log, sleep, step } from "@restackio/ai/workflow";
 import * as functions from "../functions";
+import { ExecuteTodoOutput } from "../functions/types";
 
-type Input = {
-  todoTitle: string;
-  todoId: string;
-};
 
-type Output = {
-  todoId: string;
-  todoTitle: string;
-  details: string;
-  status: string;
-};
 
-export async function executeTodoWorkflow({
-  todoTitle,
-  todoId,
-}: Input): Promise<Output> {
-  const random = await step<typeof functions>({taskQueue: "todo-workflows",}).getRandom({
-    todoTitle,
-  });
+export async function executeTodoWorkflow({ todoTitle, todoId }: ExecuteTodoOutput): Promise<ExecuteTodoOutput> {
+  try {
+    log.info("Starting todo workflow", { todoTitle, todoId });
 
-  await sleep(2000);
+    const random = await step<typeof functions>({ taskQueue: "todo-workflows" }).getRandom({
+      todoTitle,
+    });
 
-  const result = await step<typeof functions>({taskQueue: "todo-workflows",}).getResult({
-    todoTitle,
-    todoId,
-  });
+    log.info("Got random value", { random });
 
-  const todoDetails = {
-    todoId,
-    todoTitle,
-    details: random,
-    status: result.status,
-  };
+    await sleep(2000);
 
-  log.info("Todo Details", { todoDetails });
+    const result = await step<typeof functions>({ taskQueue: "todo-workflows" }).getResult({
+      todoTitle,
+      todoId,
+    });
 
-  return todoDetails;
+    log.info("Got result", { result });
+
+    const todoDetails: ExecuteTodoOutput = {
+      todoId,
+      todoTitle,
+      details: random,
+      status: result.status,
+    };
+
+    log.info("Todo Details", { todoDetails });
+
+    return todoDetails;
+  } catch (error: any) {
+    log.error("Error in executeTodoWorkflow", {
+      error: error.toString(),
+      todoTitle,
+      todoId
+    });
+
+    // Return an error status in case of failure
+    return {
+      todoId,
+      todoTitle,
+      details: `Error: ${error.message}`,
+      status: "failed"
+    };
+  }
 }
