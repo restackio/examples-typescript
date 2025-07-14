@@ -8,7 +8,9 @@ import {
   AgentError,
   childStart,
   uuid,
-  sleep
+  sleep,
+  shouldContinueAsNew,
+  agentContinueAsNew,
 } from "@restackio/ai/agent";
 import * as functions from "../functions";
 import { logicWorkflow } from "../workflows/logic";
@@ -53,7 +55,7 @@ type agentTwilioInput = {
   phoneNumber?: string;
 }
 
-export async function agentTwilio({ phoneNumber }: agentTwilioInput): Promise<agentTwilioOutput> {
+export async function agentTwilio({ phoneNumber }: agentTwilioInput): Promise<agentTwilioOutput | undefined> {
   let endReceived = false;
   let messages: functions.Message[] = [];
   let context: string = "";
@@ -68,6 +70,7 @@ export async function agentTwilio({ phoneNumber }: agentTwilioInput): Promise<ag
       child: logicWorkflow,
       childId:  `${uuid()}-logic`,
       input: {messages, roomName, context },
+      isAgent: false,
       taskQueue: "logic-workflow",
     })
 
@@ -156,14 +159,18 @@ export async function agentTwilio({ phoneNumber }: agentTwilioInput): Promise<ag
       await step<typeof functions>({}).livekitCall({sipTrunkId, phoneNumber, roomId, agentName, agentId, runId});
   }
   
-  // We use the `condition` function to wait for the event goodbyeReceived to return `True`.
-  await condition(() => endReceived);
+  // We use the `condition` function to wait for the event goodbyeReceived to return `True` or the agent should continue as new.
+  await condition(() => endReceived || shouldContinueAsNew());
   
-  log.info("end condition met");
-  return {
-    recordingUrl,
-    livekitRoomId: roomId,
-    messages,
-    context
-  };
+  if (endReceived) {
+    log.info("end condition met");
+    return {
+      recordingUrl,
+      livekitRoomId: roomId,
+      messages,
+      context
+    };
+  }
+
+  await agentContinueAsNew();
 }

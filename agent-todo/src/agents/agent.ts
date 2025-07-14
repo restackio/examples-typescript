@@ -5,6 +5,8 @@ import {
   log,
   step,
   childExecute,
+  shouldContinueAsNew,
+  agentContinueAsNew,
   agentInfo,
 } from "@restackio/ai/agent";
 import * as functions from "../functions";
@@ -24,7 +26,7 @@ type agentTodoOutput = {
   messages: functions.Message[];
 };
 
-export async function agentTodo(): Promise<agentTodoOutput> {
+export async function agentTodo(): Promise<agentTodoOutput | undefined> {
   let endReceived = false;
   let agentMessages: functions.Message[] = [];
 
@@ -131,8 +133,12 @@ export async function agentTodo(): Promise<agentTodoOutput> {
     endReceived = true;
   });
 
-  await condition(() => endReceived);
-  log.info("end condition met");
+  await condition(() => endReceived || shouldContinueAsNew());
 
-  return { messages: agentMessages };
+  if (endReceived) {
+    log.info("end condition met");
+    return { messages: agentMessages };
+  }
+
+  await agentContinueAsNew();
 }

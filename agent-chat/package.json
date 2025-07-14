@@ -5,13 +5,13 @@
   "scripts": {
     "dev": "open-cli http://localhost:5233 && tsx watch --include src src/services.ts",
     "build": "tsc --build",
-    "start": "node dist/services.js", 
+    "start": "node dist/services.js",
     "clean": "rm -rf node_modules",
     "schedule-agent": "tsx scheduleAgent.ts",
     "event-agent": "tsx eventAgent.ts"
   },
   "dependencies": {
-    "@restackio/ai": "^0.0.124",
+    "@restackio/ai": "^0.0.130",
     "@temporalio/workflow": "1.11.8",
     "dotenv": "^16.4.7",
     "openai": "^4.80.1"
