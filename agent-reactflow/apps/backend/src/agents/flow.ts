@@ -8,8 +8,9 @@ import {
   uuid,
   AgentError,
   agentInfo,
-  sleep
-
+  sleep,
+  shouldContinueAsNew,
+  agentContinueAsNew,
 } from "@restackio/ai/agent";
 import { nextEvent, getFlow } from "@restackio/ai/flow";
 import { Workflow } from "@temporalio/workflow";
@@ -42,7 +43,7 @@ export type AgentFlowOutput = {
     response: any;
   }[];
 }
-export async function agentFlow({flowJson}: AgentFlowInput): Promise<AgentFlowOutput> {
+export async function agentFlow({flowJson}: AgentFlowInput): Promise<AgentFlowOutput | undefined> {
   let endReceived = false;
   const eventResults: AgentFlowOutput['results'] = []
 
@@ -116,13 +117,15 @@ export async function agentFlow({flowJson}: AgentFlowInput): Promise<AgentFlowOu
       endReceived = true;
     });
 
-    await condition(() => endReceived);
+    await condition(() => endReceived || shouldContinueAsNew());
 
-    log.info("end condition met");
-    return {
-      results: eventResults,
-    };
-
+    if (endReceived) {
+      log.info("end condition met");
+      return {
+        results: eventResults,
+      };
+    }
+    await agentContinueAsNew();
   } catch (error) {
     throw new AgentError("Error in agentFlow", error as string);
   }

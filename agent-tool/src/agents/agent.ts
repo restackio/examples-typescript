@@ -4,6 +4,8 @@ import {
   condition,
   log,
   step,
+  shouldContinueAsNew,
+  agentContinueAsNew,
 } from "@restackio/ai/agent";
 import * as functions from "../functions";
 
@@ -18,7 +20,7 @@ type AgentChatOutput = {
   messages: functions.Message[];
 };
 
-export async function agentChatTool(): Promise<AgentChatOutput> {
+export async function agentChatTool(): Promise<AgentChatOutput | undefined> {
   let endReceived = false;
   let agentMessages: functions.Message[] = [];
 
@@ -71,8 +73,12 @@ export async function agentChatTool(): Promise<AgentChatOutput> {
     endReceived = true;
   });
 
-  await condition(() => endReceived);
+  await condition(() => endReceived || shouldContinueAsNew());
 
-  log.info("end condition met");
-  return { messages: agentMessages };
+  if (endReceived) {
+    log.info("end condition met");
+    return { messages: agentMessages };
+  }
+
+  await agentContinueAsNew();
 }

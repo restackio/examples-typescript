@@ -21,8 +21,8 @@ importers:
   apps/backend:
     dependencies:
       '@restackio/ai':
-        specifier: ^0.0.119
-        version: 0.0.119(@swc/helpers@0.5.15)
+        specifier: ^0.0.129
+        version: 0.0.129(@swc/helpers@0.5.15)
       '@temporalio/workflow':
         specifier: 1.11.6
         version: 1.11.6
@@ -137,7 +137,7 @@ importers:
         version: 2.6.0
       tailwindcss-animate:
         specifier: ^1.0.7
-        version: 1.0.7(tailwindcss@3.4.17(ts-node@10.9.2(@swc/core@1.11.13(@swc/helpers@0.5.15))(@types/node@22.13.10)(typescript@5.8.2)))
+        version: 1.0.7(tailwindcss@3.4.17(ts-node@10.9.2(@swc/core@1.11.13(@swc/helpers@0.5.15))(@types/node@22.13.10)))
       zod:
         specifier: ^3.24.2
         version: 3.24.2
@@ -162,7 +162,7 @@ importers:
         version: 8.4.31
       tailwindcss:
         specifier: ^3.4.17
-        version: 3.4.17(ts-node@10.9.2(@swc/core@1.11.13(@swc/helpers@0.5.15))(@types/node@22.13.10)(typescript@5.8.2))
+        version: 3.4.17(ts-node@10.9.2(@swc/core@1.11.13(@swc/helpers@0.5.15))(@types/node@22.13.10))
 
   packages/eslint-config:
     devDependencies:
@@ -1070,8 +1070,8 @@ packages:
     resolution: {integrity: sha512-g8cDZt6vtFzCABRIUuTTsNvEx+s9vddHoKW0plOlAj0Qx4ak9cjdnLz0vBDn3Dfze4BWExPZk2JffS571yQduQ==}
     engines: {node: '>=20'}
 
-  '@restackio/ai@0.0.119':
-    resolution: {integrity: sha512-jlKFOxiXxOVGxP0znJMdlkr3zuiGiz4RA0fg9Yo0esy4jIOEpSZ23GPotkNZI9TOWr/TFG0L7GQCg+0PMvgcqQ==}
+  '@restackio/ai@0.0.129':
+    resolution: {integrity: sha512-ALQmDXlbFDSMDcsRphLeaUyykHTg9CkEhpG9OOpatmKJfPtr9c6n3jGpcS2owAoeGZiu1/5wtJnUN9w22zCitg==}
     engines: {node: '>=20'}
 
   '@restackio/react@0.10.3':
@@ -1159,8 +1159,16 @@ packages:
   '@temporalio/activity@1.11.7':
     resolution: {integrity: sha512-8WjXmvre0He9RvipP5nPK8dDbC/EoMtllCjcdiyPI69jDiihoTxOLpiYXIXdHn9yGbf34lHa21ZiRVZNhFkeHg==}
 
+  '@temporalio/activity@1.12.1':
+    resolution: {integrity: sha512-EPPIR5J0A6OxWTr5HGyeM2Lwh3US8S73N3ZFelCPaJwOq2Fh7qrLiwYp2wCwGYhhYI9Xppo3xE45MWUxayBa3Q==}
+    engines: {node: '>= 18.0.0'}
+
   '@temporalio/client@1.11.7':
     resolution: {integrity: sha512-rStMiKMNPH396TDBIDoavi2B/QQaV6NHHzEzhmyD7MoDJvuApIv1uSKcjYlRdmXiv0lF1FC2ONcquq7lmKSCYg==}
+
+  '@temporalio/client@1.12.1':
+    resolution: {integrity: sha512-m89isGb6I4BBeCbhkvXbpjeRZZUa3E2R06J/I+t2JWgv0Tg+PoNPusvU9UBd6LN7f7AetsQvAZKU6eQHyWxSEA==}
+    engines: {node: '>= 18.0.0'}
 
   '@temporalio/common@1.11.6':
     resolution: {integrity: sha512-7yjHpJeDbVcqa2rk6spHTVhNob/oCXXrInZPSov9i2Pa0VElquiWpx8d9pJ8sATuxpBpvozNmTEnGWgNEI+G6w==}
@@ -1168,8 +1176,16 @@ packages:
   '@temporalio/common@1.11.7':
     resolution: {integrity: sha512-T3so7KE8nGmesjrbrfjtQLXhw7lJYKW87V/soxNeAxW/i3n3/7km3/dx8F7FBlgbu66Uu8CIWVbxLnVSS+Frbg==}
 
+  '@temporalio/common@1.12.1':
+    resolution: {integrity: sha512-gMVNYh49qGNFPKN22BPXtQlgvcD8rxUoP0QO0ePeaz9TyHG6+3TURGhc8xybJA7zHnpfW8TH8XHMWJIMzCPxtg==}
+    engines: {node: '>= 18.0.0'}
+
   '@temporalio/core-bridge@1.11.7':
     resolution: {integrity: sha512-QiVqX2b+7GiZ9VlyeUunDILMvgU2UX2PyWXemuoLeM+33X/xbLW/UgwtDS2TKcON69UrUH1OG9yl6DPXpeOrfQ==}
+
+  '@temporalio/core-bridge@1.12.1':
+    resolution: {integrity: sha512-JOLavcVhzLf4QDK7S/SAZjTbbtiYRoZoJCvJsl6T9s6MJFyeT1ih+4jeAN3UUmhLvaP++sqEuFSfRVJ0ZFoFNA==}
+    engines: {node: '>= 18.0.0'}
 
   '@temporalio/proto@1.11.6':
     resolution: {integrity: sha512-N9qnyNabiY2LySft4fBrMCBNRoxbmADMdpP9+CX8RSVCHVLlf32FzkTUTFwZX1dOU+g2JsYrUzHFEBOPBpD8dQ==}
@@ -1177,15 +1193,27 @@ packages:
   '@temporalio/proto@1.11.7':
     resolution: {integrity: sha512-O34R2wk8PvmYpMHhsL7g2lIdtTA5wkQ5LJ86eHY0cF9zhDs/CoGiysl9qBOg9fy4WXHqzmcUm/V50hGefaM7gw==}
 
+  '@temporalio/proto@1.12.1':
+    resolution: {integrity: sha512-hW5jvxBuoKdh3CwbGT/AQoPMFoGG8xcPcHRMCTta/HZGFHRDibbr0aDfPS6ke7oYtcpWF0A8d6jRAHEXyPUvUQ==}
+    engines: {node: '>= 18.0.0'}
+
   '@temporalio/worker@1.11.7':
     resolution: {integrity: sha512-r8AMBFFQkZghsVnqJ7RcPBBXYhm498oATL7FY9WL1kBf73wQ7cZl82Vug1VT9fHF/SX3Kq8WdNXC3jPhO+jG6g==}
     engines: {node: '>= 16.0.0'}
+
+  '@temporalio/worker@1.12.1':
+    resolution: {integrity: sha512-jI3UxPAVbuM2MJO0c27iNV59KNHgAlx6yoJOpcE+jdGAmoN52MHdSt3qedrWtWINgZDbZg9dPC8KoDbXr9kP6g==}
+    engines: {node: '>= 18.0.0'}
 
   '@temporalio/workflow@1.11.6':
     resolution: {integrity: sha512-WxPxjTJccP0tD5FwAQjdXZfqx6s5eYaBGgN9+VkMAEeW1KRfYs6dkaUj4qzzu5sN95zr71Euohk/sJG2jd3efQ==}
 
   '@temporalio/workflow@1.11.7':
     resolution: {integrity: sha512-NGNmGCoV3xPvRifjRhCZKbIbPAup92/OC2xuaTb3hzBb13N9Pbm6HVljgQORzKNyO55rXDRpTnAiJ40en57IgA==}
+
+  '@temporalio/workflow@1.12.1':
+    resolution: {integrity: sha512-r2d2tzEf6zJENewZMku1ge53QO52ZTN8bJXp8zzerPYyMx9Iqhg3Ck1ckrdpxpDw9gxBYZsRbwS2vpiq53ZKRQ==}
+    engines: {node: '>= 18.0.0'}
 
   '@tokenizer/token@0.3.0':
     resolution: {integrity: sha512-OvjF+z51L3ov0OyAU0duzsYuvO01PH7x4t6DJx+guahgTnBHkhJdG7soQeTSFLWN3efnHyibZ4Z8l2EuWwJN3A==}
@@ -3439,6 +3467,9 @@ packages:
   zod@3.24.2:
     resolution: {integrity: sha512-lY7CDW43ECgW9u1TcT3IoXHflywfVqDYze4waEz812jR/bZ8FHDsl7pFQoSZTz5N+2NqRXs8GBwnAwo3ZNxqhQ==}
 
+  zod@3.25.76:
+    resolution: {integrity: sha512-gzUt/qt81nXsFGKIFcC3YnfEAx5NkunCfnDlvuBSSFS02bcXu4Lmea0AFIUwbLWxWPx3d9p8S5QoaujKcNQxcQ==}
+
   zustand@4.5.6:
     resolution: {integrity: sha512-ibr/n1hBzLLj5Y+yUcU7dYw8p6WnIVzdJbnX+1YpaScvZVF2ziugqHs+LAmHw4lWO9c/zRj+K1ncgWDQuthEdQ==}
     engines: {node: '>=12.7.0'}
@@ -4223,14 +4254,15 @@ snapshots:
       - utf-8-validate
       - webpack-cli
 
-  '@restackio/ai@0.0.119(@swc/helpers@0.5.15)':
+  '@restackio/ai@0.0.129(@swc/helpers@0.5.15)':
     dependencies:
-      '@temporalio/activity': 1.11.7
-      '@temporalio/client': 1.11.7
-      '@temporalio/common': 1.11.7
-      '@temporalio/worker': 1.11.7(@swc/helpers@0.5.15)
-      '@temporalio/workflow': 1.11.6
+      '@temporalio/activity': 1.12.1
+      '@temporalio/client': 1.12.1
+      '@temporalio/common': 1.12.1
+      '@temporalio/worker': 1.12.1(@swc/helpers@0.5.15)
+      '@temporalio/workflow': 1.12.1
       ws: 8.18.1
+      zod: 3.25.76
     transitivePeerDependencies:
       - '@swc/helpers'
       - bufferutil
@@ -4303,11 +4335,25 @@ snapshots:
       '@temporalio/common': 1.11.7
       abort-controller: 3.0.0
 
+  '@temporalio/activity@1.12.1':
+    dependencies:
+      '@temporalio/common': 1.12.1
+      abort-controller: 3.0.0
+
   '@temporalio/client@1.11.7':
     dependencies:
       '@grpc/grpc-js': 1.13.1
       '@temporalio/common': 1.11.7
       '@temporalio/proto': 1.11.7
+      abort-controller: 3.0.0
+      long: 5.3.1
+      uuid: 9.0.1
+
+  '@temporalio/client@1.12.1':
+    dependencies:
+      '@grpc/grpc-js': 1.13.1
+      '@temporalio/common': 1.12.1
+      '@temporalio/proto': 1.12.1
       abort-controller: 3.0.0
       long: 5.3.1
       uuid: 9.0.1
@@ -4326,9 +4372,24 @@ snapshots:
       ms: 3.0.0-canary.1
       proto3-json-serializer: 2.0.2
 
+  '@temporalio/common@1.12.1':
+    dependencies:
+      '@temporalio/proto': 1.12.1
+      long: 5.3.1
+      ms: 3.0.0-canary.1
+      proto3-json-serializer: 2.0.2
+
   '@temporalio/core-bridge@1.11.7':
     dependencies:
       '@temporalio/common': 1.11.7
+      arg: 5.0.2
+      cargo-cp-artifact: 0.1.9
+      which: 4.0.0
+
+  '@temporalio/core-bridge@1.12.1':
+    dependencies:
+      '@grpc/grpc-js': 1.13.1
+      '@temporalio/common': 1.12.1
       arg: 5.0.2
       cargo-cp-artifact: 0.1.9
       which: 4.0.0
@@ -4339,6 +4400,11 @@ snapshots:
       protobufjs: 7.4.0
 
   '@temporalio/proto@1.11.7':
+    dependencies:
+      long: 5.3.1
+      protobufjs: 7.4.0
+
+  '@temporalio/proto@1.12.1':
     dependencies:
       long: 5.3.1
       protobufjs: 7.4.0
@@ -4368,6 +4434,33 @@ snapshots:
       - uglify-js
       - webpack-cli
 
+  '@temporalio/worker@1.12.1(@swc/helpers@0.5.15)':
+    dependencies:
+      '@grpc/grpc-js': 1.13.1
+      '@swc/core': 1.11.13(@swc/helpers@0.5.15)
+      '@temporalio/activity': 1.12.1
+      '@temporalio/client': 1.12.1
+      '@temporalio/common': 1.12.1
+      '@temporalio/core-bridge': 1.12.1
+      '@temporalio/proto': 1.12.1
+      '@temporalio/workflow': 1.12.1
+      abort-controller: 3.0.0
+      heap-js: 2.6.0
+      memfs: 4.17.0
+      protobufjs: 7.4.0
+      rxjs: 7.8.2
+      source-map: 0.7.4
+      source-map-loader: 4.0.2(webpack@5.98.0(@swc/core@1.11.13(@swc/helpers@0.5.15)))
+      supports-color: 8.1.1
+      swc-loader: 0.2.6(@swc/core@1.11.13(@swc/helpers@0.5.15))(webpack@5.98.0(@swc/core@1.11.13(@swc/helpers@0.5.15)))
+      unionfs: 4.5.4
+      webpack: 5.98.0(@swc/core@1.11.13(@swc/helpers@0.5.15))
+    transitivePeerDependencies:
+      - '@swc/helpers'
+      - esbuild
+      - uglify-js
+      - webpack-cli
+
   '@temporalio/workflow@1.11.6':
     dependencies:
       '@temporalio/common': 1.11.6
@@ -4377,6 +4470,11 @@ snapshots:
     dependencies:
       '@temporalio/common': 1.11.7
       '@temporalio/proto': 1.11.7
+
+  '@temporalio/workflow@1.12.1':
+    dependencies:
+      '@temporalio/common': 1.12.1
+      '@temporalio/proto': 1.12.1
 
   '@tokenizer/token@0.3.0': {}
 
@@ -6094,13 +6192,13 @@ snapshots:
       camelcase-css: 2.0.1
       postcss: 8.5.3
 
-  postcss-load-config@4.0.2(postcss@8.5.3)(ts-node@10.9.2(@swc/core@1.11.13(@swc/helpers@0.5.15))(@types/node@22.13.10)(typescript@5.8.2)):
+  postcss-load-config@4.0.2(postcss@8.5.3)(ts-node@10.9.2(@swc/core@1.11.13(@swc/helpers@0.5.15))(@types/node@22.13.10)):
     dependencies:
       lilconfig: 3.1.3
       yaml: 2.7.0
     optionalDependencies:
       postcss: 8.5.3
-      ts-node: 10.9.2(@swc/core@1.11.13(@swc/helpers@0.5.15))(@types/node@22.13.10)(typescript@5.8.2)
+      ts-node: 10.9.2(@swc/core@1.11.13(@swc/helpers@0.5.15))(@types/node@22.13.10)
 
   postcss-nested@6.2.0(postcss@8.5.3):
     dependencies:
@@ -6554,11 +6652,11 @@ snapshots:
 
   tailwind-merge@2.6.0: {}
 
-  tailwindcss-animate@1.0.7(tailwindcss@3.4.17(ts-node@10.9.2(@swc/core@1.11.13(@swc/helpers@0.5.15))(@types/node@22.13.10)(typescript@5.8.2))):
+  tailwindcss-animate@1.0.7(tailwindcss@3.4.17(ts-node@10.9.2(@swc/core@1.11.13(@swc/helpers@0.5.15))(@types/node@22.13.10))):
     dependencies:
-      tailwindcss: 3.4.17(ts-node@10.9.2(@swc/core@1.11.13(@swc/helpers@0.5.15))(@types/node@22.13.10)(typescript@5.8.2))
+      tailwindcss: 3.4.17(ts-node@10.9.2(@swc/core@1.11.13(@swc/helpers@0.5.15))(@types/node@22.13.10))
 
-  tailwindcss@3.4.17(ts-node@10.9.2(@swc/core@1.11.13(@swc/helpers@0.5.15))(@types/node@22.13.10)(typescript@5.8.2)):
+  tailwindcss@3.4.17(ts-node@10.9.2(@swc/core@1.11.13(@swc/helpers@0.5.15))(@types/node@22.13.10)):
     dependencies:
       '@alloc/quick-lru': 5.2.0
       arg: 5.0.2
@@ -6577,7 +6675,7 @@ snapshots:
       postcss: 8.5.3
       postcss-import: 15.1.0(postcss@8.5.3)
       postcss-js: 4.0.1(postcss@8.5.3)
-      postcss-load-config: 4.0.2(postcss@8.5.3)(ts-node@10.9.2(@swc/core@1.11.13(@swc/helpers@0.5.15))(@types/node@22.13.10)(typescript@5.8.2))
+      postcss-load-config: 4.0.2(postcss@8.5.3)(ts-node@10.9.2(@swc/core@1.11.13(@swc/helpers@0.5.15))(@types/node@22.13.10))
       postcss-nested: 6.2.0(postcss@8.5.3)
       postcss-selector-parser: 6.1.2
       resolve: 1.22.10
@@ -6649,7 +6747,7 @@ snapshots:
 
   ts-interface-checker@0.1.13: {}
 
-  ts-node@10.9.2(@swc/core@1.11.13(@swc/helpers@0.5.15))(@types/node@22.13.10)(typescript@5.8.2):
+  ts-node@10.9.2(@swc/core@1.11.13(@swc/helpers@0.5.15))(@types/node@22.13.10):
     dependencies:
       '@cspotcode/source-map-support': 0.8.1
       '@tsconfig/node10': 1.0.11
@@ -6663,7 +6761,6 @@ snapshots:
       create-require: 1.1.1
       diff: 4.0.2
       make-error: 1.3.6
-      typescript: 5.8.2
       v8-compile-cache-lib: 3.0.1
       yn: 3.1.1
     optionalDependencies:
@@ -6954,6 +7051,8 @@ snapshots:
       zod: 3.24.2
 
   zod@3.24.2: {}
+
+  zod@3.25.76: {}
 
   zustand@4.5.6(@types/react@19.0.10)(react@19.0.0):
     dependencies:

@@ -7,7 +7,7 @@
     "start.watch": "nodemon src/services.ts",
     "dev": "npm run start.watch",
     "build": "tsc --build",
-    "start": "node dist/services.js", 
+    "start": "node dist/services.js",
     "clean": "rm -rf node_modules",
     "schedule": "ts-node ./scheduleWorkflow.ts"
   },
@@ -21,7 +21,7 @@
     ]
   },
   "dependencies": {
-    "@restackio/ai": "^0.0.109",
+    "@restackio/ai": "^0.0.128",
     "@temporalio/workflow": "1.11.6",
     "dotenv": "^16.4.7",
     "openai": "^4.80.1"

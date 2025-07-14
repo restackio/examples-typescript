@@ -4,6 +4,8 @@ import {
   condition,
   log,
   step,
+  shouldContinueAsNew,
+  agentContinueAsNew,
 } from "@restackio/ai/agent";
 import * as functions from "../functions";
 
@@ -18,7 +20,7 @@ type agentVoiceOutput = {
   messages: functions.Message[];
 };
 
-export async function agentVoice(): Promise<agentVoiceOutput> {
+export async function agentVoice(): Promise<agentVoiceOutput | undefined> {
   let endReceived = false;
   let messages: functions.Message[] = [];
 
@@ -35,9 +37,13 @@ export async function agentVoice(): Promise<agentVoiceOutput> {
     endReceived = true;
   });
 
-  // We use the `condition` function to wait for the event goodbyeReceived to return `True`.
-  await condition(() => endReceived);
+  // We use the `condition` function to wait for the event goodbyeReceived to return `True` or the agent should continue as new.
+  await condition(() => endReceived || shouldContinueAsNew());
 
-  log.info("end condition met");
-  return { messages };
+  if (endReceived) {
+    log.info("end condition met");
+    return { messages };
+  }
+
+  await agentContinueAsNew();
 }
